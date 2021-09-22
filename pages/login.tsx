@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Form from "../components/Form";
 import RegisterForm from "../components/RegisterForm";
+import { Session } from "../domains/session";
+import { HTTPResponse } from "../interfaces/HTTP";
 import useSession from "../lib/useSession";
 import { auth, register } from "../services/auth";
 
@@ -14,33 +16,48 @@ export default function Login({}) {
 
   const [errorMsg, setErrorMsg] = useState("");
 
+  const handleError = (response: HTTPResponse) => {
+    if (response.status !== 200) {
+      // Do notification
+      console.log(response.body);
+      setErrorMsg(response.body.join(" "));
+      throw response.statusText;
+    }
+  };
+
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
+
+    let res;
 
     if (formType == "Login") {
       const target = event.currentTarget as typeof event.currentTarget & {
         username: { value: string };
         password: { value: string };
       };
-      const res = await auth({
+      res = await auth({
         username: target.username?.value,
         password: target.password?.value,
       });
-      console.log({ res });
-      mutateUser(res);
     } else {
       const target = event.currentTarget as typeof event.currentTarget & {
         username: { value: string };
         password: { value: string };
         email: { value: string };
       };
-      const res = await register({
+      res = await register({
         username: target.username?.value,
         password: target.password?.value,
         email: target.email?.value,
       });
-      console.log({ res });
-      mutateUser(res);
+    }
+    console.log({ res });
+    try {
+      handleError(res);
+
+      mutateUser(res.body as Session);
+    } catch (e) {
+      console.log(e);
     }
 
     // If success, set user with mutate, this will cause a redirect

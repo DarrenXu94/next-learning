@@ -1,10 +1,12 @@
+import { HTTPResponse } from "../interfaces/HTTP";
+
 export async function auth({
   username,
   password,
 }: {
   username: string;
   password: string;
-}) {
+}): Promise<HTTPResponse> {
   // Attempt to log in
   const login = await fetch("http://localhost:8080/login", {
     method: "POST",
@@ -14,7 +16,11 @@ export async function auth({
     body: JSON.stringify({ username, password }),
   });
 
-  return await login.json();
+  return {
+    status: login.status,
+    statusText: login.statusText,
+    body: await login.json(),
+  };
 }
 
 export async function register({
@@ -25,7 +31,7 @@ export async function register({
   username: string;
   password: string;
   email: string;
-}) {
+}): Promise<HTTPResponse> {
   // Attempt to log in
   const register = await fetch("http://localhost:8080/register", {
     method: "POST",
@@ -35,5 +41,9 @@ export async function register({
     body: JSON.stringify({ username, password, email }),
   });
 
-  return await register.json();
+  return {
+    status: register.status,
+    statusText: register.statusText,
+    body: await register.json(),
+  };
 }
