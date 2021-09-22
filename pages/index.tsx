@@ -1,9 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import useSession from "../lib/useSession";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  useSession({
+    redirectTo: "/feed",
+    redirectIfFound: true,
+  });
+
   return (
     <div className={styles.container}>
       <Head>
