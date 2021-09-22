@@ -37,10 +37,5 @@ export default function useProfile(username: string): { profile: Profile } {
     { enabled: !!session }
   );
 
-  // const getProfile = (username: string) => {
-  // const profile = getProfileWithToken
-  // }
-
-  // return {getProfile}
   return { profile };
 }
