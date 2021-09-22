@@ -9,7 +9,7 @@ export const SessionState: SessionStateType = {
   session: undefined,
 };
 
-export const updateSession = (session: Session) => {
+export const updateSession = (session: Session | undefined) => {
   state.session = session;
 };
 

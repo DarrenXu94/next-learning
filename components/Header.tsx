@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 // import fetchJson from "../lib/fetchJson";
 
 const Header = () => {
-  const { session } = useSession();
+  const { session, logout } = useSession();
   const router = useRouter();
   return (
     <header>
@@ -39,6 +39,16 @@ const Header = () => {
                 </Link>
               </li>
               <li>
+                <a
+                  href="/api/logout"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    logout();
+                    router.push("/login");
+                  }}
+                >
+                  Logout
+                </a>
                 {/* <a
                   href="/api/logout"
                   onClick={async (e) => {
@@ -55,11 +65,11 @@ const Header = () => {
               </li>
             </>
           )}
-          <li>
+          {/* <li>
             <a href="https://github.com/vvo/next-iron-session">
               <img src="/GitHub-Mark-Light-32px.png" width="32" height="32" />
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>

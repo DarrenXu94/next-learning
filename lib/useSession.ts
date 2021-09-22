@@ -11,10 +11,7 @@ export default function useSession({
 } = {}) {
   //   const { data: user, mutate: mutateUser } = useSWR("/api/user");
   const { session } = useSnapshot(state);
-  const [name, setSession] = useLocalStorage<Session | undefined>(
-    "session",
-    undefined
-  );
+  const [name, setSession] = useLocalStorage<Session | null>("session", null);
 
   useEffect(() => {
     if (name) {
@@ -25,6 +22,14 @@ export default function useSession({
   const mutateUser = (newSession: Session) => {
     updateSession(newSession);
     setSession(newSession);
+  };
+
+  const logout = () => {
+    updateSession(undefined);
+    // setSession(undefined);
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem("session");
+    }
   };
 
   useEffect(() => {
@@ -42,5 +47,5 @@ export default function useSession({
     }
   }, [session, redirectIfFound, redirectTo]);
 
-  return { session, mutateUser };
+  return { session, mutateUser, logout };
 }

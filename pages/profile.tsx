@@ -13,6 +13,10 @@ export default function profile({}: profileProps) {
   return (
     <div>
       <h1>This is your profile</h1>
+      <p>
+        Username:
+        {session.username}
+      </p>
     </div>
   );
 }
