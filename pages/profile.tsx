@@ -1,12 +1,12 @@
 import React from "react";
-import useUser from "../lib/useUser";
+import useSession from "../lib/useSession";
 
 export interface profileProps {}
 
 export default function profile({}: profileProps) {
-  const { user } = useUser({ redirectTo: "/login" });
+  const { session } = useSession({ redirectTo: "/login" });
 
-  if (!user) {
+  if (!session) {
     return <div>loading...</div>;
   }
 

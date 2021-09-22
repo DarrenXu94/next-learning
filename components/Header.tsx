@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import useUser from "../lib/useUser";
+import useSession from "../lib/useSession";
 import { useRouter } from "next/router";
 // import fetchJson from "../lib/fetchJson";
 
 const Header = () => {
-  const { user } = useUser();
+  const { session } = useSession();
   const router = useRouter();
   return (
     <header>
@@ -16,19 +16,19 @@ const Header = () => {
               <a>Home</a>
             </Link>
           </li>
-          {!user && (
+          {!session && (
             <li>
               <Link href="/login">
                 <a>Login</a>
               </Link>
             </li>
           )}
-          {user && (
+          {session && (
             <>
               <li>
                 <Link href="/profile-sg">
                   <a>
-                    <img src={user.avatarUrl} width={20} height={20} /> Profile
+                    <img src={session.avatar} width={20} height={20} /> Profile
                     (Static Generation, recommended)
                   </a>
                 </Link>

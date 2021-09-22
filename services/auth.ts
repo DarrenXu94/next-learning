@@ -14,7 +14,7 @@ export async function auth({
     body: JSON.stringify({ username, password }),
   });
 
-  return login;
+  return await login.json();
 }
 
 export async function register({
@@ -27,7 +27,7 @@ export async function register({
   email: string;
 }) {
   // Attempt to log in
-  const login = await fetch("http://localhost:8080/register", {
+  const register = await fetch("http://localhost:8080/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,5 +35,5 @@ export async function register({
     body: JSON.stringify({ username, password, email }),
   });
 
-  return login;
+  return await register.json();
 }

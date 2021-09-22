@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Form from "../components/Form";
 import RegisterForm from "../components/RegisterForm";
-import useUser from "../lib/useUser";
+import useSession from "../lib/useSession";
 import { auth, register } from "../services/auth";
 
 export default function Login({}) {
   // Check if user is logged in, if they are redirect to profile page
-  const { mutateUser } = useUser({
+  const { mutateUser } = useSession({
     redirectTo: "/profile",
     redirectIfFound: true,
   });
@@ -27,6 +27,7 @@ export default function Login({}) {
         password: target.password?.value,
       });
       console.log({ res });
+      mutateUser(res);
     } else {
       const target = event.currentTarget as typeof event.currentTarget & {
         username: { value: string };
@@ -39,6 +40,7 @@ export default function Login({}) {
         email: target.email?.value,
       });
       console.log({ res });
+      mutateUser(res);
     }
 
     // If success, set user with mutate, this will cause a redirect
