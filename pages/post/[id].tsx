@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import usePost from "../../lib/usePost";
@@ -32,7 +33,11 @@ export default function PostPage({}: PostPageProps) {
           </p>
           <p>{post.body}</p>
 
-          {isVisitorOwner() && "Edit"}
+          {isVisitorOwner() && (
+            <Link href={`/post/${post._id}/edit`}>
+              <a>Edit this post</a>
+            </Link>
+          )}
         </>
       )}
     </div>
