@@ -17,7 +17,7 @@ export default function useProfile(): { feed: [Post] } {
     return res.body;
   };
 
-  const { data: feed } = useQuery(["feed"], () => handleFeed(), {
+  const { data: feed } = useQuery("feed", () => handleFeed(), {
     enabled: !!session,
   });
 

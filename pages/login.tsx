@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Form from "../components/Form";
+import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import { Session } from "../domains/session";
 import { HTTPResponse } from "../interfaces/HTTP";
@@ -66,7 +66,7 @@ export default function Login({}) {
   return (
     <div className="login">
       {formType == "Login" ? (
-        <Form errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <LoginForm errorMessage={errorMsg} onSubmit={handleSubmit} />
       ) : (
         <RegisterForm errorMessage={errorMsg} onSubmit={handleSubmit} />
       )}

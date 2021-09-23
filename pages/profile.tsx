@@ -1,4 +1,7 @@
 import React from "react";
+import { useQuery } from "react-query";
+import { Post } from "../domains/post";
+import usePost from "../lib/usePost";
 import useProfile from "../lib/useProfile";
 import useSession from "../lib/useSession";
 
@@ -8,6 +11,16 @@ export default function profile({}: profileProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
   const { profile } = useProfile(session?.username as string);
+
+  const { handleProfilePosts } = usePost();
+
+  const { data: posts } = useQuery<[Post]>(
+    ["profilePosts", session?.username],
+    () => handleProfilePosts(session?.username as string),
+    {
+      enabled: !!session,
+    }
+  );
 
   if (!session) {
     return <div>loading...</div>;
@@ -30,6 +43,18 @@ export default function profile({}: profileProps) {
           </ul>
         </>
       )}
+
+      <h2>Posts</h2>
+
+      {posts &&
+        posts.map((post) => {
+          return (
+            <div key={post._id}>
+              <h4>{post.title}</h4>
+              <p>{post.body}</p>
+            </div>
+          );
+        })}
     </div>
   );
 }

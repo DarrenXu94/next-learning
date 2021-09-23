@@ -1,11 +1,11 @@
 import React from "react";
 
-export interface FormProps {
+export interface LoginFormProps {
   onSubmit: (event: React.SyntheticEvent) => void;
   errorMessage: string;
 }
 
-export default function Form({ onSubmit, errorMessage }: FormProps) {
+export default function LoginForm({ onSubmit, errorMessage }: LoginFormProps) {
   return (
     <form onSubmit={onSubmit}>
       <label>

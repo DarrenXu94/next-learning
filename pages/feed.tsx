@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import useFeed from "../lib/useFeed";
 import useSession from "../lib/useSession";
@@ -9,10 +10,15 @@ export default function feed({}: feedProps) {
 
   const { feed } = useFeed();
 
-  console.log({ feed });
-
   if (!session) {
     return <div>loading...</div>;
   }
-  return <div>Your newsfeed</div>;
+  return (
+    <div>
+      <h1>Your newsfeed</h1>
+      <Link href="/create">
+        <a>Create new post</a>
+      </Link>
+    </div>
+  );
 }
