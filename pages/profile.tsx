@@ -12,15 +12,9 @@ export default function profile({}: profileProps) {
 
   const { profile } = useProfile(session?.username as string);
 
-  const { handleProfilePosts } = usePost();
+  const { getPostsByAuthor } = usePost();
 
-  const { data: posts } = useQuery<[Post]>(
-    ["profilePosts", session?.username],
-    () => handleProfilePosts(session?.username as string),
-    {
-      enabled: !!session,
-    }
-  );
+  const { data: posts } = getPostsByAuthor(session?.username as string);
 
   if (!session) {
     return <div>loading...</div>;

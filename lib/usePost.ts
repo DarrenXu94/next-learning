@@ -43,16 +43,15 @@ export default function usePost() {
     }
   };
 
-  //   const getPostsByAuthor = (username: string) => {
-  // const { data: posts } = useQuery(
-  //   ["profilePosts", username],
-  //   () => handleProfilePosts(username),
-  //   {
-  //     enabled: !!session,
-  //   }
-  // );
-  // return posts;
-  //   };
+  const getPostsByAuthor = (username: string) => {
+    return useQuery(
+      ["profilePosts", username],
+      () => handleProfilePosts(username),
+      {
+        enabled: !!session,
+      }
+    );
+  };
 
-  return { createPost, handleProfilePosts };
+  return { createPost, handleProfilePosts, getPostsByAuthor };
 }
