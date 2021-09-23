@@ -6,5 +6,5 @@ export interface User {
   posts: [Post];
   followers: [User];
   following: [User];
-  avatarUrl: string;
+  avatar: string;
 }

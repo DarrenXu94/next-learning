@@ -29,7 +29,6 @@ const Header = () => {
                 <Link href="/profile">
                   <a>
                     <img src={session.avatar} width={20} height={20} /> Profile
-                    (Static Generation, recommended)
                   </a>
                 </Link>
               </li>
@@ -45,27 +44,9 @@ const Header = () => {
                 >
                   Logout
                 </a>
-                {/* <a
-                  href="/api/logout"
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    mutateUser(
-                      await fetchJson("/api/logout", { method: "POST" }),
-                      false,
-                    );
-                    router.push("/login");
-                  }}
-                >
-                  Logout
-                </a> */}
               </li>
             </>
           )}
-          {/* <li>
-            <a href="https://github.com/vvo/next-iron-session">
-              <img src="/GitHub-Mark-Light-32px.png" width="32" height="32" />
-            </a>
-          </li> */}
         </ul>
       </nav>
     </header>

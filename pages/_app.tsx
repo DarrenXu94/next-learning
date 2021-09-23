@@ -3,6 +3,8 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import React from "react";
 import Header from "../components/Header";
+import { ReactQueryDevtools } from "react-query/devtools";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -14,6 +16,8 @@ const queryClient = new QueryClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={true} />
+
       <Header />
       <Component {...pageProps} />
     </QueryClientProvider>

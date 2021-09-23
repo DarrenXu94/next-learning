@@ -41,3 +41,19 @@ export async function getPostsByAuthorWithoutToken({
     body: await login.json(),
   };
 }
+export async function getPostsByIdWithoutToken({
+  id,
+}: {
+  id: string;
+}): Promise<HTTPResponse> {
+  // Attempt to log in
+  const login = await fetch(`http://localhost:8080/post/${id}`, {
+    method: "GET",
+  });
+
+  return {
+    status: login.status,
+    statusText: login.statusText,
+    body: await login.json(),
+  };
+}

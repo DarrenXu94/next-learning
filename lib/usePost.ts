@@ -3,9 +3,11 @@ import { useSnapshot } from "valtio";
 import {
   createPostWithToken,
   getPostsByAuthorWithoutToken,
+  getPostsByIdWithoutToken,
 } from "../services/post";
 import { state } from "../store/store";
 import Router from "next/router";
+import { Post } from "../domains/post";
 
 export default function usePost() {
   const { session } = useSnapshot(state);
@@ -31,6 +33,7 @@ export default function usePost() {
 
       // Mutate feed query
       queryClient.invalidateQueries("feed");
+      queryClient.invalidateQueries("profilePosts");
     }
   };
 
@@ -44,7 +47,7 @@ export default function usePost() {
   };
 
   const getPostsByAuthor = (username: string) => {
-    return useQuery(
+    return useQuery<[Post]>(
       ["profilePosts", username],
       () => handleProfilePosts(username),
       {
@@ -53,5 +56,20 @@ export default function usePost() {
     );
   };
 
-  return { createPost, handleProfilePosts, getPostsByAuthor };
+  const handlePost = async (id: string) => {
+    const res = await getPostsByIdWithoutToken({ id });
+    if (res.status !== 200) {
+      throw res.statusText;
+    } else {
+      return res.body;
+    }
+  };
+
+  const getPostById = (id: string) => {
+    return useQuery<Post>(["post", id], () => handlePost(id), {
+      enabled: !!id,
+    });
+  };
+
+  return { createPost, handleProfilePosts, getPostsByAuthor, getPostById };
 }

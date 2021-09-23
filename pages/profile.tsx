@@ -1,6 +1,5 @@
+import Link from "next/link";
 import React from "react";
-import { useQuery } from "react-query";
-import { Post } from "../domains/post";
 import usePost from "../lib/usePost";
 import useProfile from "../lib/useProfile";
 import useSession from "../lib/useSession";
@@ -44,8 +43,12 @@ export default function profile({}: profileProps) {
         posts.map((post) => {
           return (
             <div key={post._id}>
-              <h4>{post.title}</h4>
-              <p>{post.body}</p>
+              <Link href={`/post/${post._id}`}>
+                <a>
+                  <h4>{post.title}</h4>
+                  <p>{post.body}</p>
+                </a>
+              </Link>
             </div>
           );
         })}
