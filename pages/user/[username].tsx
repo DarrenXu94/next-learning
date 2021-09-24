@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSnapshot } from "valtio";
 import FollowButton from "../../components/FollowButton";
 import useFollow from "../../lib/useFollow";
@@ -29,11 +29,36 @@ export default function UserPage({}: UserPageProps) {
   const { data: followers } = getFollowersOfUser(username as string);
   const { data: following } = getUserFollowing(username as string);
 
+  const isFollower = useMemo(() => {
+    if (!session) return false;
+    return (
+      session?.followers.filter((follower) => {
+        return follower.username == username;
+      }).length > 0
+    );
+  }, [session, username]);
+
+  if (!session) {
+    return <></>;
+  }
+
+  if (session.username == username) {
+    return <></>;
+  }
+
   return (
     <div>
-      {/* Render follow button if user !== session.user  */}
+      {/* Follow button for following */}
       {username && session && (
         <FollowButton session={session} username={username as string} />
+      )}
+      {/* Info on if this user is following you */}
+      {username && session && (
+        <div>
+          {isFollower
+            ? "This user is following you"
+            : "This user is not following you"}
+        </div>
       )}
       <h2>User</h2>
       {user && user.profileUsername}

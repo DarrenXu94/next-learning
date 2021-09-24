@@ -52,7 +52,6 @@ export default function Login({}) {
         email: target.email?.value,
       });
     }
-    console.log({ res });
     try {
       handleError(res);
       // Also get following and followers here
@@ -62,8 +61,6 @@ export default function Login({}) {
       const following = await getUserFollowingAPI({
         username: res.body.username,
       });
-
-      console.log({ followers, following });
 
       const newSession: Session = {
         ...res.body,

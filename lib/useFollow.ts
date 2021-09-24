@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useSnapshot } from "valtio";
+import { Session } from "../domains/session";
 import { User } from "../domains/user";
 import {
   FollowUserAPI,
@@ -12,6 +14,7 @@ import {
   removeFollowerFromSession,
   state,
 } from "../store/store";
+import { useLocalStorage } from "./useLocalStorage";
 
 const handleFollowers = async (username: string) => {
   const res = await getFollowersOfUserAPI({ username });
@@ -33,6 +36,14 @@ const handleFollowing = async (username: string) => {
 export default function useFollow() {
   const { session } = useSnapshot(state);
   const queryClient = useQueryClient();
+  const [name, setSession] = useLocalStorage<Session | null>("session", null);
+
+  // When then session gets updated to add or remove following, update the storage cookie
+  useEffect(() => {
+    if (session) {
+      setSession(session as Session);
+    }
+  }, [session]);
 
   const followUser = async (username: string) => {
     const res = await FollowUserAPI({
@@ -44,8 +55,10 @@ export default function useFollow() {
     } else {
       // Update session here
       addFollowerToSession({ username });
+
       // Invalidate
       queryClient.invalidateQueries(["user", username]);
+      queryClient.invalidateQueries("followers");
 
       return res.body;
     }
@@ -61,6 +74,7 @@ export default function useFollow() {
     } else {
       removeFollowerFromSession(username);
       queryClient.invalidateQueries(["user", username]);
+      queryClient.invalidateQueries("followers");
 
       return res.body;
     }
