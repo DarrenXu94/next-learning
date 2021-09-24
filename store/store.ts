@@ -1,9 +1,13 @@
 import { proxy } from "valtio";
 
-import SessionState, { updateSession } from "./stores/SessionStore";
+import SessionState, {
+  updateSession,
+  addFollowerToSession,
+  removeFollowerFromSession,
+} from "./stores/SessionStore";
 
 export const state = proxy({
   ...SessionState,
 });
 
-export { updateSession };
+export { updateSession, addFollowerToSession, removeFollowerFromSession };

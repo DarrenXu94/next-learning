@@ -5,6 +5,7 @@ import { Session } from "../domains/session";
 import { HTTPResponse } from "../interfaces/HTTP";
 import useSession from "../lib/useSession";
 import { auth, register } from "../services/auth";
+import { getFollowersOfUserAPI, getUserFollowingAPI } from "../services/follow";
 
 export default function Login({}) {
   // Check if user is logged in, if they are redirect to profile page
@@ -54,8 +55,22 @@ export default function Login({}) {
     console.log({ res });
     try {
       handleError(res);
+      // Also get following and followers here
+      const followers = await getFollowersOfUserAPI({
+        username: res.body.username,
+      });
+      const following = await getUserFollowingAPI({
+        username: res.body.username,
+      });
 
-      mutateUser(res.body as Session);
+      console.log({ followers, following });
+
+      const newSession: Session = {
+        ...res.body,
+        following: following.body,
+        followers: followers.body,
+      };
+      mutateUser(newSession);
     } catch (e) {
       console.log(e);
     }

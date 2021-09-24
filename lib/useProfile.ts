@@ -1,21 +1,9 @@
 import { useQuery } from "react-query";
 import { useSnapshot } from "valtio";
+import { Profile } from "../domains/profile";
 import { Session } from "../domains/session";
 import { getProfileWithToken } from "../services/profile";
 import { state } from "../store/store";
-
-export interface Profile {
-  profileUsername: string;
-  profileAvatar: string;
-  isFollowing: boolean;
-  counts: Counts;
-}
-
-export interface Counts {
-  postCount: number;
-  followerCount: number;
-  followingCount: number;
-}
 
 export default function useProfile(username: string): { profile: Profile } {
   const { session } = useSnapshot(state);
@@ -32,7 +20,7 @@ export default function useProfile(username: string): { profile: Profile } {
   };
 
   const { data: profile } = useQuery(
-    ["profile", username],
+    ["user", username],
     () => handleProfile(),
     { enabled: !!session }
   );

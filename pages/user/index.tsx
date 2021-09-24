@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import useUser from "../../lib/useUser";
 
@@ -13,9 +14,13 @@ export default function UserIndex({}: UserIndexProps) {
       {users &&
         users.map((user) => {
           return (
-            <div>
-              <h4>{user.username}</h4>
-              <p>{user.email}</p>
+            <div key={user._id}>
+              <Link href={`/user/${user.username}`}>
+                <a>
+                  <h4>{user.username}</h4>
+                  <p>{user.email}</p>
+                </a>
+              </Link>
             </div>
           );
         })}
