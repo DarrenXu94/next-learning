@@ -20,6 +20,10 @@ export default function feed({}: feedProps) {
         <a>Create new post</a>
       </Link>
 
+      <Link href="/post">
+        <a>View all posts</a>
+      </Link>
+
       <Link href="/user">
         <a>View all users</a>
       </Link>

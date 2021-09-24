@@ -28,7 +28,8 @@ const Header = () => {
               <li>
                 <Link href="/profile">
                   <a>
-                    <img src={session.avatar} width={20} height={20} /> Profile
+                    <img src={session.avatar} width={20} height={20} /> Profile{" "}
+                    {session.username}
                   </a>
                 </Link>
               </li>

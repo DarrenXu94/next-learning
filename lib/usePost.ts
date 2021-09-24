@@ -2,12 +2,40 @@ import { useQuery, useQueryClient } from "react-query";
 import { useSnapshot } from "valtio";
 import {
   createPostWithToken,
+  getAllPostsAPI,
   getPostsByAuthorWithoutToken,
   getPostsByIdWithoutToken,
 } from "../services/post";
 import { state } from "../store/store";
 import Router from "next/router";
 import { Post } from "../domains/post";
+
+const handleProfilePosts = async (username: string) => {
+  const res = await getPostsByAuthorWithoutToken({ username });
+  if (res.status !== 200) {
+    throw res.statusText;
+  } else {
+    return res.body;
+  }
+};
+
+const handlePost = async (id: string) => {
+  const res = await getPostsByIdWithoutToken({ id });
+  if (res.status !== 200) {
+    throw res.statusText;
+  } else {
+    return res.body;
+  }
+};
+
+const handleGetAllPosts = async () => {
+  const res = await getAllPostsAPI();
+  if (res.status !== 200) {
+    throw res.statusText;
+  } else {
+    return res.body;
+  }
+};
 
 export default function usePost() {
   const { session } = useSnapshot(state);
@@ -37,15 +65,6 @@ export default function usePost() {
     }
   };
 
-  const handleProfilePosts = async (username: string) => {
-    const res = await getPostsByAuthorWithoutToken({ username });
-    if (res.status !== 200) {
-      throw res.statusText;
-    } else {
-      return res.body;
-    }
-  };
-
   const getPostsByAuthor = (username: string) => {
     return useQuery<[Post]>(
       ["profilePosts", username],
@@ -56,20 +75,21 @@ export default function usePost() {
     );
   };
 
-  const handlePost = async (id: string) => {
-    const res = await getPostsByIdWithoutToken({ id });
-    if (res.status !== 200) {
-      throw res.statusText;
-    } else {
-      return res.body;
-    }
-  };
-
   const getPostById = (id: string) => {
     return useQuery<Post>(["post", id], () => handlePost(id), {
       enabled: !!id,
     });
   };
 
-  return { createPost, handleProfilePosts, getPostsByAuthor, getPostById };
+  const getAllPosts = () => {
+    return useQuery<[Post]>("allPosts", () => handleGetAllPosts());
+  };
+
+  return {
+    createPost,
+    handleProfilePosts,
+    getPostsByAuthor,
+    getPostById,
+    getAllPosts,
+  };
 }

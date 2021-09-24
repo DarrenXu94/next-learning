@@ -30,7 +30,6 @@ export async function getPostsByAuthorWithoutToken({
 }: {
   username: string;
 }): Promise<HTTPResponse> {
-  // Attempt to log in
   const login = await fetch(`http://localhost:8080/profile/${username}/posts`, {
     method: "GET",
   });
@@ -46,7 +45,6 @@ export async function getPostsByIdWithoutToken({
 }: {
   id: string;
 }): Promise<HTTPResponse> {
-  // Attempt to log in
   const login = await fetch(`http://localhost:8080/post/${id}`, {
     method: "GET",
   });
@@ -55,5 +53,17 @@ export async function getPostsByIdWithoutToken({
     status: login.status,
     statusText: login.statusText,
     body: await login.json(),
+  };
+}
+
+export async function getAllPostsAPI(): Promise<HTTPResponse> {
+  const posts = await fetch(`http://localhost:8080/post`, {
+    method: "GET",
+  });
+
+  return {
+    status: posts.status,
+    statusText: posts.statusText,
+    body: await posts.json(),
   };
 }
