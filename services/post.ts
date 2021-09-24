@@ -67,3 +67,45 @@ export async function getAllPostsAPI(): Promise<HTTPResponse> {
     body: await posts.json(),
   };
 }
+
+export async function deletePostByIdAPI({
+  id,
+  token,
+}: {
+  id: string;
+  token: string;
+}): Promise<HTTPResponse> {
+  const posts = await fetch(`http://localhost:8080/post/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token }),
+  });
+
+  return {
+    status: posts.status,
+    statusText: posts.statusText,
+    body: await posts.json(),
+  };
+}
+
+export async function searchPostsAPI({
+  searchTerm,
+}: {
+  searchTerm: string;
+}): Promise<HTTPResponse> {
+  const searchResult = await fetch(`http://localhost:8080/search`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ searchTerm }),
+  });
+
+  return {
+    status: searchResult.status,
+    statusText: searchResult.statusText,
+    body: await searchResult.json(),
+  };
+}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import SearchForm from "../components/SearchForm";
 import useFeed from "../lib/useFeed";
 import useSession from "../lib/useSession";
 
@@ -15,6 +16,7 @@ export default function feed({}: feedProps) {
   }
   return (
     <div>
+      <SearchForm />
       <h1>Your newsfeed</h1>
       <Link href="/create">
         <a>Create new post</a>

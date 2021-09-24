@@ -2,9 +2,11 @@ import { useQuery, useQueryClient } from "react-query";
 import { useSnapshot } from "valtio";
 import {
   createPostWithToken,
+  deletePostByIdAPI,
   getAllPostsAPI,
   getPostsByAuthorWithoutToken,
   getPostsByIdWithoutToken,
+  searchPostsAPI,
 } from "../services/post";
 import { state } from "../store/store";
 import Router from "next/router";
@@ -30,6 +32,24 @@ const handlePost = async (id: string) => {
 
 const handleGetAllPosts = async () => {
   const res = await getAllPostsAPI();
+  if (res.status !== 200) {
+    throw res.statusText;
+  } else {
+    return res.body;
+  }
+};
+
+const handleDeletePostById = async (id: string, token: string) => {
+  const res = await deletePostByIdAPI({ id, token });
+  if (res.status !== 200) {
+    throw res.statusText;
+  } else {
+    return res.body;
+  }
+};
+
+const handleSearchPost = async (searchTerm: string) => {
+  const res = await searchPostsAPI({ searchTerm });
   if (res.status !== 200) {
     throw res.statusText;
   } else {
@@ -85,11 +105,28 @@ export default function usePost() {
     return useQuery<[Post]>("allPosts", () => handleGetAllPosts());
   };
 
+  const deletePostById = async (id: string) => {
+    const res = await handleDeletePostById(id, session?.token as string);
+    if (res) {
+      queryClient.invalidateQueries("feed");
+      queryClient.invalidateQueries("profilePosts");
+    }
+    return res;
+  };
+
+  const searchPosts = (searchTerm: string) => {
+    return useQuery<[Post]>(["searchPosts", searchTerm], () =>
+      handleSearchPost(searchTerm)
+    );
+  };
+
   return {
     createPost,
     handleProfilePosts,
     getPostsByAuthor,
     getPostById,
     getAllPosts,
+    deletePostById,
+    searchPosts,
   };
 }

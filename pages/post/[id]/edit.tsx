@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
+import DeleteButton from "../../../components/DeleteButton";
 import usePost from "../../../lib/usePost";
 
 export interface EditPageProps {}
@@ -11,6 +12,7 @@ export default function EditPage({}: EditPageProps) {
   const { data: post } = getPostById(id as string);
   return (
     <div>
+      <DeleteButton id={id as string} />
       <h4>Edit</h4>
       {post && (
         <>
