@@ -1,5 +1,6 @@
 import { Form, Formik } from "formik";
 import React from "react";
+import Button from "./common/Button";
 import TextInput from "./form/TextInput";
 
 export interface LoginFormProps {
@@ -30,7 +31,8 @@ export default function LoginForm({ onSubmit, errorMessage }: LoginFormProps) {
           placeholder="Password"
         />
 
-        <button type="submit">Submit</button>
+        {/* <button type="submit">Submit</button> */}
+        <Button type="submit">Submit</Button>
       </Form>
     </Formik>
   );
