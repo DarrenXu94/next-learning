@@ -7,6 +7,7 @@ import useFollow from "../../lib/useFollow";
 import usePost from "../../lib/usePost";
 import useUser from "../../lib/useUser";
 import { state } from "../../store/store";
+import Router from "next/router";
 
 export interface UserPageProps {}
 
@@ -28,6 +29,12 @@ export default function UserPage({}: UserPageProps) {
 
   const { data: followers } = getFollowersOfUser(username as string);
   const { data: following } = getUserFollowing(username as string);
+
+  useEffect(() => {
+    if (username == session?.username) {
+      Router.push(`/profile`);
+    }
+  }, [username, session]);
 
   const isFollower = useMemo(() => {
     if (!session) return false;

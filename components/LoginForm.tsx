@@ -13,9 +13,7 @@ export default function LoginForm({ onSubmit, errorMessage }: LoginFormProps) {
       initialValues={{ username: "", password: "" }}
       onSubmit={(values, { setSubmitting }) => {
         onSubmit({ username: values.username, password: values.password });
-        // setTimeout(() => {
         setSubmitting(false);
-        // }, 400);
       }}
     >
       <Form>

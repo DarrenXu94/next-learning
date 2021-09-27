@@ -17,6 +17,19 @@ export default function feed({}: feedProps) {
   return (
     <div>
       <SearchForm />
+
+      <Link href="/create">
+        <a>Create new post</a>
+      </Link>
+
+      <Link href="/post">
+        <a>View all posts</a>
+      </Link>
+
+      <Link href="/user">
+        <a>View all users</a>
+      </Link>
+
       <h1>Your newsfeed</h1>
       {feed &&
         feed.map((post) => {
@@ -31,17 +44,6 @@ export default function feed({}: feedProps) {
             </div>
           );
         })}
-      <Link href="/create">
-        <a>Create new post</a>
-      </Link>
-
-      <Link href="/post">
-        <a>View all posts</a>
-      </Link>
-
-      <Link href="/user">
-        <a>View all users</a>
-      </Link>
     </div>
   );
 }

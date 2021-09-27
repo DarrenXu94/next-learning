@@ -14,7 +14,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-query": "^3.24.3",
-    "valtio": "^1.2.3"
+    "valtio": "^1.2.3",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/react": "17.0.24",
