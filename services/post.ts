@@ -96,7 +96,7 @@ export async function searchPostsAPI({
   searchTerm: string;
 }): Promise<HTTPResponse> {
   const searchResult = await fetch(`http://localhost:8080/search`, {
-    method: "DELETE",
+    method: "POSt",
     headers: {
       "Content-Type": "application/json",
     },

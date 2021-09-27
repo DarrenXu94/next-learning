@@ -18,6 +18,19 @@ export default function feed({}: feedProps) {
     <div>
       <SearchForm />
       <h1>Your newsfeed</h1>
+      {feed &&
+        feed.map((post) => {
+          return (
+            <div key={post._id}>
+              <Link href={`/post/${post._id}`}>
+                <a>
+                  <h4>{post.title}</h4>
+                  <p>{post.body}</p>
+                </a>
+              </Link>
+            </div>
+          );
+        })}
       <Link href="/create">
         <a>Create new post</a>
       </Link>
