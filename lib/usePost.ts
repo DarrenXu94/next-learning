@@ -7,6 +7,7 @@ import {
   getPostsByAuthorWithoutToken,
   getPostsByIdWithoutToken,
   searchPostsAPI,
+  updatePostsAPI,
 } from "../services/post";
 import { state } from "../store/store";
 import Router from "next/router";
@@ -50,6 +51,15 @@ const handleDeletePostById = async (id: string, token: string) => {
 
 const handleSearchPost = async (searchTerm: string) => {
   const res = await searchPostsAPI({ searchTerm });
+  if (res.status !== 200) {
+    throw res.statusText;
+  } else {
+    return res.body;
+  }
+};
+
+const handleUpdatePost = async ({ id, token, title, body }) => {
+  const res = await updatePostsAPI({ id, token, title, body });
   if (res.status !== 200) {
     throw res.statusText;
   } else {
@@ -114,6 +124,21 @@ export default function usePost() {
     return res;
   };
 
+  const updatePost = async ({ title, body, id }) => {
+    const res = await handleUpdatePost({
+      id,
+      title,
+      body,
+      token: session?.token as string,
+    });
+    if (res) {
+      queryClient.invalidateQueries(["post", id]);
+      queryClient.invalidateQueries("feed");
+      queryClient.invalidateQueries("profilePosts");
+    }
+    return res;
+  };
+
   const searchPosts = (searchTerm: string) => {
     return useQuery<[Post]>(["searchPosts", searchTerm], () =>
       handleSearchPost(searchTerm)
@@ -128,5 +153,6 @@ export default function usePost() {
     getAllPosts,
     deletePostById,
     searchPosts,
+    updatePost,
   };
 }

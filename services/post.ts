@@ -96,7 +96,7 @@ export async function searchPostsAPI({
   searchTerm: string;
 }): Promise<HTTPResponse> {
   const searchResult = await fetch(`http://localhost:8080/search`, {
-    method: "POSt",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -107,5 +107,31 @@ export async function searchPostsAPI({
     status: searchResult.status,
     statusText: searchResult.statusText,
     body: await searchResult.json(),
+  };
+}
+
+export async function updatePostsAPI({
+  token,
+  title,
+  body,
+  id,
+}: {
+  token: string;
+  title: string;
+  body: string;
+  id: string;
+}): Promise<HTTPResponse> {
+  const newPost = await fetch(`http://localhost:8080/post/${id}/edit`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token, title, body }),
+  });
+
+  return {
+    status: newPost.status,
+    statusText: newPost.statusText,
+    body: await newPost.json(),
   };
 }

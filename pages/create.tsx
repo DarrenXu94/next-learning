@@ -9,13 +9,8 @@ export default function create({}: createProps) {
 
   const { createPost } = usePost();
 
-  const handleSubmit = async (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    const target = event.currentTarget as typeof event.currentTarget & {
-      title: { value: string };
-      body: { value: string };
-    };
-    createPost({ title: target.title.value, body: target.body.value });
+  const handleSubmit = async ({ title, body }) => {
+    createPost({ title: title, body: body });
   };
 
   return (

@@ -2,18 +2,20 @@ import { Formik, Form } from "formik";
 import React from "react";
 import TextInput from "./form/TextInput";
 
-export interface NewPostFormProps {
+export interface EditPostFormProps {
+  title: string;
+  body: string;
   onSubmit: ({ title, body }) => void;
-  errorMessage: string;
 }
 
-export default function NewPostForm({
+export default function EditPostForm({
+  title,
+  body,
   onSubmit,
-  errorMessage,
-}: NewPostFormProps) {
+}: EditPostFormProps) {
   return (
     <Formik
-      initialValues={{ title: "", body: "" }}
+      initialValues={{ title, body }}
       onSubmit={(values, { setSubmitting }) => {
         onSubmit({ title: values.title, body: values.body });
         setSubmitting(false);

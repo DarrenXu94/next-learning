@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import { Session } from "../domains/session";
@@ -17,41 +17,22 @@ export default function Login({}) {
 
   const [errorMsg, setErrorMsg] = useState("");
 
+  useEffect(() => {
+    setErrorMsg("");
+  }, [formType]);
+
   const handleError = (response: HTTPResponse) => {
     if (response.status !== 200) {
       // Do notification
-      console.log(response.body);
-      setErrorMsg(response.body.join(" "));
-      throw response.statusText;
+
+      throw response.body.join(" ");
+    }
+    if (!response.body) {
+      throw "Incorrect credentials";
     }
   };
 
-  const handleSubmit = async (event: React.SyntheticEvent) => {
-    event.preventDefault();
-
-    let res;
-
-    if (formType == "Login") {
-      const target = event.currentTarget as typeof event.currentTarget & {
-        username: { value: string };
-        password: { value: string };
-      };
-      res = await auth({
-        username: target.username?.value,
-        password: target.password?.value,
-      });
-    } else {
-      const target = event.currentTarget as typeof event.currentTarget & {
-        username: { value: string };
-        password: { value: string };
-        email: { value: string };
-      };
-      res = await register({
-        username: target.username?.value,
-        password: target.password?.value,
-        email: target.email?.value,
-      });
-    }
+  const handleResponse = async (res) => {
     try {
       handleError(res);
       // Also get following and followers here
@@ -70,17 +51,36 @@ export default function Login({}) {
       mutateUser(newSession);
     } catch (e) {
       console.log(e);
+      setErrorMsg(e as string);
     }
-
     // If success, set user with mutate, this will cause a redirect
+  };
+
+  const handleLoginSubmit = async ({ username, password }) => {
+    let res = await auth({
+      username: username,
+      password: password,
+    });
+
+    handleResponse(res);
+  };
+
+  const handleRegisterSubmit = async ({ username, password, email }) => {
+    let res = await register({
+      username: username,
+      password: password,
+      email: email,
+    });
+    handleResponse(res);
   };
 
   return (
     <div className="login">
+      {errorMsg && <p className="error">{errorMsg}</p>}
       {formType == "Login" ? (
-        <LoginForm errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <LoginForm errorMessage={errorMsg} onSubmit={handleLoginSubmit} />
       ) : (
-        <RegisterForm errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <RegisterForm errorMessage={errorMsg} onSubmit={handleRegisterSubmit} />
       )}
 
       <button

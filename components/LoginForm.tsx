@@ -1,21 +1,39 @@
+import { Form, Formik } from "formik";
 import React from "react";
+import TextInput from "./form/TextInput";
 
 export interface LoginFormProps {
-  onSubmit: (event: React.SyntheticEvent) => void;
+  onSubmit: ({ username, password }) => void;
   errorMessage: string;
 }
 
 export default function LoginForm({ onSubmit, errorMessage }: LoginFormProps) {
   return (
-    <form onSubmit={onSubmit}>
-      <label>
-        <input type="text" name="username" required />
-        <input type="text" name="password" required />
-      </label>
+    <Formik
+      initialValues={{ username: "", password: "" }}
+      onSubmit={(values, { setSubmitting }) => {
+        onSubmit({ username: values.username, password: values.password });
+        // setTimeout(() => {
+        setSubmitting(false);
+        // }, 400);
+      }}
+    >
+      <Form>
+        <TextInput
+          label="Username"
+          name="username"
+          type="text"
+          placeholder="Username"
+        />
+        <TextInput
+          label="Password"
+          name="password"
+          type="password"
+          placeholder="Password"
+        />
 
-      <button type="submit">Login</button>
-
-      {errorMessage && <p className="error">{errorMessage}</p>}
-    </form>
+        <button type="submit">Submit</button>
+      </Form>
+    </Formik>
   );
 }
