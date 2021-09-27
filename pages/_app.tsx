@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import React from "react";
 import Header from "../components/Header";
 import { ReactQueryDevtools } from "react-query/devtools";
+import "tailwindcss/tailwind.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
