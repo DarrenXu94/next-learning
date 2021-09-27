@@ -4,7 +4,7 @@ import { state } from "../store/store";
 import { Post } from "../domains/post";
 import { getFeedWithToken } from "../services/feed";
 
-export default function useProfile(): { feed: [Post] } {
+export default function useProfile() {
   const { session } = useSnapshot(state);
 
   const handleFeed = async () => {
@@ -17,9 +17,11 @@ export default function useProfile(): { feed: [Post] } {
     return res.body;
   };
 
-  const { data: feed } = useQuery("feed", () => handleFeed(), {
-    enabled: !!session,
-  });
+  const getFeed = () => {
+    return useQuery<[Post]>("feed", () => handleFeed(), {
+      enabled: !!session,
+    });
+  };
 
-  return { feed };
+  return { getFeed };
 }

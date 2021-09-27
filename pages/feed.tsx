@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import PostRoll from "../components/PostRoll";
 import SearchForm from "../components/SearchForm";
 import useFeed from "../lib/useFeed";
 import useSession from "../lib/useSession";
@@ -9,7 +10,8 @@ export interface feedProps {}
 export default function feed({}: feedProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
-  const { feed } = useFeed();
+  const { getFeed } = useFeed();
+  const { data: posts } = getFeed();
 
   if (!session) {
     return <div>loading...</div>;
@@ -31,19 +33,7 @@ export default function feed({}: feedProps) {
       </Link>
 
       <h1>Your newsfeed</h1>
-      {feed &&
-        feed.map((post) => {
-          return (
-            <div key={post._id}>
-              <Link href={`/post/${post._id}`}>
-                <a>
-                  <h4>{post.title}</h4>
-                  <p>{post.body}</p>
-                </a>
-              </Link>
-            </div>
-          );
-        })}
+      <PostRoll posts={posts} />
     </div>
   );
 }
