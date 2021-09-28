@@ -18,20 +18,25 @@ export default function LoginForm({ onSubmit, errorMessage }: LoginFormProps) {
       }}
     >
       <Form>
-        <TextInput
-          label="Username"
-          name="username"
-          type="text"
-          placeholder="Username"
-        />
-        <TextInput
-          label="Password"
-          name="password"
-          type="password"
-          placeholder="Password"
-        />
-
-        <Button type="submit">Submit</Button>
+        <div className="flex flex-col mb-2">
+          <TextInput
+            label="Username"
+            name="username"
+            type="text"
+            placeholder="Username"
+          />
+        </div>
+        <div className="flex flex-col mb-2">
+          <TextInput
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+        <div className="flex w-full my-4">
+          <Button type="submit">Submit</Button>
+        </div>
       </Form>
     </Formik>
   );

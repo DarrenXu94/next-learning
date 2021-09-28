@@ -18,15 +18,10 @@ export default function SearchForm({}: SearchFormProps) {
         setSubmitting(false);
       }}
     >
-      <Form>
-        <label htmlFor="searchTerm">Search</label>
-        <TextInput
-          name="searchTerm"
-          type="text"
-          placeholder="Search a blog title or body"
-        />
+      <Form className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
+        <TextInput name="searchTerm" type="text" placeholder="Search..." />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Search</Button>
       </Form>
     </Formik>
   );

@@ -2,7 +2,6 @@ import Link from "next/link";
 import React from "react";
 import Button from "../components/common/Button";
 import PostRoll from "../components/PostRoll";
-import SearchForm from "../components/SearchForm";
 import useFeed from "../lib/useFeed";
 import useSession from "../lib/useSession";
 
@@ -19,7 +18,6 @@ export default function feed({}: feedProps) {
   }
   return (
     <div>
-      <SearchForm />
       <div className="w-full bg-white p-12">
         <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
           <div className="title">

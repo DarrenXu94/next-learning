@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../styles/application.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import React from "react";
@@ -20,7 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ReactQueryDevtools initialIsOpen={true} />
 
       <Header />
-      <Component {...pageProps} />
+      <div className="pt-24">
+        <Component {...pageProps} />
+      </div>
     </QueryClientProvider>
   );
 }

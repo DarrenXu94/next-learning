@@ -2,6 +2,7 @@ import { Formik, Form } from "formik";
 import React from "react";
 import TextInput from "./form/TextInput";
 import * as Yup from "yup";
+import Button from "./common/Button";
 
 export interface RegisterFormProps {
   onSubmit: ({ username, password, email }) => void;
@@ -36,26 +37,36 @@ export default function RegisterForm({
       }}
     >
       <Form>
-        <TextInput
-          label="Username"
-          name="username"
-          type="text"
-          placeholder="Username"
-        />
-        <TextInput
-          label="Email"
-          name="email"
-          type="text"
-          placeholder="Enter your email"
-        />
-        <TextInput
-          label="Password"
-          name="password"
-          type="password"
-          placeholder="Password"
-        />
+        <div className="flex flex-col mb-2">
+          <TextInput
+            label="Username"
+            name="username"
+            type="text"
+            placeholder="Username"
+          />
+        </div>
 
-        <button type="submit">Submit</button>
+        <div className="flex flex-col mb-2">
+          <TextInput
+            label="Email"
+            name="email"
+            type="text"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div className="flex flex-col mb-2">
+          <TextInput
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+
+        <div className="flex w-full my-4">
+          <Button type="submit">Submit</Button>
+        </div>
       </Form>
     </Formik>
   );
