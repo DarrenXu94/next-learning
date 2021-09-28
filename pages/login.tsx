@@ -11,7 +11,7 @@ import { getFollowersOfUserAPI, getUserFollowingAPI } from "../services/follow";
 export default function Login({}) {
   // Check if user is logged in, if they are redirect to profile page
   const { mutateUser } = useSession({
-    redirectTo: "/profile",
+    redirectTo: "/feed",
     redirectIfFound: true,
   });
   const [formType, setFormType] = useState<"Login" | "Register">("Login");

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Button from "../components/common/Button";
 import PostRoll from "../components/PostRoll";
 import SearchForm from "../components/SearchForm";
 import useFeed from "../lib/useFeed";
@@ -19,21 +20,26 @@ export default function feed({}: feedProps) {
   return (
     <div>
       <SearchForm />
-
-      <Link href="/create">
-        <a>Create new post</a>
-      </Link>
-
-      <Link href="/post">
-        <a>View all posts</a>
-      </Link>
-
-      <Link href="/user">
-        <a>View all users</a>
-      </Link>
-
-      <h1>Your newsfeed</h1>
-      <PostRoll posts={posts} />
+      <div className="w-full bg-white p-12">
+        <div className="header flex items-end justify-between mb-12">
+          <div className="title">
+            <p className="text-4xl font-bold text-gray-800 mb-4">
+              Your Newsfeed
+            </p>
+            <p className="text-2xl font-light text-gray-400">
+              A collection of posts from you and users you follow
+            </p>
+          </div>
+          <div className="text-end">
+            <Button>
+              <Link href="/create">
+                <a>Create new post</a>
+              </Link>
+            </Button>
+          </div>
+        </div>
+        <PostRoll posts={posts} />
+      </div>
     </div>
   );
 }
