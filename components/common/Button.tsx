@@ -13,13 +13,7 @@ interface IStyle {
 
 const StyledButton = styled.button<IStyle>((props) => [
   tw`
-      py-2 px-4
-      rounded
-      ring-2 ring-gray-300
-      text-gray-500
-      transition duration-200 ease-linear
-      focus:outline-none
-      hover:(text-gray-600 ring-gray-400)
+  py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg 
     `,
   props.green &&
     tw`text-white bg-green-400 ring-gray-200 hover:(text-white bg-green-600)`,

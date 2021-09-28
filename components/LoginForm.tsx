@@ -31,7 +31,6 @@ export default function LoginForm({ onSubmit, errorMessage }: LoginFormProps) {
           placeholder="Password"
         />
 
-        {/* <button type="submit">Submit</button> */}
         <Button type="submit">Submit</Button>
       </Form>
     </Formik>

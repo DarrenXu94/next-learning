@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Button from "../components/common/Button";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import { Session } from "../domains/session";
@@ -82,14 +83,15 @@ export default function Login({}) {
       ) : (
         <RegisterForm errorMessage={errorMsg} onSubmit={handleRegisterSubmit} />
       )}
-
-      <button
+      <Button
+        green
         onClick={() => {
           setFormType(formType == "Login" ? "Register" : "Login");
         }}
       >
+        {" "}
         {formType == "Login" ? "No account? Register" : "Login"}
-      </button>
+      </Button>
     </div>
   );
 }
