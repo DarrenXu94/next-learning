@@ -54,7 +54,7 @@ const MobileLink = styled.a((props) => [
 
 const sections = [
   {
-    href: "/",
+    href: "/feed",
     label: "Home",
   },
   {
