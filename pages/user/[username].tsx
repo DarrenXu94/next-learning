@@ -32,7 +32,7 @@ export default function UserPage({}: UserPageProps) {
 
   useEffect(() => {
     if (username == session?.username) {
-      Router.push(`/profile`);
+      Router.replace(`/profile`);
     }
   }, [username, session]);
 

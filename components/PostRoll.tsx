@@ -1,6 +1,8 @@
-import Link from "next/link";
+import NextLink from "next/link";
 import React from "react";
 import { Post } from "../domains/post";
+import Card from "./common/Card";
+import Link from "./common/Link";
 
 export interface PostRollProps {
   posts: Post[] | undefined;
@@ -9,19 +11,20 @@ export interface PostRollProps {
 export default function PostRoll({ posts }: PostRollProps) {
   return (
     <>
-      {posts &&
-        posts.map((post) => {
-          return (
-            <div key={post._id}>
-              <Link href={`/post/${post._id}`}>
-                <a>
-                  <h4>{post.title}</h4>
-                  <p>{post.body}</p>
-                </a>
-              </Link>
-            </div>
-          );
-        })}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
+        {posts &&
+          posts.map((post) => {
+            return (
+              <div key={post._id}>
+                <Link href={`/post/${post._id}`}>
+                  <Card user={post.author} title={post.title}>
+                    {post.body}
+                  </Card>
+                </Link>
+              </div>
+            );
+          })}
+      </div>
     </>
   );
 }

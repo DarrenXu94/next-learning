@@ -10,7 +10,7 @@ export default function TextInput(props: any) {
       <label className="text-gray-700" htmlFor={props.id || props.name}>
         {props.label}
       </label>
-      <Input {...field} type={props.type} />
+      <Input {...field} type={props.type} {...props} />
       {meta.touched && meta.error ? (
         <div className="error">{meta.error}</div>
       ) : null}

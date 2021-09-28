@@ -7,7 +7,7 @@ export default function TextAreaInput({ ...props }: any) {
 
   return (
     <label className="text-gray-700" htmlFor={props.name}>
-      <Textarea {...field} />
+      <Textarea {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="error">{meta.error}</div>
       ) : null}

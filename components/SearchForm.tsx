@@ -1,24 +1,33 @@
 import React from "react";
 import Router from "next/router";
+import { Formik, Form } from "formik";
+import Button from "./common/Button";
+import TextInput from "./form/TextInput";
 
 export interface SearchFormProps {}
 
 export default function SearchForm({}: SearchFormProps) {
-  const onSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    const target = event.currentTarget as typeof event.currentTarget & {
-      searchTerm: { value: string };
-    };
-    Router.push(`/search/${target.searchTerm.value}`);
+  const onSubmit = ({ searchTerm }) => {
+    Router.push(`/search/${searchTerm}`);
   };
   return (
-    <form onSubmit={onSubmit}>
-      <h2>Search</h2>
-      <label>
-        <input type="text" name="searchTerm" required />
-      </label>
+    <Formik
+      initialValues={{ searchTerm: "" }}
+      onSubmit={(values, { setSubmitting }) => {
+        onSubmit({ searchTerm: values.searchTerm });
+        setSubmitting(false);
+      }}
+    >
+      <Form>
+        <label htmlFor="searchTerm">Search</label>
+        <TextInput
+          name="searchTerm"
+          type="text"
+          placeholder="Search a blog title or body"
+        />
 
-      <button type="submit">Search</button>
-    </form>
+        <Button type="submit">Submit</Button>
+      </Form>
+    </Formik>
   );
 }
