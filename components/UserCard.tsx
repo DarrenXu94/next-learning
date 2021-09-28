@@ -7,7 +7,7 @@ export interface UserCardProps {
 
 export default function UserCard({ user }: UserCardProps) {
   return (
-    <div className="shadow-lg rounded-2xl bg-white dark:bg-gray-800 p-4">
+    <div className="shadow-lg rounded-2xl bg-white dark:bg-gray-800 p-4 hover:-translate-y-1 transition duration-500 ease-in-out transform ">
       <div className="flex-row gap-4 flex justify-center items-center">
         <div className="flex-shrink-0">
           <img

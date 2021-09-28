@@ -9,7 +9,7 @@ export interface CardProps {
 
 export default function Card({ children, title, user }: CardProps) {
   return (
-    <div className="overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto">
+    <div className="overflow-hidden shadow-lg rounded-lg h-90 cursor-pointer m-auto">
       {/* <a href="#" className="w-full block h-full"> */}
       <div className="bg-white dark:bg-gray-800 w-full p-4">
         <p className="text-indigo-500 text-md font-medium"></p>
