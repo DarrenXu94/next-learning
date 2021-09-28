@@ -10,8 +10,6 @@ export default function UserIndex({}: UserIndexProps) {
 
   const { data: users } = getAllUsers();
 
-  console.log({ users });
-
   return (
     <div className="container flex flex-row mx-auto w-full items-center justify-center flex-wrap max-w-screen-lg">
       {" "}
