@@ -21,7 +21,7 @@ export default function feed({}: feedProps) {
     <div>
       <SearchForm />
       <div className="w-full bg-white p-12">
-        <div className="header flex items-end justify-between mb-12">
+        <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
           <div className="title">
             <p className="text-4xl font-bold text-gray-800 mb-4">
               Your Newsfeed
@@ -30,8 +30,8 @@ export default function feed({}: feedProps) {
               A collection of posts from you and users you follow
             </p>
           </div>
-          <div className="text-end">
-            <Button>
+          <div className="text-end w-full sm:w-auto">
+            <Button className="w-full sm:w-auto">
               <Link href="/create">
                 <a>Create new post</a>
               </Link>

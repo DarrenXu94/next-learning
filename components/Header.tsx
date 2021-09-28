@@ -47,6 +47,10 @@ const DesktopLink = styled.a((props) => [
   tw`cursor-pointer text-gray-300 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium`,
 ]);
 
+const MobileLink = styled.a((props) => [
+  tw`cursor-pointer text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium`,
+]);
+
 const sections = [
   {
     href: "/",
@@ -88,6 +92,7 @@ const Header = () => {
                   })}
                 </div>
               </div>
+
               <div className="hidden md:flex ml-auto relative p-1 items-center justify-end w-1/4 ml-5 mr-4 sm:mr-0 sm:right-auto">
                 <UserSection />
               </div>
@@ -117,7 +122,14 @@ const Header = () => {
 
         <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link href="/">
+            {sections.map((section) => {
+              return (
+                <Link key={section.href} href={section.href}>
+                  <MobileLink>{section.label}</MobileLink>
+                </Link>
+              );
+            })}
+            {/* <Link href="/">
               <a className="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 Home
               </a>
@@ -133,54 +145,11 @@ const Header = () => {
               href="/#"
             >
               Content
-            </a>
+            </a> */}
           </div>
         </div>
       </nav>
     </div>
-    // <header>
-    //   <nav>
-    //     <ul>
-    //       <li>
-    //         <Link href="/">
-    //           <a>Home</a>
-    //         </Link>
-    //       </li>
-    //       {!session && (
-    //         <li>
-    //           <Link href="/login">
-    //             <a>Login</a>
-    //           </Link>
-    //         </li>
-    //       )}
-    //       {session && (
-    //         <>
-    //           <li>
-    //             <Link href="/profile">
-    //               <a>
-    //                 <img src={session.avatar} width={20} height={20} /> Profile{" "}
-    //                 {session.username}
-    //               </a>
-    //             </Link>
-    //           </li>
-
-    //           <li>
-    //             <a
-    //               href="/api/logout"
-    //               onClick={async (e) => {
-    //                 e.preventDefault();
-    //                 logout();
-    //                 router.push("/login");
-    //               }}
-    //             >
-    //               Logout
-    //             </a>
-    //           </li>
-    //         </>
-    //       )}
-    //     </ul>
-    //   </nav>
-    // </header>
   );
 };
 
