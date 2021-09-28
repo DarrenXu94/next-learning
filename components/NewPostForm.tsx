@@ -1,5 +1,7 @@
 import { Formik, Form } from "formik";
 import React from "react";
+import Button from "./common/Button";
+import TextAreaInput from "./form/TextAreaInput";
 import TextInput from "./form/TextInput";
 
 export interface NewPostFormProps {
@@ -21,9 +23,14 @@ export default function NewPostForm({
     >
       <Form>
         <TextInput label="Title" name="title" type="text" placeholder="Title" />
-        <TextInput label="Body" name="body" type="text" placeholder="Body" />
+        <TextAreaInput
+          label="Body"
+          name="body"
+          type="text"
+          placeholder="Body"
+        />
 
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
       </Form>
     </Formik>
   );
