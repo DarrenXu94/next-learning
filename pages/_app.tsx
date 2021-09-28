@@ -6,6 +6,7 @@ import React from "react";
 import Header from "../components/Header";
 import { ReactQueryDevtools } from "react-query/devtools";
 import "tailwindcss/tailwind.css";
+import Footer from "../components/Footer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className="pt-24">
         <Component {...pageProps} />
       </div>
+      <Footer />
     </QueryClientProvider>
   );
 }
