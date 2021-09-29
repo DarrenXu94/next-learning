@@ -1,8 +1,8 @@
 import { useField } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../common/Input";
 
-export default function TextInput(props: any) {
+export default function TextInput({ ...props }: any) {
   const [field, meta] = useField(props);
 
   return (
@@ -11,13 +11,12 @@ export default function TextInput(props: any) {
         {props.label}
       </label>
       <Input
-        className={meta.error && "ring-red-500 ring-2"}
+        className={meta.error && meta.touched && "ring-red-500 ring-2"}
         {...field}
         type={props.type}
         {...props}
       />
       {meta.touched && meta.error ? (
-        // <div className="error">{meta.error}</div>
         <p className="text-sm text-red-500 ">{meta.error}</p>
       ) : null}
     </div>

@@ -6,7 +6,7 @@ import Button from "./common/Button";
 
 export interface RegisterFormProps {
   onSubmit: ({ username, password, email }) => void;
-  errorMessage: string;
+  errorMessage?: string;
 }
 
 export default function RegisterForm({

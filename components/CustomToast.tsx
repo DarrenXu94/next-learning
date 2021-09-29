@@ -46,25 +46,25 @@ const Success = ({ message }) => {
   );
 };
 
-const Alert = ({ message }) => {
+const Danger = ({ message }) => {
   return (
     <div
       className="bg-red-200 border-red-600 text-red-600 border-l-4 p-4"
       role="alert"
     >
-      <p className="font-bold">Be Warned</p>
+      <p className="font-bold">Error</p>
       <p>{message}</p>
     </div>
   );
 };
 
-const Danger = ({ message }) => {
+const Alert = ({ message }) => {
   return (
     <div
       className="bg-yellow-200 border-yellow-600 text-yellow-600 border-l-4 p-4"
       role="alert"
     >
-      <p className="font-bold">Danger</p>
+      <p className="font-bold">Alert</p>
       <p>{message}</p>
     </div>
   );

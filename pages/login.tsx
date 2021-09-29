@@ -17,12 +17,6 @@ export default function Login({}) {
   });
   const [formType, setFormType] = useState<"Login" | "Register">("Login");
 
-  const [errorMsg, setErrorMsg] = useState("");
-
-  useEffect(() => {
-    setErrorMsg("");
-  }, [formType]);
-
   const handleError = (response: HTTPResponse) => {
     if (response.status !== 200) {
       // Do notification
@@ -53,7 +47,7 @@ export default function Login({}) {
       mutateUser(newSession);
     } catch (e) {
       console.log(e);
-      setErrorMsg(e as string);
+      toast.error(e as string);
     }
     // If success, set user with mutate, this will cause a redirect
   };
@@ -76,11 +70,11 @@ export default function Login({}) {
     handleResponse(res);
   };
 
-  useEffect(() => {
-    if (errorMsg) {
-      toast.error(errorMsg);
-    }
-  }, [errorMsg]);
+  // useEffect(() => {
+  //   if (errorMsg) {
+  //     toast.error(errorMsg);
+  //   }
+  // }, [errorMsg]);
 
   return (
     <div className="login">
@@ -89,16 +83,10 @@ export default function Login({}) {
           Login To Your Account
         </div>
         {formType == "Login" ? (
-          <LoginForm errorMessage={errorMsg} onSubmit={handleLoginSubmit} />
+          <LoginForm onSubmit={handleLoginSubmit} />
         ) : (
-          <RegisterForm
-            errorMessage={errorMsg}
-            onSubmit={handleRegisterSubmit}
-          />
+          <RegisterForm onSubmit={handleRegisterSubmit} />
         )}
-        {/* {errorMsg && (
-          <p className="text-sm text-red-500 -bottom-6">{errorMsg}</p>
-        )} */}
 
         <div className="flex items-center mb-6 -mt-4">
           <div className="flex ml-auto">

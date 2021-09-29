@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 export interface LoginFormProps {
   onSubmit: ({ username, password }) => void;
-  errorMessage: string;
+  errorMessage?: string;
 }
 
 export default function LoginForm({ onSubmit, errorMessage }: LoginFormProps) {
