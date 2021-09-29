@@ -73,7 +73,7 @@ const Header = () => {
 
   return (
     <div>
-      <nav className="bg-white dark:bg-gray-800 shadow absolute w-full z-10">
+      <nav className="bg-white dark:bg-gray-800 shadow absolute w-full z-20">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex items-center justify-between h-16 ">
             <div className=" flex items-center w-full">

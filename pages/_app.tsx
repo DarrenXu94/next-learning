@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import "../styles/application.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import "tailwindcss/tailwind.css";
 import Footer from "../components/Footer";
 import CustomToast from "../components/CustomToast";
+import "../styles/TipTap.scss";
 
 const queryClient = new QueryClient({
   defaultOptions: {
