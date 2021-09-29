@@ -21,10 +21,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={true} />
 
-      <Header />
-      <div className="pt-24">
-        <Component {...pageProps} />
-      </div>
+      <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
+        <Header />
+        <div className="pt-24">
+          <Component {...pageProps} />
+        </div>
+      </main>
       <Footer />
     </QueryClientProvider>
   );

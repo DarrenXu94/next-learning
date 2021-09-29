@@ -26,11 +26,11 @@ export default function feed({}: feedProps) {
           </p>
         </div>
         <div className="text-end w-full sm:w-auto">
-          <Button className="w-full sm:w-auto">
-            <Link href="/create">
+          <Link href="/create">
+            <Button className="w-full sm:w-auto">
               <a>Create new post</a>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </div>
       <PostRoll posts={posts} />

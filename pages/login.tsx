@@ -102,16 +102,6 @@ export default function Login({}) {
           </div>
         </div>
 
-        {/* <Button
-          green
-          onClick={() => {
-            setFormType(formType == "Login" ? "Register" : "Login");
-          }}
-        >
-          {" "}
-          {formType == "Login" ? "No account? Register" : "Login"}
-        </Button> */}
-
         {formType == "Login" ? (
           <RegisterButton setFormType={setFormType} />
         ) : (
