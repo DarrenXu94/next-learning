@@ -14,7 +14,7 @@ export default function create({}: createProps) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col max-w-screen-lg	 w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10 mx-auto">
       <NewPostForm errorMessage={errorMsg} onSubmit={handleSubmit} />
     </div>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import InfoCard from "../components/common/InfoCard";
 import PostRoll from "../components/PostRoll";
 import usePost from "../lib/usePost";
 import useProfile from "../lib/useProfile";
@@ -21,26 +22,37 @@ export default function profile({}: profileProps) {
   }
 
   return (
-    <div>
-      <h1>This is your profile</h1>
-      <p>
-        Username:
-        {session.username}
-      </p>
+    <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-2">
+      <div className="pb-10 px-4 md:px-6">
+        <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">
+          Welcome back, {session.username}
+        </h1>
+      </div>
       {profile && (
-        <>
-          <p>Profile</p>
-          <ul>
-            <li>Post count: {profile.counts.postCount}</li>
-            <li>Follower count: {profile.counts.followerCount}</li>
-            <li>Following count: {profile.counts.followingCount}</li>
-          </ul>
-        </>
+        <div className="flex justify-evenly	">
+          <InfoCard
+            heading="Post Count"
+            content={profile.counts.postCount.toString()}
+          />
+          <InfoCard
+            heading="Followers"
+            content={profile.counts.followerCount.toString()}
+          />
+          <InfoCard
+            heading="Following"
+            content={profile.counts.followingCount.toString()}
+          />
+        </div>
       )}
 
-      <h2>Posts</h2>
-
-      <PostRoll posts={posts} />
+      <div className="w-full p-12">
+        <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
+          <div className="title">
+            <p className="text-4xl font-bold text-gray-800 mb-4">Your Posts</p>
+          </div>
+        </div>
+        <PostRoll posts={posts} />
+      </div>
     </div>
   );
 }

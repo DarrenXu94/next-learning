@@ -22,15 +22,25 @@ export default function NewPostForm({
       }}
     >
       <Form>
-        <TextInput label="Title" name="title" type="text" placeholder="Title" />
-        <TextAreaInput
-          label="Body"
-          name="body"
-          type="text"
-          placeholder="Body"
-        />
+        <div className="flex flex-col mb-2">
+          <TextInput
+            label="Title"
+            name="title"
+            type="text"
+            placeholder="Title"
+          />
+        </div>
+        <div className="flex flex-col mb-2">
+          <TextAreaInput
+            label="Body"
+            name="body"
+            type="text"
+            placeholder="Body"
+            rows={10}
+          />
+        </div>
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Create</Button>
       </Form>
     </Formik>
   );
