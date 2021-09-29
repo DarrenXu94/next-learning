@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { Session } from "../domains/session";
 import useFollow from "../lib/useFollow";
+import Button from "./common/Button";
 
 export interface FollowButtonProps {
   username: string;
@@ -31,10 +32,6 @@ export default function FollowButton({ session, username }: FollowButtonProps) {
   }
 
   return (
-    <div>
-      <button onClick={handleClick}>
-        {isFollowing ? "Unfollow" : "Follow"}
-      </button>
-    </div>
+    <Button onClick={handleClick}>{isFollowing ? "Unfollow" : "Follow"}</Button>
   );
 }

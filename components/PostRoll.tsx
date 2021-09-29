@@ -10,21 +10,19 @@ export interface PostRollProps {
 
 export default function PostRoll({ posts }: PostRollProps) {
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-12">
-        {posts &&
-          posts.map((post) => {
-            return (
-              <div key={post._id}>
-                <Link href={`/post/${post._id}`}>
-                  <Card user={post.author} title={post.title}>
-                    {post.body}
-                  </Card>
-                </Link>
-              </div>
-            );
-          })}
-      </div>
-    </>
+    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-12">
+      {posts &&
+        posts.map((post) => {
+          return (
+            <div key={post._id}>
+              <Link href={`/post/${post._id}`}>
+                <Card user={post.author} title={post.title}>
+                  {post.body}
+                </Card>
+              </Link>
+            </div>
+          );
+        })}
+    </div>
   );
 }

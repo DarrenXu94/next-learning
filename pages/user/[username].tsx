@@ -8,6 +8,9 @@ import usePost from "../../lib/usePost";
 import useUser from "../../lib/useUser";
 import { state } from "../../store/store";
 import Router from "next/router";
+import InfoCard from "../../components/common/InfoCard";
+import PostRoll from "../../components/PostRoll";
+import UserRoll from "../../components/UserRoll";
 
 export interface UserPageProps {}
 
@@ -29,6 +32,8 @@ export default function UserPage({}: UserPageProps) {
 
   const { data: followers } = getFollowersOfUser(username as string);
   const { data: following } = getUserFollowing(username as string);
+
+  console.log({ user });
 
   useEffect(() => {
     if (username == session?.username) {
@@ -54,45 +59,53 @@ export default function UserPage({}: UserPageProps) {
   }
 
   return (
-    <div>
-      {/* Follow button for following */}
-      {username && session && (
-        <FollowButton session={session} username={username as string} />
-      )}
+    <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">
+      <div className="flex justify-between">
+        <div className="px-4 md:px-6 ">
+          <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">
+            Viewing, {user?.profileUsername}
+          </h1>
+        </div>
+        {username && session && (
+          <FollowButton session={session} username={username as string} />
+        )}
+      </div>
       {/* Info on if this user is following you */}
       {username && session && (
-        <div>
+        <h2 className="text-md text-gray-400 px-4 md:px-6 pb-10 pt-4">
           {isFollower
             ? "This user is following you"
             : "This user is not following you"}
+        </h2>
+      )}
+      {user && (
+        <div className="flex justify-evenly	">
+          <InfoCard
+            heading="Post Count"
+            content={user.counts.postCount.toString()}
+          />
+          <InfoCard
+            heading="Followers"
+            content={user.counts.followerCount.toString()}
+          />
+          <InfoCard
+            heading="Following"
+            content={user.counts.followingCount.toString()}
+          />
         </div>
       )}
-      <h2>User</h2>
-      {user && user.profileUsername}
-      <h2>Followers</h2>
-      {followers &&
-        followers.map((follower) => {
-          return <div key={follower.username}>{follower.username}</div>;
-        })}
-      <h2>Following</h2>
-      {following &&
-        following.map((follower) => {
-          return <div key={follower.username}>{follower.username}</div>;
-        })}
-      <h2>Posts</h2>
-      {posts &&
-        posts.map((post) => {
-          return (
-            <div key={post._id}>
-              <Link href={`/post/${post._id}`}>
-                <a>
-                  <h4>{post.title}</h4>
-                  <p>{post.body}</p>
-                </a>
-              </Link>
-            </div>
-          );
-        })}
+
+      <div className="w-full p-12">
+        <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
+          <div className="title">
+            <p className="text-4xl font-bold text-gray-800 mb-4">Posts</p>
+          </div>
+        </div>
+        <PostRoll posts={posts} />
+
+        <UserRoll users={following} title={"People you follow"} />
+        <UserRoll users={followers} title={"Followers"} />
+      </div>
     </div>
   );
 }

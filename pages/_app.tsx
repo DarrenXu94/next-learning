@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
         <Header />
-        <div className="pt-24">
+        <div className="pt-24 h-full">
           <Component {...pageProps} />
         </div>
       </main>

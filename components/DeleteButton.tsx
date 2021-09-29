@@ -1,6 +1,7 @@
 import React from "react";
 import usePost from "../lib/usePost";
 import Router from "next/router";
+import FlatButton from "./common/FlatButton";
 
 export interface DeleteButtonProps {
   id: string;
@@ -15,9 +16,5 @@ export default function DeleteButton({ id }: DeleteButtonProps) {
       Router.push(`/post`);
     }
   };
-  return (
-    <div>
-      <button onClick={handleClick}>Delete this post</button>
-    </div>
-  );
+  return <FlatButton onClick={handleClick}>Delete this post</FlatButton>;
 }

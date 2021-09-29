@@ -2,6 +2,9 @@ import Link from "next/link";
 import React from "react";
 import InfoCard from "../components/common/InfoCard";
 import PostRoll from "../components/PostRoll";
+import UserCard from "../components/UserCard";
+import UserRoll from "../components/UserRoll";
+import useFollow from "../lib/useFollow";
 import usePost from "../lib/usePost";
 import useProfile from "../lib/useProfile";
 import useSession from "../lib/useSession";
@@ -17,12 +20,16 @@ export default function profile({}: profileProps) {
 
   const { data: posts } = getPostsByAuthor(session?.username as string);
 
+  const { getFollowersOfUser, getUserFollowing } = useFollow();
+  const { data: followers } = getFollowersOfUser(session?.username as string);
+  const { data: following } = getUserFollowing(session?.username as string);
+
   if (!session) {
     return <div>loading...</div>;
   }
 
   return (
-    <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-2">
+    <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">
       <div className="pb-10 px-4 md:px-6">
         <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">
           Welcome back, {session.username}
@@ -52,6 +59,9 @@ export default function profile({}: profileProps) {
           </div>
         </div>
         <PostRoll posts={posts} />
+
+        <UserRoll users={following} title={"People you follow"} />
+        <UserRoll users={followers} title={"Followers"} />
       </div>
     </div>
   );
