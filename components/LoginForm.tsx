@@ -2,6 +2,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import Button from "./common/Button";
 import TextInput from "./form/TextInput";
+import * as Yup from "yup";
 
 export interface LoginFormProps {
   onSubmit: ({ username, password }) => void;
@@ -16,6 +17,15 @@ export default function LoginForm({ onSubmit, errorMessage }: LoginFormProps) {
         onSubmit({ username: values.username, password: values.password });
         setSubmitting(false);
       }}
+      validationSchema={Yup.object({
+        username: Yup.string()
+          .min(3, "Must be 3 characters or more")
+          .required("Required"),
+
+        password: Yup.string()
+          .min(12, "Must be 12 characters or more")
+          .required("Required"),
+      })}
     >
       <Form>
         <div className="flex flex-col mb-2">

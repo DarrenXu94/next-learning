@@ -65,9 +65,7 @@ const Danger = ({ message }) => {
       role="alert"
     >
       <p className="font-bold">Danger</p>
-      <p>
-        <p>{message}</p>
-      </p>
+      <p>{message}</p>
     </div>
   );
 };
