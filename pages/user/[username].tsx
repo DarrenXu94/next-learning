@@ -33,8 +33,6 @@ export default function UserPage({}: UserPageProps) {
   const { data: followers } = getFollowersOfUser(username as string);
   const { data: following } = getUserFollowing(username as string);
 
-  console.log({ user });
-
   useEffect(() => {
     if (username == session?.username) {
       Router.replace(`/profile`);

@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Session } from "../domains/session";
 import useFollow from "../lib/useFollow";
 import Button from "./common/Button";
+import toast from "react-hot-toast";
 
 export interface FollowButtonProps {
   username: string;
@@ -14,8 +15,14 @@ export default function FollowButton({ session, username }: FollowButtonProps) {
   const handleClick = async () => {
     if (isFollowing) {
       const res = await unfollowUser(username);
+      if (res) {
+        toast.success(`Unfollowed ${username}`);
+      }
     } else {
       const res = await followUser(username);
+      if (res) {
+        toast.success(`Followed ${username}`);
+      }
     }
   };
 

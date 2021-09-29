@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import { ReactQueryDevtools } from "react-query/devtools";
 import "tailwindcss/tailwind.css";
 import Footer from "../components/Footer";
+import CustomToast from "../components/CustomToast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,17 +19,20 @@ const queryClient = new QueryClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={true} />
+    <>
+      <CustomToast />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={true} />
 
-      <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
-        <Header />
-        <div className="pt-24 h-full">
-          <Component {...pageProps} />
-        </div>
-      </main>
-      <Footer />
-    </QueryClientProvider>
+        <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
+          <Header />
+          <div className="pt-24 h-full">
+            <Component {...pageProps} />
+          </div>
+        </main>
+        <Footer />
+      </QueryClientProvider>
+    </>
   );
 }
 export default MyApp;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NewPostForm from "../components/NewPostForm";
 import usePost from "../lib/usePost";
+import toast from "react-hot-toast";
 
 export interface createProps {}
 
@@ -10,7 +11,12 @@ export default function create({}: createProps) {
   const { createPost } = usePost();
 
   const handleSubmit = async ({ title, body }) => {
-    createPost({ title: title, body: body });
+    try {
+      createPost({ title: title, body: body });
+      toast.success("Successfully created post");
+    } catch (e) {
+      toast.error(e as string);
+    }
   };
 
   return (

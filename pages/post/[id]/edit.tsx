@@ -4,6 +4,7 @@ import DeleteButton from "../../../components/DeleteButton";
 import EditPostForm from "../../../components/EditPostForm";
 import usePost from "../../../lib/usePost";
 import Router from "next/router";
+import toast from "react-hot-toast";
 
 export interface EditPageProps {}
 
@@ -13,9 +14,14 @@ export default function EditPage({}: EditPageProps) {
   const { getPostById, updatePost } = usePost();
   const { data: post } = getPostById(id as string);
   const handleSubmit = async ({ title, body }) => {
-    const res = await updatePost({ title, body, id });
-    if (res) {
-      Router.push(`/post/${id}`);
+    try {
+      const res = await updatePost({ title, body, id });
+      if (res) {
+        Router.push(`/post/${id}`);
+      }
+      toast.success("Successfully updated post");
+    } catch (e) {
+      toast.error(e as string);
     }
   };
   return (
