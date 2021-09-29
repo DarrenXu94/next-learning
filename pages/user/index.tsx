@@ -11,12 +11,12 @@ export default function UserIndex({}: UserIndexProps) {
   const { data: users } = getAllUsers();
 
   return (
-    <div className="container flex flex-row mx-auto w-full items-center justify-center flex-wrap max-w-screen-lg">
+    <div className="container grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6 w-full items-center justify-center flex-wrap max-w-screen-lg m-auto">
       {" "}
       {users &&
         users.map((user) => {
           return (
-            <div key={user._id} className="mr-2 mb-2">
+            <div key={user._id}>
               <Link href={`/user/${user.username}`}>
                 <a>
                   <UserCard user={user} />

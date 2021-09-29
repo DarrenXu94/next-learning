@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import PostRoll from "../../components/PostRoll";
 import usePost from "../../lib/usePost";
 
 export interface SearchPageProps {}
@@ -9,28 +10,18 @@ export default function SearchPage({}: SearchPageProps) {
   const router = useRouter();
   const { searchTerm } = router.query;
 
-  console.log({ searchTerm });
-
   const { searchPosts } = usePost();
   const { data: posts } = searchPosts(searchTerm as string);
 
-  console.log({ posts });
-
   return (
-    <div>
-      {posts &&
-        posts.map((post) => {
-          return (
-            <div key={post._id}>
-              <Link href={`/post/${post._id}`}>
-                <a>
-                  <h4>{post.title}</h4>
-                  <p>{post.body}</p>
-                </a>
-              </Link>
-            </div>
-          );
-        })}
+    <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">
+      <div className="pb-10 px-4 md:px-6">
+        <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">
+          Search results for "{searchTerm}"
+        </h1>
+      </div>
+
+      <PostRoll posts={posts} />
 
       {posts && !posts.length && <div>No results for {searchTerm}</div>}
     </div>
