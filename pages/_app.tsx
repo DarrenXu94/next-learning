@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import React from "react";
 import Header from "../components/Header";
 import { ReactQueryDevtools } from "react-query/devtools";
-import "tailwindcss/tailwind.css";
+// import "tailwindcss/tailwind.css";
 import Footer from "../components/Footer";
 import CustomToast from "../components/CustomToast";
 import "../styles/TipTap.scss";

@@ -5,11 +5,17 @@ import { useRouter } from "next/router";
 import Button from "./common/Button";
 import tw, { css, styled } from "twin.macro";
 import SearchForm from "./SearchForm";
+import DropDownMenu from "./DropDownMenu";
 
 const UserSection = () => {
   const { session, logout } = useSession();
 
   const router = useRouter();
+
+  const logoutFunction = () => {
+    logout();
+    router.push("/login");
+  };
 
   if (!session) {
     return (
@@ -19,27 +25,24 @@ const UserSection = () => {
     );
   } else {
     return (
-      <>
-        <Link href="/profile">
-          <a href="#" className="flex items-center relative pr-3">
-            <span className="text-2xl pr-3">{session.username}</span>
+      <DropDownMenu
+        icon={
+          <>
             <img
               alt="profil"
               src={session.avatar}
               className="mx-auto object-cover rounded-full h-10 w-10 "
             />
-          </a>
-        </Link>
-
-        <Button
-          onClick={() => {
-            logout();
-            router.push("/login");
-          }}
-        >
-          Logout
-        </Button>
-      </>
+          </>
+        }
+        items={[
+          {
+            label: <b className="text-lg">{session.username}</b>,
+            link: "/profile",
+          },
+          { label: "Logout", onClick: logoutFunction },
+        ]}
+      />
     );
   }
 };
@@ -74,7 +77,7 @@ const Header = () => {
   return (
     <div>
       <nav className="bg-white dark:bg-gray-800 shadow absolute w-full z-20">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-2 md:px-8">
           <div className="flex items-center justify-between h-16 ">
             <div className=" flex items-center w-full">
               <Link href={session ? "/feed" : "/"}>

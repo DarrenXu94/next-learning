@@ -4,7 +4,6 @@ import Button from "../components/common/Button";
 import PostRoll from "../components/PostRoll";
 import useFeed from "../lib/useFeed";
 import useSession from "../lib/useSession";
-import toast from "react-hot-toast";
 
 export interface feedProps {}
 
@@ -18,12 +17,8 @@ export default function feed({}: feedProps) {
     return <div>loading...</div>;
   }
 
-  const notify = (text) => toast.success(text);
-
   return (
     <div className="w-full bg-white p-12">
-      <button onClick={() => notify("Test")}>Make me a toast</button>
-
       <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
         <div className="title">
           <p className="text-4xl font-bold text-gray-800 mb-4">Your Newsfeed</p>
