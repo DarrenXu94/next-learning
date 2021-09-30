@@ -1,22 +1,34 @@
 import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
+
 import { useField } from "formik";
 import ButtonGroup from "./ButtonGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCode,
+  faGripLines,
+  faList,
+  faListOl,
+  faQuoteRight,
+  faRedo,
+  faUndo,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function TipTap({ ...props }: any) {
   const [field, meta, helpers] = useField(props);
 
   const editor = useEditor({
-    extensions: [StarterKit],
-    content: props.placeholder,
+    extensions: [StarterKit, Placeholder],
+    content: field.value,
     onUpdate({ editor }) {
       const html = editor.getHTML();
       helpers.setValue(html);
     },
   });
   return (
-    <div className="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+    <div>
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
     </div>
@@ -29,209 +41,208 @@ const MenuBar = ({ editor }) => {
   }
 
   return (
-    // <div className="flex items-center">
     <ButtonGroup>
-      <ButtonGroup.StartButton
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleBold().run();
-        }}
-        className={editor.isActive("bold") ? "is-active-tiptap" : ""}
-        name="bold"
-      >
-        <b>B</b>
-      </ButtonGroup.StartButton>
+      <div className="flex items-center">
+        <ButtonGroup.StartButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleBold().run();
+          }}
+          className={editor.isActive("bold") ? "is-active-tiptap" : ""}
+          name="bold"
+          title="Bold"
+        >
+          <b>B</b>
+        </ButtonGroup.StartButton>
 
-      <ButtonGroup.MiddleButton
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleItalic().run();
-        }}
-        className={editor.isActive("italic") ? "is-active-tiptap" : ""}
-        name="italics"
-      >
-        <i>Italic</i>
-      </ButtonGroup.MiddleButton>
+        <ButtonGroup.MiddleButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleItalic().run();
+          }}
+          className={editor.isActive("italic") ? "is-active-tiptap" : ""}
+          name="italics"
+          title="Italics"
+        >
+          <i>Italic</i>
+        </ButtonGroup.MiddleButton>
 
-      <ButtonGroup.EndButton
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleStrike().run();
-        }}
-        className={editor.isActive("strike") ? "is-active-tiptap" : ""}
-        name="strike"
-      >
-        <del>S</del>
-      </ButtonGroup.EndButton>
+        <ButtonGroup.EndButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleStrike().run();
+          }}
+          className={editor.isActive("strike") ? "is-active-tiptap" : ""}
+          name="strike"
+          title="Strikethrough"
+        >
+          <del>S</del>
+        </ButtonGroup.EndButton>
+      </div>
+      <div className="flex items-center">
+        <ButtonGroup.SoloButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().unsetAllMarks().run();
+          }}
+          name="clear-marks"
+          title="Clear formatting"
+        >
+          Clear
+        </ButtonGroup.SoloButton>
+      </div>
 
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleCode().run();
-        }}
-        className={editor.isActive("code") ? "is-active-tiptap" : ""}
-      >
-        code
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().unsetAllMarks().run();
-        }}
-      >
-        clear marks
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().clearNodes().run();
-        }}
-      >
-        clear nodes
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().setParagraph().run();
-        }}
-        className={editor.isActive("paragraph") ? "is-active-tiptap" : ""}
-      >
-        paragraph
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleHeading({ level: 1 }).run();
-        }}
-        className={
-          editor.isActive("heading", { level: 1 }) ? "is-active-tiptap" : ""
-        }
-      >
-        h1
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleHeading({ level: 2 }).run();
-        }}
-        className={
-          editor.isActive("heading", { level: 2 }) ? "is-active-tiptap" : ""
-        }
-      >
-        h2
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleHeading({ level: 3 }).run();
-        }}
-        className={
-          editor.isActive("heading", { level: 3 }) ? "is-active-tiptap" : ""
-        }
-      >
-        h3
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleHeading({ level: 4 }).run();
-        }}
-        className={
-          editor.isActive("heading", { level: 4 }) ? "is-active-tiptap" : ""
-        }
-      >
-        h4
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleHeading({ level: 5 }).run();
-        }}
-        className={
-          editor.isActive("heading", { level: 5 }) ? "is-active-tiptap" : ""
-        }
-      >
-        h5
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleHeading({ level: 6 }).run();
-        }}
-        className={
-          editor.isActive("heading", { level: 6 }) ? "is-active-tiptap" : ""
-        }
-      >
-        h6
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleBulletList().run();
-        }}
-        className={editor.isActive("bulletList") ? "is-active-tiptap" : ""}
-      >
-        bullet list
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleOrderedList().run();
-        }}
-        className={editor.isActive("orderedList") ? "is-active-tiptap" : ""}
-      >
-        ordered list
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleCodeBlock().run();
-        }}
-        className={editor.isActive("codeBlock") ? "is-active-tiptap" : ""}
-      >
-        code block
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleBlockquote().run();
-        }}
-        className={editor.isActive("blockquote") ? "is-active-tiptap" : ""}
-      >
-        blockquote
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().setHorizontalRule().run();
-        }}
-      >
-        horizontal rule
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().setHardBreak().run();
-        }}
-      >
-        hard break
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().undo().run();
-        }}
-      >
-        undo
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().redo().run();
-        }}
-      >
-        redo
-      </button>
+      <div className="flex items-center">
+        <ButtonGroup.StartButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().setParagraph().run();
+          }}
+          className={editor.isActive("paragraph") ? "is-active-tiptap" : ""}
+          name="paragraph"
+          title="Paragraph"
+        >
+          P
+        </ButtonGroup.StartButton>
+
+        <ButtonGroup.MiddleButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleHeading({ level: 1 }).run();
+          }}
+          className={
+            editor.isActive("heading", { level: 1 }) ? "is-active-tiptap" : ""
+          }
+          name="h1"
+          title="Heading 1"
+        >
+          H1
+        </ButtonGroup.MiddleButton>
+        <ButtonGroup.MiddleButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleHeading({ level: 2 }).run();
+          }}
+          className={
+            editor.isActive("heading", { level: 2 }) ? "is-active-tiptap" : ""
+          }
+          name="h2"
+          title="Heading 2"
+        >
+          H2
+        </ButtonGroup.MiddleButton>
+        <ButtonGroup.MiddleButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleHeading({ level: 3 }).run();
+          }}
+          className={
+            editor.isActive("heading", { level: 3 }) ? "is-active-tiptap" : ""
+          }
+          name="h3"
+          title="Heading 3"
+        >
+          H3
+        </ButtonGroup.MiddleButton>
+
+        <ButtonGroup.EndButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleHeading({ level: 4 }).run();
+          }}
+          className={
+            editor.isActive("heading", { level: 4 }) ? "is-active-tiptap" : ""
+          }
+          name="h4"
+          title="Heading 4"
+        >
+          H4
+        </ButtonGroup.EndButton>
+      </div>
+      <div className="flex items-center">
+        <ButtonGroup.StartButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleBulletList().run();
+          }}
+          className={editor.isActive("bulletList") ? "is-active-tiptap" : ""}
+          name="bullet"
+          title="Bullet list"
+        >
+          <FontAwesomeIcon icon={faList} />
+        </ButtonGroup.StartButton>
+
+        <ButtonGroup.EndButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleOrderedList().run();
+          }}
+          className={editor.isActive("orderedList") ? "is-active-tiptap" : ""}
+          name="ordered"
+          title="Ordered List"
+        >
+          <FontAwesomeIcon icon={faListOl} />
+        </ButtonGroup.EndButton>
+      </div>
+      <div className="flex items-center">
+        <ButtonGroup.StartButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleCodeBlock().run();
+          }}
+          className={editor.isActive("codeBlock") ? "is-active-tiptap" : ""}
+          name="code"
+          title="Code block"
+        >
+          <FontAwesomeIcon icon={faCode} />
+        </ButtonGroup.StartButton>
+
+        <ButtonGroup.EndButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleBlockquote().run();
+          }}
+          className={editor.isActive("blockquote") ? "is-active-tiptap" : ""}
+          name="quote"
+          title="Blockquote"
+        >
+          <FontAwesomeIcon icon={faQuoteRight} />
+        </ButtonGroup.EndButton>
+      </div>
+      <div className="flex items-center">
+        <ButtonGroup.SoloButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().setHorizontalRule().run();
+          }}
+          name="horizontal"
+          title="Horizontal rule"
+        >
+          <FontAwesomeIcon icon={faGripLines} />
+        </ButtonGroup.SoloButton>
+      </div>
+      <div className="flex items-center">
+        <ButtonGroup.StartButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().undo().run();
+          }}
+          name="undo"
+          title="Undo"
+        >
+          <FontAwesomeIcon icon={faUndo} />
+        </ButtonGroup.StartButton>
+        <ButtonGroup.EndButton
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().redo().run();
+          }}
+          name="redo"
+          title="Redo"
+        >
+          <FontAwesomeIcon icon={faRedo} />
+        </ButtonGroup.EndButton>
+      </div>
     </ButtonGroup>
   );
 };
