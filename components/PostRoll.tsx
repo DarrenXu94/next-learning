@@ -3,6 +3,7 @@ import React from "react";
 import { Post } from "../domains/post";
 import Card from "./common/Card";
 import Link from "./common/Link";
+import * as sanitizeHtml from "sanitize-html";
 
 export interface PostRollProps {
   posts: Post[] | undefined;
@@ -17,7 +18,7 @@ export default function PostRoll({ posts }: PostRollProps) {
             <div key={post._id}>
               <Link href={`/post/${post._id}`}>
                 <Card user={post.author} title={post.title}>
-                  {post.body}
+                  {sanitizeHtml(post.body, { allowedTags: [] })}
                 </Card>
               </Link>
             </div>

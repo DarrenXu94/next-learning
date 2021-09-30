@@ -16,7 +16,7 @@ export default function Card({ children, title, user }: CardProps) {
           <p className="text-gray-800 dark:text-white text-xl font-medium mb-2">
             {title}
           </p>
-          <p className="text-gray-400 dark:text-gray-300 font-light text-md">
+          <p className="text-gray-400 dark:text-gray-300 font-light text-md break-all">
             {children}
           </p>
         </div>

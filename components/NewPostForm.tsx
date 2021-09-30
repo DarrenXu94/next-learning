@@ -33,13 +33,6 @@ export default function NewPostForm({
           />
         </div>
         <div className="flex flex-col mb-2">
-          {/* <TextAreaInput
-            label="Body"
-            name="body"
-            type="text"
-            placeholder="Body"
-            rows={10}
-          /> */}
           <TipTap label="Body" name="body" type="text" placeholder="Body" />
         </div>
 
