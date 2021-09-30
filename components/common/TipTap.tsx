@@ -41,6 +41,7 @@ const MenuBar = ({ editor }) => {
   }
 
   return (
+    //   TODO: Figure out how to tabIndex in order
     <ButtonGroup>
       <div className="flex items-center">
         <ButtonGroup.StartButton

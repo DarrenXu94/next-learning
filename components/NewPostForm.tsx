@@ -19,8 +19,8 @@ export default function NewPostForm({
       initialValues={{ title: "", body: "" }}
       onSubmit={(values, { setSubmitting }) => {
         console.log({ values });
-        // onSubmit({ title: values.title, body: values.body });
-        // setSubmitting(false);
+        onSubmit({ title: values.title, body: values.body });
+        setSubmitting(false);
       }}
     >
       <Form>

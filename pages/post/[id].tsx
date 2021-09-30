@@ -45,7 +45,7 @@ export default function PostPage({}: PostPageProps) {
               {post.author.username}
             </div>
           </Link>
-          <p>{post.body}</p>
+          <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
         </div>
       )}
     </div>

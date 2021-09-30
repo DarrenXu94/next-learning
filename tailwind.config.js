@@ -1,7 +1,16 @@
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    listStyleType: {
+      none: 'none',
+     disc: 'disc',
+     decimal: 'decimal',
+     square: 'square',
+     roman: 'upper-roman',
+    },
     extend: {
       backgroundImage: {
         'landscape': "url('https://images.pexels.com/photos/6469/red-hands-woman-creative.jpg?cs=srgb&dl=pexels-kaboompics-com-6469.jpg&fm=jpg')",
@@ -30,5 +39,15 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addBase, theme }) {
+      addBase({
+        'h1': { fontSize: theme('fontSize.2xl') },
+        'h2': { fontSize: theme('fontSize.xl') },
+        'h3': { fontSize: theme('fontSize.lg') },
+        'ul': {listStyleType: 'disc', listStylePosition: 'outside', paddingInlineStart: "40px"},
+        'ol': {listStyleType: 'decimal', listStylePosition: 'outside', paddingInlineStart: "40px"}
+      })
+    })
+  ],
 }
