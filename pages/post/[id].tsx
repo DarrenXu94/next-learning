@@ -45,7 +45,10 @@ export default function PostPage({}: PostPageProps) {
               {post.author.username}
             </div>
           </Link>
-          <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
+          <div
+            className="custom-markdown-body"
+            dangerouslySetInnerHTML={{ __html: post.body }}
+          ></div>
         </div>
       )}
     </div>

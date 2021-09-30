@@ -25,11 +25,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={true} />
 
-        <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
-          <Header />
-          <div className="pt-24 h-full">
-            <Component {...pageProps} />
-          </div>
+        <Header />
+        <main className="py-24 h-full bg-gray-100 min-h-screen">
+          <Component {...pageProps} />
         </main>
         <Footer />
       </QueryClientProvider>
