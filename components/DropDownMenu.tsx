@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useOnClickOutside } from "../lib/useOnClickOutside";
 
 export interface DropDownMenuProps {
   forceOpen?: boolean;
@@ -11,9 +12,11 @@ export interface DropDownMenuProps {
 
 export default function DropDownMenu({ ...props }: DropDownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<any>();
+  useOnClickOutside(ref, () => setIsOpen(false));
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left" ref={ref}>
       <div>
         <button
           type="button"
