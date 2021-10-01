@@ -27,13 +27,15 @@ const UserSection = () => {
     return (
       <DropDownMenu
         icon={
-          <>
+          <div className="relative">
             <Image
-              alt="profil"
+              width={"40px"}
+              height={"40px"}
+              alt="profile"
               src={session.avatar}
               className="mx-auto object-cover rounded-full h-10 w-10 "
             />
-          </>
+          </div>
         }
         items={[
           {
@@ -81,8 +83,10 @@ const Header = () => {
           <div className="flex items-center justify-between h-16 ">
             <div className=" flex items-center w-full">
               <Link href={session ? "/feed" : "/"} passHref>
-                <a className="flex-shrink-0">
+                <a className="flex-shrink-0 relative">
                   <Image
+                    width={"32px"}
+                    height={"32px"}
                     className="h-8 w-8"
                     src="https://avatars.dicebear.com/api/identicon/test.svg "
                     alt="Workflow"

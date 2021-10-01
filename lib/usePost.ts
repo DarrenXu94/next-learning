@@ -22,24 +22,6 @@ const handleProfilePosts = async (username: string) => {
   }
 };
 
-const handlePost = async (id: string) => {
-  const res = await getPostsByIdWithoutToken({ id });
-  if (res.status !== 200) {
-    throw res.statusText;
-  } else {
-    return res.body;
-  }
-};
-
-const handleGetAllPosts = async () => {
-  const res = await getAllPostsAPI();
-  if (res.status !== 200) {
-    throw res.statusText;
-  } else {
-    return res.body;
-  }
-};
-
 const handleDeletePostById = async (id: string, token: string) => {
   const res = await deletePostByIdAPI({ id, token });
   if (res.status !== 200) {
@@ -105,16 +87,6 @@ export default function usePost() {
     );
   };
 
-  const getPostById = (id: string) => {
-    return useQuery<Post>(["post", id], () => handlePost(id), {
-      enabled: !!id,
-    });
-  };
-
-  const getAllPosts = () => {
-    return useQuery<[Post]>("allPosts", () => handleGetAllPosts());
-  };
-
   const deletePostById = async (id: string) => {
     const res = await handleDeletePostById(id, session?.token as string);
     if (res) {
@@ -149,8 +121,6 @@ export default function usePost() {
     createPost,
     handleProfilePosts,
     getPostsByAuthor,
-    getPostById,
-    getAllPosts,
     deletePostById,
     searchPosts,
     updatePost,

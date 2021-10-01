@@ -20,9 +20,9 @@ export default function Profile({}: profileProps) {
 
   const { data: posts } = getPostsByAuthor(session?.username as string);
 
-  const { getFollowersOfUser, getUserFollowing } = useFollow();
-  const { data: followers } = getFollowersOfUser(session?.username as string);
-  const { data: following } = getUserFollowing(session?.username as string);
+  const { followers, following } = useFollow(session?.username as string);
+  // const { data: followers } = getFollowersOfUser(session?.username as string);
+  // const { data: following } = getUserFollowing(session?.username as string);
 
   if (!session) {
     return <div>loading...</div>;

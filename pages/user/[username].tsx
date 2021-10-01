@@ -28,10 +28,7 @@ export default function UserPage({}: UserPageProps) {
 
   const { data: user } = getUserByUsername(username as string);
 
-  const { getFollowersOfUser, getUserFollowing } = useFollow();
-
-  const { data: followers } = getFollowersOfUser(username as string);
-  const { data: following } = getUserFollowing(username as string);
+  const { followers, following } = useFollow(username as string);
 
   useEffect(() => {
     if (username == session?.username) {

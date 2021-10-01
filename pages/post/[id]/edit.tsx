@@ -5,14 +5,16 @@ import EditPostForm from "../../../components/EditPostForm";
 import usePost from "../../../lib/usePost";
 import Router from "next/router";
 import toast from "react-hot-toast";
+import useGetPostById from "../../../lib/useGetPostById";
 
 export interface EditPageProps {}
 
 export default function EditPage({}: EditPageProps) {
   const router = useRouter();
   const { id } = router.query;
-  const { getPostById, updatePost } = usePost();
-  const { data: post } = getPostById(id as string);
+  const { post } = useGetPostById(id as string);
+
+  const { updatePost } = usePost();
   const handleSubmit = async ({ title, body }) => {
     try {
       const res = await updatePost({ title, body, id });

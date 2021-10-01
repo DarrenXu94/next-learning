@@ -33,7 +33,7 @@ const handleFollowing = async (username: string) => {
     return res.body;
   }
 };
-export default function useFollow() {
+export default function useFollow(username: string) {
   const { session } = useSnapshot(state);
   const queryClient = useQueryClient();
   const [name, setSession] = useLocalStorage<Session | null>("session", null);
@@ -43,7 +43,7 @@ export default function useFollow() {
     if (session) {
       setSession(session as Session);
     }
-  }, [session]);
+  }, [session, setSession]);
 
   const followUser = async (username: string) => {
     const res = await FollowUserAPI({
@@ -80,21 +80,21 @@ export default function useFollow() {
     }
   };
 
-  const getFollowersOfUser = (username: string) => {
-    return useQuery<[User]>(
-      ["followers", username],
-      () => handleFollowers(username),
-      { enabled: !!username }
-    );
-  };
+  const { data: following } = useQuery(
+    ["following", username],
+    () => handleFollowing(username),
+    {
+      enabled: !!username,
+    }
+  );
 
-  const getUserFollowing = (username: string) => {
-    return useQuery<[User]>(
-      ["following", username],
-      () => handleFollowing(username),
-      { enabled: !!username }
-    );
-  };
+  const { data: followers } = useQuery(
+    ["followers", username],
+    () => handleFollowers(username),
+    {
+      enabled: !!username,
+    }
+  );
 
-  return { getFollowersOfUser, getUserFollowing, followUser, unfollowUser };
+  return { followers, following, followUser, unfollowUser };
 }

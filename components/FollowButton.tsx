@@ -10,7 +10,7 @@ export interface FollowButtonProps {
 }
 
 export default function FollowButton({ session, username }: FollowButtonProps) {
-  const { followUser, unfollowUser } = useFollow();
+  const { followUser, unfollowUser } = useFollow(username);
 
   const handleClick = async () => {
     if (isFollowing) {

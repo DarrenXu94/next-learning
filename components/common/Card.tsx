@@ -24,7 +24,9 @@ export default function Card({ children, title, user }: CardProps) {
         {user && (
           <div className="flex items-center mt-4 justify-between">
             <Image
-              alt="profil"
+              width={"40px"}
+              height={"40px"}
+              alt="profile"
               src={user.avatar}
               className="object-cover rounded-full h-10 w-10 "
             />

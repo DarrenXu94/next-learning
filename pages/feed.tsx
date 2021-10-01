@@ -10,8 +10,8 @@ export interface feedProps {}
 export default function Feed({}: feedProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
-  const { getFeed } = useFeed();
-  const { data: posts } = getFeed();
+  const { feed } = useFeed();
+  // const { data: posts } = getFeed();
 
   if (!session) {
     return <div>loading...</div>;
@@ -34,7 +34,7 @@ export default function Feed({}: feedProps) {
           </Link>
         </div>
       </div>
-      <PostRoll posts={posts} />
+      <PostRoll posts={feed} />
     </div>
   );
 }

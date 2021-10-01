@@ -5,6 +5,7 @@ import FlatButton from "../../components/common/FlatButton";
 import usePost from "../../lib/usePost";
 import useSession from "../../lib/useSession";
 import Image from "next/image";
+import useGetPostById from "../../lib/useGetPostById";
 
 export interface PostPageProps {}
 
@@ -14,8 +15,8 @@ export default function PostPage({}: PostPageProps) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { getPostById } = usePost();
-  const { data: post } = getPostById(id as string);
+  const { post } = useGetPostById(id as string);
+  // const { data: post } = getPostById(id as string);
 
   const isVisitorOwner = () => {
     if (post && post.author.username == session?.username) {

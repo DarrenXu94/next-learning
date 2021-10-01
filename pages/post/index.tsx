@@ -1,13 +1,11 @@
-import Link from "next/link";
 import React from "react";
 import PostRoll from "../../components/PostRoll";
-import usePost from "../../lib/usePost";
+import useGetAllPosts from "../../lib/useGetAllPosts";
 
 export interface PageIndexProps {}
 
 export default function PageIndex({}: PageIndexProps) {
-  const { getAllPosts } = usePost();
-  const { data: posts } = getAllPosts();
+  const { posts } = useGetAllPosts();
   return (
     <div className="w-full bg-white p-12">
       <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
