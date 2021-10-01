@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <CustomToast />
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={true} />
+        {/* <ReactQueryDevtools initialIsOpen={true} /> */}
 
         <Header />
         <main className="py-24 h-full bg-gray-100 min-h-screen">

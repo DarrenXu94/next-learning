@@ -88,7 +88,7 @@ const Header = () => {
                     width={"32px"}
                     height={"32px"}
                     className="h-8 w-8"
-                    src="https://avatars.dicebear.com/api/identicon/test.svg "
+                    src="/icon.png"
                     alt="Workflow"
                   />
                 </a>

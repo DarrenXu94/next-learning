@@ -1,17 +1,14 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import React, { useEffect, useMemo } from "react";
 import { useSnapshot } from "valtio";
-import FollowButton from "../../components/FollowButton";
-import useFollow from "../../lib/useFollow";
-import usePost from "../../lib/usePost";
-import useUser from "../../lib/useUser";
-import { state } from "../../store/store";
-import Router from "next/router";
 import InfoCard from "../../components/common/InfoCard";
+import FollowButton from "../../components/FollowButton";
 import PostRoll from "../../components/PostRoll";
 import UserRoll from "../../components/UserRoll";
+import useFollow from "../../lib/useFollow";
 import useGetPostByAuthor from "../../lib/useGetPostsByAuthor";
+import useUser from "../../lib/useUser";
+import { state } from "../../store/store";
 
 export interface UserPageProps {}
 

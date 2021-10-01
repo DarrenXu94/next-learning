@@ -1,6 +1,7 @@
 import { Formik, Form } from "formik";
 import React from "react";
 import Button from "./common/Button";
+import FlatButton from "./common/FlatButton";
 import TipTap from "./common/TipTap";
 import TextAreaInput from "./form/TextAreaInput";
 import TextInput from "./form/TextInput";
@@ -41,9 +42,10 @@ export default function EditPostForm({
           </div>
 
           <Button type="submit">Update</Button>
-          <Button green type="button" onClick={onCancel}>
+          <FlatButton type="button" onClick={onCancel}>
+            {/* <Button type="button" onClick={onCancel}> */}
             Cancel
-          </Button>
+          </FlatButton>
         </Form>
       </Formik>
     </>
