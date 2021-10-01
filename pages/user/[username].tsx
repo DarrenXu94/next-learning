@@ -11,6 +11,7 @@ import Router from "next/router";
 import InfoCard from "../../components/common/InfoCard";
 import PostRoll from "../../components/PostRoll";
 import UserRoll from "../../components/UserRoll";
+import useGetPostByAuthor from "../../lib/useGetPostsByAuthor";
 
 export interface UserPageProps {}
 
@@ -20,13 +21,9 @@ export default function UserPage({}: UserPageProps) {
 
   const { session } = useSnapshot(state);
 
-  const { getPostsByAuthor } = usePost();
+  const { posts } = useGetPostByAuthor(username as string);
 
-  const { data: posts } = getPostsByAuthor(username as string);
-
-  const { getUserByUsername } = useUser();
-
-  const { data: user } = getUserByUsername(username as string);
+  const { user } = useUser(username as string);
 
   const { followers, following } = useFollow(username as string);
 

@@ -5,6 +5,7 @@ import PostRoll from "../components/PostRoll";
 import UserCard from "../components/UserCard";
 import UserRoll from "../components/UserRoll";
 import useFollow from "../lib/useFollow";
+import useGetPostByAuthor from "../lib/useGetPostsByAuthor";
 import usePost from "../lib/usePost";
 import useProfile from "../lib/useProfile";
 import useSession from "../lib/useSession";
@@ -16,13 +17,9 @@ export default function Profile({}: profileProps) {
 
   const { profile } = useProfile(session?.username as string);
 
-  const { getPostsByAuthor } = usePost();
-
-  const { data: posts } = getPostsByAuthor(session?.username as string);
+  const { posts } = useGetPostByAuthor(session?.username as string);
 
   const { followers, following } = useFollow(session?.username as string);
-  // const { data: followers } = getFollowersOfUser(session?.username as string);
-  // const { data: following } = getUserFollowing(session?.username as string);
 
   if (!session) {
     return <div>loading...</div>;

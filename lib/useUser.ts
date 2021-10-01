@@ -6,21 +6,8 @@ import { getProfileWithToken } from "../services/profile";
 import { getAllUsersAPI } from "../services/user";
 import { state } from "../store/store";
 
-export default function useUser() {
+export default function useUser(username: string) {
   const { session } = useSnapshot(state);
-
-  const handleUsers = async () => {
-    const res = await getAllUsersAPI();
-    if (res.status !== 200) {
-      throw res.statusText;
-    } else {
-      return res.body;
-    }
-  };
-
-  const getAllUsers = () => {
-    return useQuery<[User]>("user", () => handleUsers());
-  };
 
   const handleUserByUsername = async (username: string) => {
     const res = await getProfileWithToken({
@@ -33,14 +20,11 @@ export default function useUser() {
       return res.body;
     }
   };
+  const { data: user } = useQuery<Profile>(
+    ["user", username],
+    () => handleUserByUsername(username),
+    { enabled: !!session && !!username }
+  );
 
-  const getUserByUsername = (username: string) => {
-    return useQuery<Profile>(
-      ["user", username],
-      () => handleUserByUsername(username),
-      { enabled: !!session && !!username }
-    );
-  };
-
-  return { getAllUsers, getUserByUsername };
+  return { user };
 }

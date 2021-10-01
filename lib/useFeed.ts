@@ -21,11 +21,5 @@ export default function useFeed() {
     return res.body;
   };
 
-  // const getFeed = () => {
-  //   return useQuery<[Post]>("feed", () => handleFeed(), {
-  //     enabled: !!session,
-  //   });
-  // };
-
   return { feed };
 }

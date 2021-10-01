@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import PostRoll from "../../components/PostRoll";
 import usePost from "../../lib/usePost";
+import useSearchPosts from "../../lib/useSearchPosts";
 
 export interface SearchPageProps {}
 
@@ -10,8 +11,7 @@ export default function SearchPage({}: SearchPageProps) {
   const router = useRouter();
   const { searchTerm } = router.query;
 
-  const { searchPosts } = usePost();
-  const { data: posts } = searchPosts(searchTerm as string);
+  const { posts } = useSearchPosts(searchTerm as string);
 
   return (
     <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">
