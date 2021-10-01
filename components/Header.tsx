@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import useSession from "../lib/useSession";
 import { useRouter } from "next/router";
-import Button from "./common/Button";
-import tw, { css, styled } from "twin.macro";
-import SearchForm from "./SearchForm";
+import React, { useState } from "react";
+import tw, { styled } from "twin.macro";
+import useSession from "../lib/useSession";
 import DropDownMenu from "./DropDownMenu";
+import SearchForm from "./SearchForm";
 
 const UserSection = () => {
   const { session, logout } = useSession();
@@ -28,7 +28,7 @@ const UserSection = () => {
       <DropDownMenu
         icon={
           <>
-            <img
+            <Image
               alt="profil"
               src={session.avatar}
               className="mx-auto object-cover rounded-full h-10 w-10 "
@@ -80,9 +80,9 @@ const Header = () => {
         <div className="max-w-7xl mx-auto px-2 md:px-8">
           <div className="flex items-center justify-between h-16 ">
             <div className=" flex items-center w-full">
-              <Link href={session ? "/feed" : "/"}>
-                <a className="flex-shrink-0" href="/">
-                  <img
+              <Link href={session ? "/feed" : "/"} passHref>
+                <a className="flex-shrink-0">
+                  <Image
                     className="h-8 w-8"
                     src="https://avatars.dicebear.com/api/identicon/test.svg "
                     alt="Workflow"
@@ -94,7 +94,7 @@ const Header = () => {
                   <div className="ml-10 flex items-baseline space-x-4">
                     {sections.map((section) => {
                       return (
-                        <Link key={section.href} href={section.href}>
+                        <Link key={section.href} href={section.href} passHref>
                           <DesktopLink>{section.label}</DesktopLink>
                         </Link>
                       );
@@ -139,7 +139,7 @@ const Header = () => {
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {sections.map((section) => {
                 return (
-                  <Link key={section.href} href={section.href}>
+                  <Link key={section.href} href={section.href} passHref>
                     <MobileLink>{section.label}</MobileLink>
                   </Link>
                 );

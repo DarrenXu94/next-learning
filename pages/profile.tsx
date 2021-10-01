@@ -11,7 +11,7 @@ import useSession from "../lib/useSession";
 
 export interface profileProps {}
 
-export default function profile({}: profileProps) {
+export default function Profile({}: profileProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
   const { profile } = useProfile(session?.username as string);

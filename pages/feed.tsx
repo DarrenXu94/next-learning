@@ -7,7 +7,7 @@ import useSession from "../lib/useSession";
 
 export interface feedProps {}
 
-export default function feed({}: feedProps) {
+export default function Feed({}: feedProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
   const { getFeed } = useFeed();

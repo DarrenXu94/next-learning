@@ -17,7 +17,7 @@ export default function SearchPage({}: SearchPageProps) {
     <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">
       <div className="pb-10 px-4 md:px-6">
         <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">
-          Search results for "{searchTerm}"
+          Search results for &quot;{searchTerm}&quot;
         </h1>
       </div>
 

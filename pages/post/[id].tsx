@@ -4,6 +4,7 @@ import React from "react";
 import FlatButton from "../../components/common/FlatButton";
 import usePost from "../../lib/usePost";
 import useSession from "../../lib/useSession";
+import Image from "next/image";
 
 export interface PostPageProps {}
 
@@ -39,9 +40,14 @@ export default function PostPage({}: PostPageProps) {
               </Link>
             )}
           </div>
-          <Link href={`/user/${post.author.username}`}>
+          <Link href={`/user/${post.author.username}`} passHref>
             <div className="mb-12 text-xl font-normal text-gray-500 dark:text-gray-200 flex items-center cursor-pointer  w-max p-2">
-              <img src={post.author.avatar} width={30} height={30} />
+              <Image
+                src={post.author.avatar}
+                width={30}
+                height={30}
+                alt="avatar"
+              />
               {post.author.username}
             </div>
           </Link>

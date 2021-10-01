@@ -1,5 +1,6 @@
 import React from "react";
 import { User } from "../../domains/user";
+import Image from "next/image";
 
 export interface CardProps {
   children;
@@ -22,7 +23,7 @@ export default function Card({ children, title, user }: CardProps) {
         </div>
         {user && (
           <div className="flex items-center mt-4 justify-between">
-            <img
+            <Image
               alt="profil"
               src={user.avatar}
               className="object-cover rounded-full h-10 w-10 "

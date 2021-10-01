@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 export interface createProps {}
 
-export default function create({}: createProps) {
+export default function Create({}: createProps) {
   const [errorMsg, setErrorMsg] = useState("");
 
   const { createPost } = usePost();

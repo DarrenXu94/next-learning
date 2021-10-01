@@ -8,7 +8,11 @@ export default function ButtonGroup({ children }: ButtonGroupProps) {
   return <div className="flex items-center flex-wrap">{children}</div>;
 }
 
-ButtonGroup.StartButton = function ({ children, className = "", ...props }) {
+ButtonGroup.StartButton = function StartButton({
+  children,
+  className = "",
+  ...props
+}) {
   return (
     <button
       key={props.name}
@@ -20,7 +24,11 @@ ButtonGroup.StartButton = function ({ children, className = "", ...props }) {
   );
 };
 
-ButtonGroup.MiddleButton = function ({ children, className = "", ...props }) {
+ButtonGroup.MiddleButton = function MiddleButton({
+  children,
+  className = "",
+  ...props
+}) {
   return (
     <button
       key={props.name}
@@ -32,7 +40,11 @@ ButtonGroup.MiddleButton = function ({ children, className = "", ...props }) {
   );
 };
 
-ButtonGroup.EndButton = function ({ children, className = "", ...props }) {
+ButtonGroup.EndButton = function EndButton({
+  children,
+  className = "",
+  ...props
+}) {
   return (
     <button
       key={props.name}
@@ -44,7 +56,11 @@ ButtonGroup.EndButton = function ({ children, className = "", ...props }) {
   );
 };
 
-ButtonGroup.SoloButton = function ({ children, className = "", ...props }) {
+ButtonGroup.SoloButton = function SoloButton({
+  children,
+  className = "",
+  ...props
+}) {
   return (
     <button
       key={props.name}
