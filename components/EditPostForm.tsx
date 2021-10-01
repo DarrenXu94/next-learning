@@ -42,8 +42,7 @@ export default function EditPostForm({
           </div>
 
           <Button type="submit">Update</Button>
-          <FlatButton type="button" onClick={onCancel}>
-            {/* <Button type="button" onClick={onCancel}> */}
+          <FlatButton className="mx-2" type="button" onClick={onCancel}>
             Cancel
           </FlatButton>
         </Form>

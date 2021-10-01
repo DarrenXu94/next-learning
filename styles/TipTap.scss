@@ -53,6 +53,18 @@
     margin: 2rem 0;
   }
 
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
   @apply flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent h-96 overflow-auto;
 
   p.is-editor-empty:first-child::before {
