@@ -5,8 +5,7 @@ export async function getFeedWithToken({
 }: {
   token: string;
 }): Promise<HTTPResponse> {
-  // Attempt to log in
-  const login = await fetch(`http://localhost:8080/getHomeFeed`, {
+  const feed = await fetch(`http://localhost:8080/getHomeFeed`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -15,8 +14,8 @@ export async function getFeedWithToken({
   });
 
   return {
-    status: login.status,
-    statusText: login.statusText,
-    body: await login.json(),
+    status: feed.status,
+    statusText: feed.statusText,
+    body: await feed.json(),
   };
 }

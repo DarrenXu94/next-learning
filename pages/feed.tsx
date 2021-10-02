@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Button from "../components/common/Button";
+import ErrorComponent from "../components/common/ErrorComponent";
 import PostRoll from "../components/PostRoll";
 import useFeed from "../lib/useFeed";
 import useSession from "../lib/useSession";
@@ -10,15 +11,23 @@ export interface feedProps {}
 export default function Feed({}: feedProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
-  const { feed } = useFeed();
+  const { feed, error } = useFeed();
   // const { data: posts } = getFeed();
 
   if (!session) {
     return <div>loading...</div>;
   }
 
+  if (error) {
+    return (
+      <div className="max-w-screen-lg m-auto">
+        <ErrorComponent />
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full bg-white p-12">
+    <div className="w-full bg-white p-12 max-w-screen-lg m-auto">
       <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
         <div className="title">
           <p className="text-4xl font-bold text-gray-800 mb-4">Your Newsfeed</p>
