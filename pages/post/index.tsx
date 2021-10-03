@@ -1,11 +1,15 @@
 import React from "react";
 import PostRoll from "../../components/PostRoll";
 import useGetAllPosts from "../../lib/useGetAllPosts";
+import ErrorPage from "next/error";
 
 export interface PageIndexProps {}
 
 export default function PageIndex({}: PageIndexProps) {
-  const { posts } = useGetAllPosts();
+  const { posts, error } = useGetAllPosts();
+  if (error) {
+    return <ErrorPage statusCode={error.status} />;
+  }
   return (
     <div className="w-full bg-white p-12 max-w-screen-lg m-auto">
       <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">

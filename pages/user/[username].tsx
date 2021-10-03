@@ -19,13 +19,28 @@ export default function UserPage({}: UserPageProps) {
 
   const { session } = useSnapshot(state);
 
-  const { posts } = useGetPostByAuthor(username as string);
+  const { posts, error: postsError } = useGetPostByAuthor(username as string);
 
-  const { user } = useUser(username as string);
+  const { user, error } = useUser(username as string);
 
   const { followers, following, followersError, followingError } = useFollow(
     username as string
   );
+
+  if (error || followingError || followersError || postsError) {
+    if (error) {
+      return <ErrorPage statusCode={error.status} />;
+    }
+    if (postsError) {
+      return <ErrorPage statusCode={postsError.status} />;
+    }
+    if (followingError) {
+      return <ErrorPage statusCode={followingError.status} />;
+    }
+    if (followersError) {
+      return <ErrorPage statusCode={followersError.status} />;
+    }
+  }
 
   useEffect(() => {
     if (username == session?.username) {
@@ -49,10 +64,6 @@ export default function UserPage({}: UserPageProps) {
   if (session.username == username) {
     return <></>;
   }
-
-  // if (followersError || followingError) {
-  //   return <ErrorPage statusCode={error.status} />;
-  // }
 
   return (
     <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">

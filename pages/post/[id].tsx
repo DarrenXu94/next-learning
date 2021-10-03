@@ -6,6 +6,7 @@ import usePost from "../../lib/usePost";
 import useSession from "../../lib/useSession";
 import Image from "next/image";
 import useGetPostById from "../../lib/useGetPostById";
+import ErrorPage from "next/error";
 
 export interface PostPageProps {}
 
@@ -15,8 +16,11 @@ export default function PostPage({}: PostPageProps) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { post } = useGetPostById(id as string);
-  // const { data: post } = getPostById(id as string);
+  const { post, error } = useGetPostById(id as string);
+
+  if (error) {
+    return <ErrorPage statusCode={error.status} />;
+  }
 
   const isVisitorOwner = () => {
     if (post && post.author.username == session?.username) {

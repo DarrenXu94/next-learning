@@ -6,13 +6,18 @@ import usePost from "../../../lib/usePost";
 import Router from "next/router";
 import toast from "react-hot-toast";
 import useGetPostById from "../../../lib/useGetPostById";
+import ErrorPage from "next/error";
 
 export interface EditPageProps {}
 
 export default function EditPage({}: EditPageProps) {
   const router = useRouter();
   const { id } = router.query;
-  const { post } = useGetPostById(id as string);
+  const { post, error } = useGetPostById(id as string);
+
+  if (error) {
+    return <ErrorPage statusCode={error.status} />;
+  }
 
   const { updatePost } = usePost();
   const handleSubmit = async ({ title, body }) => {

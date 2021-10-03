@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import Button from "../components/common/Button";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import { Session } from "../domains/session";
@@ -69,12 +68,6 @@ export default function Login({}) {
     });
     handleResponse(res);
   };
-
-  // useEffect(() => {
-  //   if (errorMsg) {
-  //     toast.error(errorMsg);
-  //   }
-  // }, [errorMsg]);
 
   return (
     <div className="login">
