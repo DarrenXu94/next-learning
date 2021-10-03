@@ -1,9 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import tw, { styled } from "twin.macro";
 import useSession from "../lib/useSession";
+import Link from "./common/Link";
 import DropDownMenu from "./DropDownMenu";
 import SearchForm from "./SearchForm";
 
@@ -18,11 +17,7 @@ const UserSection = () => {
   };
 
   if (!session) {
-    return (
-      <Link href="/login">
-        <a>Login</a>
-      </Link>
-    );
+    return <Link href="/login">Login</Link>;
   } else {
     return (
       <DropDownMenu
@@ -49,13 +44,27 @@ const UserSection = () => {
   }
 };
 
-const DesktopLink = styled.a((props) => [
-  tw`cursor-pointer text-gray-300 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium`,
-]);
+const DesktopLink = ({ children, href }) => {
+  return (
+    <Link
+      href={href}
+      className="cursor-pointer text-gray-300 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+    >
+      {children}
+    </Link>
+  );
+};
 
-const MobileLink = styled.a((props) => [
-  tw`cursor-pointer text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium`,
-]);
+const MobileLink = ({ children, href }) => {
+  return (
+    <Link
+      href={href}
+      className="cursor-pointer text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+    >
+      {children}
+    </Link>
+  );
+};
 
 const sections = [
   {
@@ -82,25 +91,26 @@ const Header = () => {
         <div className="max-w-7xl mx-auto px-2 md:px-8">
           <div className="flex items-center justify-between h-16 ">
             <div className=" flex items-center w-full">
-              <Link href={session ? "/feed" : "/"} passHref>
-                <a className="flex-shrink-0 relative">
-                  <Image
-                    width={"32px"}
-                    height={"32px"}
-                    className="h-8 w-8"
-                    src="/icon.png"
-                    alt="Workflow"
-                  />
-                </a>
+              <Link
+                href={session ? "/feed" : "/"}
+                className="flex-shrink-0 relative"
+              >
+                <Image
+                  width={"32px"}
+                  height={"32px"}
+                  className="h-8 w-8"
+                  src="/icon.png"
+                  alt="Workflow"
+                />
               </Link>
               {session && (
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {sections.map((section) => {
                       return (
-                        <Link key={section.href} href={section.href} passHref>
-                          <DesktopLink>{section.label}</DesktopLink>
-                        </Link>
+                        <DesktopLink href={section.href} key={section.href}>
+                          {section.label}
+                        </DesktopLink>
                       );
                     })}
 
@@ -143,9 +153,9 @@ const Header = () => {
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {sections.map((section) => {
                 return (
-                  <Link key={section.href} href={section.href} passHref>
-                    <MobileLink>{section.label}</MobileLink>
-                  </Link>
+                  <MobileLink key={section.href} href={section.href}>
+                    {section.label}
+                  </MobileLink>
                 );
               })}
             </div>
