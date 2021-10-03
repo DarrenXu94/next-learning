@@ -24,6 +24,13 @@ export default function PostRoll({ posts }: PostRollProps) {
             </div>
           );
         })}
+      {posts && !posts.length && (
+        <div>
+          <h3 className="text-2xl font-semibold font-display text-black dark:text-white sm:text-3xl">
+            No posts to show
+          </h3>
+        </div>
+      )}
     </div>
   );
 }

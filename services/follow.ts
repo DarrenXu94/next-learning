@@ -5,18 +5,31 @@ export async function getFollowersOfUserAPI({
 }: {
   username: string;
 }): Promise<HTTPResponse> {
-  const followers = await fetch(
-    `http://localhost:8080/profile/${username}/followers`,
-    {
-      method: "GET",
+  try {
+    const followers = await fetch(
+      `http://localhost:8080/profile/${username}/followers`,
+      {
+        method: "GET",
+      }
+    );
+    if (followers.status !== 200) {
+      return {
+        status: followers.status,
+        statusText: followers.statusText,
+      };
     }
-  );
 
-  return {
-    status: followers.status,
-    statusText: followers.statusText,
-    body: await followers.json(),
-  };
+    return {
+      status: followers.status,
+      statusText: followers.statusText,
+      body: await followers.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function getUserFollowingAPI({
@@ -24,18 +37,31 @@ export async function getUserFollowingAPI({
 }: {
   username: string;
 }): Promise<HTTPResponse> {
-  const following = await fetch(
-    `http://localhost:8080/profile/${username}/following`,
-    {
-      method: "GET",
+  try {
+    const following = await fetch(
+      `http://localhost:8080/profile/${username}/following`,
+      {
+        method: "GET",
+      }
+    );
+    if (following.status !== 200) {
+      return {
+        status: following.status,
+        statusText: following.statusText,
+      };
     }
-  );
 
-  return {
-    status: following.status,
-    statusText: following.statusText,
-    body: await following.json(),
-  };
+    return {
+      status: following.status,
+      statusText: following.statusText,
+      body: await following.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function FollowUserAPI({
@@ -45,19 +71,36 @@ export async function FollowUserAPI({
   username: string;
   token: string;
 }): Promise<HTTPResponse> {
-  const addFollow = await fetch(`http://localhost:8080/addFollow/${username}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token }),
-  });
+  try {
+    const addFollow = await fetch(
+      `http://localhost:8080/addFollow/${username}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      }
+    );
 
-  return {
-    status: addFollow.status,
-    statusText: addFollow.statusText,
-    body: await addFollow.json(),
-  };
+    if (addFollow.status !== 200) {
+      return {
+        status: addFollow.status,
+        statusText: addFollow.statusText,
+      };
+    }
+
+    return {
+      status: addFollow.status,
+      statusText: addFollow.statusText,
+      body: await addFollow.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function UnfollowUserAPI({
@@ -67,20 +110,34 @@ export async function UnfollowUserAPI({
   username: string;
   token: string;
 }): Promise<HTTPResponse> {
-  const removeFollow = await fetch(
-    `http://localhost:8080/removeFollow/${username}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token }),
-    }
-  );
+  try {
+    const removeFollow = await fetch(
+      `http://localhost:8080/removeFollow/${username}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      }
+    );
 
-  return {
-    status: removeFollow.status,
-    statusText: removeFollow.statusText,
-    body: await removeFollow.json(),
-  };
+    if (removeFollow.status !== 200) {
+      return {
+        status: removeFollow.status,
+        statusText: removeFollow.statusText,
+      };
+    }
+
+    return {
+      status: removeFollow.status,
+      statusText: removeFollow.statusText,
+      body: await removeFollow.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }

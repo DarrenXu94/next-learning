@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import { User } from "../domains/user";
+import { HTTPError } from "../interfaces/HTTP";
 import { getAllUsersAPI } from "../services/user";
 
 const handleUsers = async () => {
@@ -12,7 +13,9 @@ const handleUsers = async () => {
 };
 
 export default function useAllUsers() {
-  const { data: users } = useQuery<[User]>("users", () => handleUsers());
+  const { data: users, error } = useQuery<[User], HTTPError>("users", () =>
+    handleUsers()
+  );
 
-  return { users };
+  return { users, error };
 }

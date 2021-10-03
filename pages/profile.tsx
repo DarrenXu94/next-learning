@@ -1,12 +1,10 @@
-import Link from "next/link";
+import ErrorPage from "next/error";
 import React from "react";
 import InfoCard from "../components/common/InfoCard";
 import PostRoll from "../components/PostRoll";
-import UserCard from "../components/UserCard";
 import UserRoll from "../components/UserRoll";
 import useFollow from "../lib/useFollow";
 import useGetPostByAuthor from "../lib/useGetPostsByAuthor";
-import usePost from "../lib/usePost";
 import useProfile from "../lib/useProfile";
 import useSession from "../lib/useSession";
 
@@ -15,14 +13,28 @@ export interface profileProps {}
 export default function Profile({}: profileProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
-  const { profile } = useProfile(session?.username as string);
+  const { profile, error } = useProfile(session?.username as string);
 
   const { posts } = useGetPostByAuthor(session?.username as string);
 
-  const { followers, following } = useFollow(session?.username as string);
+  const { followers, following, followersError, followingError } = useFollow(
+    session?.username as string
+  );
 
   if (!session) {
     return <div>loading...</div>;
+  }
+
+  if (error || followingError || followersError) {
+    if (error) {
+      return <ErrorPage statusCode={error.status} />;
+    }
+    if (followingError) {
+      return <ErrorPage statusCode={followingError.status} />;
+    }
+    if (followersError) {
+      return <ErrorPage statusCode={followersError.status} />;
+    }
   }
 
   return (

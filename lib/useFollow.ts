@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useSnapshot } from "valtio";
+import { Profile } from "../domains/profile";
 import { Session } from "../domains/session";
 import { User } from "../domains/user";
+import { HTTPError } from "../interfaces/HTTP";
 import {
   FollowUserAPI,
   getFollowersOfUserAPI,
@@ -19,7 +21,7 @@ import { useLocalStorage } from "./useLocalStorage";
 const handleFollowers = async (username: string) => {
   const res = await getFollowersOfUserAPI({ username });
   if (res.status !== 200) {
-    throw res.statusText;
+    throw { statusText: res.statusText, status: res.status } as HTTPError;
   } else {
     return res.body;
   }
@@ -28,7 +30,7 @@ const handleFollowers = async (username: string) => {
 const handleFollowing = async (username: string) => {
   const res = await getUserFollowingAPI({ username });
   if (res.status !== 200) {
-    throw res.statusText;
+    throw { statusText: res.statusText, status: res.status } as HTTPError;
   } else {
     return res.body;
   }
@@ -51,7 +53,7 @@ export default function useFollow(username: string) {
       token: session?.token as string,
     });
     if (res.status !== 200) {
-      throw res.statusText;
+      throw { statusText: res.statusText, status: res.status } as HTTPError;
     } else {
       // Update session here
       addFollowerToSession({ username });
@@ -70,7 +72,7 @@ export default function useFollow(username: string) {
       token: session?.token as string,
     });
     if (res.status !== 200) {
-      throw res.statusText;
+      throw { statusText: res.statusText, status: res.status } as HTTPError;
     } else {
       removeFollowerFromSession(username);
       queryClient.invalidateQueries(["user", username]);
@@ -80,21 +82,26 @@ export default function useFollow(username: string) {
     }
   };
 
-  const { data: following } = useQuery(
-    ["following", username],
-    () => handleFollowing(username),
-    {
-      enabled: !!username,
-    }
-  );
+  const { data: following, error: followingError } = useQuery<
+    [User],
+    HTTPError
+  >(["following", username], () => handleFollowing(username), {
+    enabled: !!username,
+  });
 
-  const { data: followers } = useQuery(
-    ["followers", username],
-    () => handleFollowers(username),
-    {
-      enabled: !!username,
-    }
-  );
+  const { data: followers, error: followersError } = useQuery<
+    [User],
+    HTTPError
+  >(["followers", username], () => handleFollowers(username), {
+    enabled: !!username,
+  });
 
-  return { followers, following, followUser, unfollowUser };
+  return {
+    followers,
+    following,
+    followingError,
+    followersError,
+    followUser,
+    unfollowUser,
+  };
 }

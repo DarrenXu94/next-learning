@@ -10,19 +10,31 @@ export async function createPostWithToken({
   token: string;
 }): Promise<HTTPResponse> {
   // Attempt to log in
-  const login = await fetch(`http://localhost:8080/create-post`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ title, body, token }),
-  });
-
-  return {
-    status: login.status,
-    statusText: login.statusText,
-    body: await login.json(),
-  };
+  try {
+    const login = await fetch(`http://localhost:8080/create-post`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, body, token }),
+    });
+    if (login.status !== 200) {
+      return {
+        status: login.status,
+        statusText: login.statusText,
+      };
+    }
+    return {
+      status: login.status,
+      statusText: login.statusText,
+      body: await login.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function getPostsByAuthorWithoutToken({
@@ -30,42 +42,86 @@ export async function getPostsByAuthorWithoutToken({
 }: {
   username: string;
 }): Promise<HTTPResponse> {
-  const login = await fetch(`http://localhost:8080/profile/${username}/posts`, {
-    method: "GET",
-  });
+  try {
+    const login = await fetch(
+      `http://localhost:8080/profile/${username}/posts`,
+      {
+        method: "GET",
+      }
+    );
 
-  return {
-    status: login.status,
-    statusText: login.statusText,
-    body: await login.json(),
-  };
+    if (login.status !== 200) {
+      return {
+        status: login.status,
+        statusText: login.statusText,
+      };
+    }
+
+    return {
+      status: login.status,
+      statusText: login.statusText,
+      body: await login.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 export async function getPostsByIdWithoutToken({
   id,
 }: {
   id: string;
 }): Promise<HTTPResponse> {
-  const login = await fetch(`http://localhost:8080/post/${id}`, {
-    method: "GET",
-  });
+  try {
+    const login = await fetch(`http://localhost:8080/post/${id}`, {
+      method: "GET",
+    });
 
-  return {
-    status: login.status,
-    statusText: login.statusText,
-    body: await login.json(),
-  };
+    if (login.status !== 200) {
+      return {
+        status: login.status,
+        statusText: login.statusText,
+      };
+    }
+
+    return {
+      status: login.status,
+      statusText: login.statusText,
+      body: await login.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function getAllPostsAPI(): Promise<HTTPResponse> {
-  const posts = await fetch(`http://localhost:8080/post`, {
-    method: "GET",
-  });
+  try {
+    const posts = await fetch(`http://localhost:8080/post`, {
+      method: "GET",
+    });
+    if (posts.status !== 200) {
+      return {
+        status: posts.status,
+        statusText: posts.statusText,
+      };
+    }
 
-  return {
-    status: posts.status,
-    statusText: posts.statusText,
-    body: await posts.json(),
-  };
+    return {
+      status: posts.status,
+      statusText: posts.statusText,
+      body: await posts.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function deletePostByIdAPI({
@@ -75,19 +131,32 @@ export async function deletePostByIdAPI({
   id: string;
   token: string;
 }): Promise<HTTPResponse> {
-  const posts = await fetch(`http://localhost:8080/post/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token }),
-  });
+  try {
+    const posts = await fetch(`http://localhost:8080/post/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    });
+    if (posts.status !== 200) {
+      return {
+        status: posts.status,
+        statusText: posts.statusText,
+      };
+    }
 
-  return {
-    status: posts.status,
-    statusText: posts.statusText,
-    body: await posts.json(),
-  };
+    return {
+      status: posts.status,
+      statusText: posts.statusText,
+      body: await posts.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function searchPostsAPI({
@@ -95,19 +164,33 @@ export async function searchPostsAPI({
 }: {
   searchTerm: string;
 }): Promise<HTTPResponse> {
-  const searchResult = await fetch(`http://localhost:8080/search`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ searchTerm }),
-  });
+  try {
+    const searchResult = await fetch(`http://localhost:8080/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ searchTerm }),
+    });
 
-  return {
-    status: searchResult.status,
-    statusText: searchResult.statusText,
-    body: await searchResult.json(),
-  };
+    if (searchResult.status !== 200) {
+      return {
+        status: searchResult.status,
+        statusText: searchResult.statusText,
+      };
+    }
+
+    return {
+      status: searchResult.status,
+      statusText: searchResult.statusText,
+      body: await searchResult.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function updatePostsAPI({
@@ -121,17 +204,31 @@ export async function updatePostsAPI({
   body: string;
   id: string;
 }): Promise<HTTPResponse> {
-  const newPost = await fetch(`http://localhost:8080/post/${id}/edit`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token, title, body }),
-  });
+  try {
+    const newPost = await fetch(`http://localhost:8080/post/${id}/edit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token, title, body }),
+    });
 
-  return {
-    status: newPost.status,
-    statusText: newPost.statusText,
-    body: await newPost.json(),
-  };
+    if (newPost.status !== 200) {
+      return {
+        status: newPost.status,
+        statusText: newPost.statusText,
+      };
+    }
+
+    return {
+      status: newPost.status,
+      statusText: newPost.statusText,
+      body: await newPost.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }

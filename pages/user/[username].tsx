@@ -9,6 +9,7 @@ import useFollow from "../../lib/useFollow";
 import useGetPostByAuthor from "../../lib/useGetPostsByAuthor";
 import useUser from "../../lib/useUser";
 import { state } from "../../store/store";
+import ErrorPage from "next/error";
 
 export interface UserPageProps {}
 
@@ -22,7 +23,9 @@ export default function UserPage({}: UserPageProps) {
 
   const { user } = useUser(username as string);
 
-  const { followers, following } = useFollow(username as string);
+  const { followers, following, followersError, followingError } = useFollow(
+    username as string
+  );
 
   useEffect(() => {
     if (username == session?.username) {
@@ -46,6 +49,10 @@ export default function UserPage({}: UserPageProps) {
   if (session.username == username) {
     return <></>;
   }
+
+  // if (followersError || followingError) {
+  //   return <ErrorPage statusCode={error.status} />;
+  // }
 
   return (
     <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">

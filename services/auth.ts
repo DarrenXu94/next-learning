@@ -8,19 +8,31 @@ export async function auth({
   password: string;
 }): Promise<HTTPResponse> {
   // Attempt to log in
-  const login = await fetch("http://localhost:8080/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  });
-
-  return {
-    status: login.status,
-    statusText: login.statusText,
-    body: await login.json(),
-  };
+  try {
+    const login = await fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    if (login.status !== 200) {
+      return {
+        status: login.status,
+        statusText: login.statusText,
+      };
+    }
+    return {
+      status: login.status,
+      statusText: login.statusText,
+      body: await login.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }
 
 export async function register({
@@ -33,17 +45,31 @@ export async function register({
   email: string;
 }): Promise<HTTPResponse> {
   // Attempt to log in
-  const register = await fetch("http://localhost:8080/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password, email }),
-  });
+  try {
+    const register = await fetch("http://localhost:8080/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password, email }),
+    });
 
-  return {
-    status: register.status,
-    statusText: register.statusText,
-    body: await register.json(),
-  };
+    if (register.status !== 200) {
+      return {
+        status: register.status,
+        statusText: register.statusText,
+      };
+    }
+
+    return {
+      status: register.status,
+      statusText: register.statusText,
+      body: await register.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
 }

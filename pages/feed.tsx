@@ -1,7 +1,7 @@
+import ErrorPage from "next/error";
 import Link from "next/link";
 import React from "react";
 import Button from "../components/common/Button";
-import ErrorComponent from "../components/common/ErrorComponent";
 import PostRoll from "../components/PostRoll";
 import useFeed from "../lib/useFeed";
 import useSession from "../lib/useSession";
@@ -12,18 +12,13 @@ export default function Feed({}: feedProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
   const { feed, error } = useFeed();
-  // const { data: posts } = getFeed();
 
   if (!session) {
     return <div>loading...</div>;
   }
 
   if (error) {
-    return (
-      <div className="max-w-screen-lg m-auto">
-        <ErrorComponent />
-      </div>
-    );
+    return <ErrorPage statusCode={error.status} />;
   }
 
   return (

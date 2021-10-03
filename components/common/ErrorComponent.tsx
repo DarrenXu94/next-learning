@@ -9,7 +9,7 @@ export default function ErrorComponent({}: ErrorComponentProps) {
         <h2 className="text-3xl font-extrabold text-black dark:text-white sm:text-4xl">
           <span className="block">Server error</span>
           <span className="block text-indigo-500">
-            Thank you for your patience as we are work on the issue
+            Thank you for your patience while we work on the issue
           </span>
         </h2>
       </div>
