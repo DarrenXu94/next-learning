@@ -7,23 +7,23 @@
 /* @tailwind utilities; */
 @layer base {
   :root {
-    --bg-primary: 255, 255, 255;
-    --bg-secondary: 245, 246, 247;
-    --bg-tertiary: 238, 238, 238;
+    --bg-primary: #fff;
+    --bg-secondary: #f3f4f6;
 
-    --text-primary: 0, 0, 0;
-    --text-secondary: 56, 63, 74;
-    --text-tertiary: 255, 255, 255;
+    --text-primary: #000;
+    --text-secondary: #000;
+
+    --ring-primary: #93c5fd;
+
+    --ring-offset-primary: #93c5fd;
   }
 
   .indigo {
     --bg-primary: #4f46e5;
     --bg-secondary: #4338ca;
-    --bg-tertiary: 77, 77, 77;
 
     --text-primary: #fff;
-    --text-secondary: 77, 77, 77;
-    --text-tertiary: 77, 77, 77;
+    --text-secondary: #fff;
 
     --ring-primary: #6366f1;
 

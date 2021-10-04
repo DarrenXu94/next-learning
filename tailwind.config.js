@@ -12,13 +12,11 @@ const generateColorClass = (variable) => {
 const textColor = {
   primary: generateColorClass('text-primary'),
   secondary: generateColorClass('text-secondary'),
-  tertiary: generateColorClass('text-tertiary'),
 }
 
 const backgroundColor = {
   primary: generateColorClass('bg-primary'),
   secondary: generateColorClass('bg-secondary'),
-  tertiary: generateColorClass('bg-tertiary'),
 }
 
 const ringColor = {

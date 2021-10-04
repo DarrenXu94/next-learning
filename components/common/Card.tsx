@@ -13,7 +13,7 @@ export default function Card({ children, title, user }: CardProps) {
     <div className="overflow-hidden shadow-lg rounded-lg h-90 cursor-pointer m-auto h-full">
       <div className="bg-white dark:bg-gray-800 w-full p-4 h-full flex flex-col justify-between">
         <div>
-          <p className="text-indigo-500 text-md font-medium"></p>
+          <p className="text-md font-medium"></p>
           <p className="text-gray-800 dark:text-white text-xl font-medium mb-2">
             {title}
           </p>
