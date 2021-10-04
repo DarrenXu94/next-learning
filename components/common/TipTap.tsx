@@ -2,6 +2,7 @@ import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+import Image from "@tiptap/extension-image";
 
 import { useField } from "formik";
 import ButtonGroup from "./ButtonGroup";
@@ -15,12 +16,13 @@ import {
   faRedo,
   faUndo,
 } from "@fortawesome/free-solid-svg-icons";
+import useUpload from "../../lib/useUpload";
 
 export default function TipTap({ ...props }: any) {
   const [field, meta, helpers] = useField(props);
 
   const editor = useEditor({
-    extensions: [StarterKit, Placeholder],
+    extensions: [StarterKit, Placeholder, Image],
     content: field.value,
     onUpdate({ editor }) {
       const html = editor.getHTML();
@@ -30,10 +32,57 @@ export default function TipTap({ ...props }: any) {
   return (
     <div>
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} />
+      <ImageUploader editor={editor} />
+      <EditorContent
+        className={
+          meta.error && meta.touched ? "ring-red-500 ring-2 rounded" : ""
+        }
+        editor={editor}
+      />
+      {meta.touched && meta.error ? (
+        <p className="text-sm text-red-500 ">{meta.error}</p>
+      ) : null}
     </div>
   );
 }
+
+const ImageUploader = ({ editor }) => {
+  const { uploadImage } = useUpload();
+  const upload = async (file: File): Promise<any> => {
+    // return new Promise((res, rej) => {
+    // handle upload logic here
+    const res = await uploadImage({ file });
+    console.log(res);
+    return res;
+    // const objectURL = URL.createObjectURL(file);
+    // res(objectURL);
+    // });
+  };
+
+  const addImage = (url: string) => {
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e?.target?.files?.[0]) return;
+    upload(e.target.files[0])
+      .then((res) => addImage(res))
+      .catch((err) => console.error(err));
+  };
+
+  return (
+    <label className="inline-block px-2 cursor-pointer" htmlFor="upload">
+      <input
+        // className='hidden'
+        id="upload"
+        type="file"
+        onChange={handleChange}
+      />
+    </label>
+  );
+};
 
 const MenuBar = ({ editor }) => {
   if (!editor) {

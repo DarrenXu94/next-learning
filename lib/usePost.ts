@@ -47,7 +47,6 @@ export default function usePost() {
       throw res.statusText;
     } else {
       Router.push(`/post/${res.body}`);
-
       // Mutate feed query
       queryClient.invalidateQueries("feed");
       queryClient.invalidateQueries("profilePosts");

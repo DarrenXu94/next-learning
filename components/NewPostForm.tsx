@@ -4,6 +4,7 @@ import Button from "./common/Button";
 import TipTap from "./common/TipTap";
 import TextAreaInput from "./form/TextAreaInput";
 import TextInput from "./form/TextInput";
+import * as Yup from "yup";
 
 export interface NewPostFormProps {
   onSubmit: ({ title, body }) => void;
@@ -22,6 +23,10 @@ export default function NewPostForm({
         onSubmit({ title: values.title, body: values.body });
         setSubmitting(false);
       }}
+      validationSchema={Yup.object({
+        title: Yup.string().required("Required"),
+        body: Yup.string().required("Required"),
+      })}
     >
       <Form>
         <div className="flex flex-col mb-2">

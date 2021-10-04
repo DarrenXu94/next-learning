@@ -12,6 +12,7 @@ export default function Create({}: createProps) {
 
   const handleSubmit = async ({ title, body }) => {
     try {
+      console.log({ body });
       createPost({ title: title, body: body });
       toast.success("Successfully created post");
     } catch (e) {
