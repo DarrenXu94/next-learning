@@ -1,9 +1,41 @@
 const plugin = require('tailwindcss/plugin')
+const defaultTheme = require('tailwindcss/defaultTheme')
+
+const generateColorClass = (variable) => {
+  return `var(--${variable})`
+  // return ({ opacityValue }) =>
+  //   opacityValue
+  //     ? `rgba(var(--${variable}), ${opacityValue})`
+  //     : `rgb(var(--${variable}))`
+}
+
+const textColor = {
+  primary: generateColorClass('text-primary'),
+  secondary: generateColorClass('text-secondary'),
+  tertiary: generateColorClass('text-tertiary'),
+}
+
+const backgroundColor = {
+  primary: generateColorClass('bg-primary'),
+  secondary: generateColorClass('bg-secondary'),
+  tertiary: generateColorClass('bg-tertiary'),
+}
+
+const ringColor = {
+  primary: generateColorClass('ring-primary'),
+}
+
+const ringOffsetColor = {
+  primary: generateColorClass('ring-offset-primary'),
+
+}
+
 
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+
     listStyleType: {
       none: 'none',
      disc: 'disc',
@@ -12,6 +44,10 @@ module.exports = {
      roman: 'upper-roman',
     },
     extend: {
+      ringColor,
+      ringOffsetColor,
+      textColor,
+      backgroundColor,
       backgroundImage: {
         'landscape': "url('https://images.pexels.com/photos/6469/red-hands-woman-creative.jpg?cs=srgb&dl=pexels-kaboompics-com-6469.jpg&fm=jpg')",
        },

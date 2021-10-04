@@ -7,14 +7,18 @@ export interface ButtonProps
 
 const Button: React.FC<ButtonProps> = ({ children, className, ...props }) => {
   return (
-    <button
-      className={`py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white  transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg 
+    <>
+      <button
+        className={`indigo py-2 px-4 bg-primary hover:bg-secondary focus:ring-primary focus:ring-offset-primary text-primary transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg 
   ${className ? className : ""} `}
-      {...props}
-    >
-      {children}
-    </button>
+        {...props}
+      >
+        {children}
+      </button>
+    </>
   );
 };
 
 export default Button;
+
+// bg-indigo-600 hover:bg-indigo-700

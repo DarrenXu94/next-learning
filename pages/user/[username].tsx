@@ -27,21 +27,6 @@ export default function UserPage({}: UserPageProps) {
     username as string
   );
 
-  if (error || followingError || followersError || postsError) {
-    if (error) {
-      return <ErrorPage statusCode={error.status} />;
-    }
-    if (postsError) {
-      return <ErrorPage statusCode={postsError.status} />;
-    }
-    if (followingError) {
-      return <ErrorPage statusCode={followingError.status} />;
-    }
-    if (followersError) {
-      return <ErrorPage statusCode={followersError.status} />;
-    }
-  }
-
   useEffect(() => {
     if (username == session?.username) {
       Router.replace(`/profile`);
@@ -63,6 +48,21 @@ export default function UserPage({}: UserPageProps) {
 
   if (session.username == username) {
     return <></>;
+  }
+
+  if (error || followingError || followersError || postsError) {
+    if (error) {
+      return <ErrorPage statusCode={error.status} />;
+    }
+    if (postsError) {
+      return <ErrorPage statusCode={postsError.status} />;
+    }
+    if (followingError) {
+      return <ErrorPage statusCode={followingError.status} />;
+    }
+    if (followersError) {
+      return <ErrorPage statusCode={followersError.status} />;
+    }
   }
 
   return (
