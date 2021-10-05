@@ -30,7 +30,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         {/* <ReactQueryDevtools initialIsOpen={true} /> */}
 
         <Header />
-        <main className="py-24 h-full bg-gray-100 min-h-screen">
+        {/* <main className="h-full bg-gray-100 min-h-screen"> */}
+        <div className="bg-gray-100 flex flex-col min-h-screen">
           <AnimatePresence
             exitBeforeEnter
             initial={false}
@@ -38,8 +39,9 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           >
             <Component {...pageProps} key={router.route} />
           </AnimatePresence>
-        </main>
-        <Footer />
+          <Footer />
+        </div>
+        {/* </main> */}
       </QueryClientProvider>
     </>
   );

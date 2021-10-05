@@ -21,7 +21,7 @@ export default function Layout({
   noClass,
 }: LayoutProps) {
   return (
-    <div>
+    <div className="pb-12 flex-grow ">
       <NextSeo
         title={title}
         description={description}
@@ -35,7 +35,9 @@ export default function Layout({
         variants={variants}
         transition={{ type: "linear" }}
         className={
-          noClass ? "" : "w-full bg-white p-12 max-w-screen-lg m-auto rounded"
+          noClass
+            ? ""
+            : "pt-12 pb-24 w-full bg-white p-12 max-w-screen-lg m-auto rounded mt-24"
         }
       >
         {children}
