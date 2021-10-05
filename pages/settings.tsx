@@ -19,9 +19,9 @@ export default function Settings({}: SettingsProps) {
 
   useEffect(() => {
     if (themeName) {
-      const classList = Array.from(document.documentElement.classList);
-      document.documentElement.classList.remove(...classList);
-      document.documentElement.classList.add(themeName);
+      //       const classList = Array.from(document.documentElement.classList);
+      //       document.documentElement.classList.remove(...classList);
+      //       document.documentElement.classList.add(themeName);
       setThemeText(themeName);
     }
   }, [themeName]);

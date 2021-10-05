@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
   faGripLines,
+  faImage,
   faList,
   faListOl,
   faQuoteRight,
@@ -33,7 +34,6 @@ export default function TipTap({ ...props }: any) {
   return (
     <div>
       <MenuBar editor={editor} />
-      <ImageUploader editor={editor} />
       <EditorContent
         className={
           meta.error && meta.touched ? "ring-red-500 ring-2 rounded" : ""
@@ -70,14 +70,21 @@ const ImageUploader = ({ editor }) => {
   };
 
   return (
-    <label className="inline-block px-2 cursor-pointer" htmlFor="upload">
-      <input
-        // className='hidden'
-        id="upload"
-        type="file"
-        onChange={handleChange}
-      />
-    </label>
+    <div className="flex">
+      <label
+        className={`cursor-pointer mb-2 mx-2 w-full border text-base font-medium rounded-r-md rounded-l-md text-black bg-white hover:bg-gray-100 px-4 py-2`}
+        htmlFor="upload"
+      >
+        <FontAwesomeIcon icon={faImage} />
+
+        <input
+          className="hidden"
+          id="upload"
+          type="file"
+          onChange={handleChange}
+        />
+      </label>
+    </div>
   );
 };
 
@@ -290,6 +297,7 @@ const MenuBar = ({ editor }) => {
           <FontAwesomeIcon icon={faRedo} />
         </ButtonGroup.EndButton>
       </div>
+      <ImageUploader editor={editor} />
     </ButtonGroup>
   );
 };

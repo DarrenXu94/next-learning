@@ -3,13 +3,15 @@ import "../styles/globals.scss";
 import "../styles/application.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { ReactQueryDevtools } from "react-query/devtools";
 // import "tailwindcss/tailwind.css";
 import Footer from "../components/Footer";
 import CustomToast from "../components/CustomToast";
 import { AnimatePresence } from "framer-motion";
+import { useLocalStorage } from "../lib/useLocalStorage";
+import { ThemeColours } from "./settings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +25,19 @@ const queryClient = new QueryClient({
 });
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const [themeName, _] = useLocalStorage<ThemeColours | null>(
+    "preferredTheme",
+    "white"
+  );
+
+  useEffect(() => {
+    if (themeName) {
+      const classList = Array.from(document.documentElement.classList);
+      document.documentElement.classList.remove(...classList);
+      document.documentElement.classList.add(themeName);
+    }
+  }, [themeName]);
+
   return (
     <>
       <CustomToast />
