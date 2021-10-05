@@ -9,15 +9,24 @@ export interface DropDownMenuProps {
   icon?: JSX.Element;
   items: any[];
   withBackground?: boolean;
+  className?;
 }
 
-export default function DropDownMenu({ ...props }: DropDownMenuProps) {
+export default function DropDownMenu({
+  className,
+  ...props
+}: DropDownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<any>();
   useOnClickOutside(ref, () => setIsOpen(false));
 
   return (
-    <div className="relative inline-block text-left" ref={ref}>
+    <div
+      className={`relative inline-block text-left ${
+        className ? className : ""
+      }`}
+      ref={ref}
+    >
       <div>
         <button
           type="button"
