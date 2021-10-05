@@ -13,9 +13,9 @@ export async function uploadImage({
     formData.append("file", file);
     const login = await fetch(`http://localhost:8080/image`, {
       method: "POST",
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
+      headers: {
+        token: token,
+      },
       body: formData,
     });
     if (login.status !== 200) {
