@@ -7,6 +7,7 @@ import Router from "next/router";
 import toast from "react-hot-toast";
 import useGetPostById from "../../../lib/useGetPostById";
 import ErrorPage from "next/error";
+import Layout from "../../../components/Layout";
 
 export interface EditPageProps {}
 
@@ -33,7 +34,10 @@ export default function EditPage({}: EditPageProps) {
   }
 
   return (
-    <div className="flex flex-col max-w-screen-lg w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10 mx-auto">
+    <Layout
+      title={`Edit - ${post?.title as string}`}
+      description="Viewing post"
+    >
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
           Update {post?.title}
@@ -52,6 +56,6 @@ export default function EditPage({}: EditPageProps) {
           />
         </>
       )}
-    </div>
+    </Layout>
   );
 }

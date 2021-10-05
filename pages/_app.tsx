@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 // import "tailwindcss/tailwind.css";
 import Footer from "../components/Footer";
 import CustomToast from "../components/CustomToast";
+import { AnimatePresence } from "framer-motion";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +22,7 @@ const queryClient = new QueryClient({
   },
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <CustomToast />
@@ -30,7 +31,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         <Header />
         <main className="py-24 h-full bg-gray-100 min-h-screen">
-          <Component {...pageProps} />
+          <AnimatePresence
+            exitBeforeEnter
+            initial={false}
+            onExitComplete={() => window.scrollTo(0, 0)}
+          >
+            <Component {...pageProps} key={router.route} />
+          </AnimatePresence>
         </main>
         <Footer />
       </QueryClientProvider>

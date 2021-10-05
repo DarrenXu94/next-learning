@@ -2,6 +2,7 @@ import ErrorPage from "next/error";
 import Link from "next/link";
 import React from "react";
 import Button from "../components/common/Button";
+import Layout from "../components/Layout";
 import PostRoll from "../components/PostRoll";
 import useFeed from "../lib/useFeed";
 import useSession from "../lib/useSession";
@@ -22,7 +23,7 @@ export default function Feed({}: feedProps) {
   }
 
   return (
-    <div className="w-full bg-white p-12 max-w-screen-lg m-auto rounded">
+    <Layout title="Your Newsfeed" description="See your latest feed">
       <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
         <div className="title">
           <p className="text-4xl font-bold text-gray-800 mb-4">Your Newsfeed</p>
@@ -39,6 +40,6 @@ export default function Feed({}: feedProps) {
         </div>
       </div>
       <PostRoll posts={feed} />
-    </div>
+    </Layout>
   );
 }

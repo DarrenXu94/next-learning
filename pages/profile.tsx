@@ -1,6 +1,7 @@
 import ErrorPage from "next/error";
 import React from "react";
 import InfoCard from "../components/common/InfoCard";
+import Layout from "../components/Layout";
 import PostRoll from "../components/PostRoll";
 import UserRoll from "../components/UserRoll";
 import useFollow from "../lib/useFollow";
@@ -38,7 +39,7 @@ export default function Profile({}: profileProps) {
   }
 
   return (
-    <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-12">
+    <Layout title="Your Profile" description="See your profile">
       <div className="pb-10 ">
         <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">
           Welcome back, {session.username}
@@ -72,6 +73,6 @@ export default function Profile({}: profileProps) {
         <UserRoll users={following} title={"People you follow"} />
         <UserRoll users={followers} title={"Followers"} />
       </div>
-    </div>
+    </Layout>
   );
 }

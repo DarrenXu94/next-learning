@@ -10,6 +10,7 @@ import useGetPostByAuthor from "../../lib/useGetPostsByAuthor";
 import useUser from "../../lib/useUser";
 import { state } from "../../store/store";
 import ErrorPage from "next/error";
+import Layout from "../../components/Layout";
 
 export interface UserPageProps {}
 
@@ -66,7 +67,7 @@ export default function UserPage({}: UserPageProps) {
   }
 
   return (
-    <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">
+    <Layout title={user?.profileUsername as string} description="View User">
       <div className="flex justify-between">
         <div className="px-4 md:px-6 ">
           <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">
@@ -113,6 +114,6 @@ export default function UserPage({}: UserPageProps) {
         <UserRoll users={following} title={"People you follow"} />
         <UserRoll users={followers} title={"Followers"} />
       </div>
-    </div>
+    </Layout>
   );
 }

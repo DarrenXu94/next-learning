@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import Layout from "../components/Layout";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import { Session } from "../domains/session";
@@ -70,7 +71,7 @@ export default function Login({}) {
   };
 
   return (
-    <div className="login">
+    <Layout title="Login" description="Login">
       <div className="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10 mx-auto">
         <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
           Login To Your Account
@@ -98,7 +99,7 @@ export default function Login({}) {
           <SignInButton setFormType={setFormType} />
         )}
       </div>
-    </div>
+    </Layout>
   );
 }
 

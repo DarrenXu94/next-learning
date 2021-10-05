@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { useOnClickOutside } from "../lib/useOnClickOutside";
 
@@ -56,23 +57,25 @@ export default function DropDownMenu({ ...props }: DropDownMenuProps) {
           >
             {props.items.map((item) => {
               return (
-                <a
-                  key={item.label}
-                  href={item.link || "#"}
-                  className={`${
-                    item.icon ? "flex items-center" : "block"
-                  } block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600`}
-                  role="menuitem"
-                  onClick={() => item.onClick && item.onClick()}
-                >
-                  {item.icon}
-                  <span className="flex flex-col">
-                    <span>{item.label}</span>
-                    {item.desc && (
-                      <span className="text-gray-400 text-xs">{item.desc}</span>
-                    )}
-                  </span>
-                </a>
+                <Link href={item.link || "#"} key={item.label}>
+                  <a
+                    className={`${
+                      item.icon ? "flex items-center" : "block"
+                    } block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600`}
+                    role="menuitem"
+                    onClick={() => item.onClick && item.onClick()}
+                  >
+                    {item.icon}
+                    <span className="flex flex-col">
+                      <span>{item.label}</span>
+                      {item.desc && (
+                        <span className="text-gray-400 text-xs">
+                          {item.desc}
+                        </span>
+                      )}
+                    </span>
+                  </a>
+                </Link>
               );
             })}
           </div>

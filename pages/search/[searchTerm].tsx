@@ -1,6 +1,7 @@
 import ErrorPage from "next/error";
 import { useRouter } from "next/router";
 import React from "react";
+import Layout from "../../components/Layout";
 import PostRoll from "../../components/PostRoll";
 import useSearchPosts from "../../lib/useSearchPosts";
 
@@ -17,7 +18,7 @@ export default function SearchPage({}: SearchPageProps) {
   }
 
   return (
-    <div className="bg-white rounded shadow max-w-screen-lg	m-auto p-5">
+    <Layout title={`Search Results - ${searchTerm}`} description="Search">
       <div className="pb-10 px-4 md:px-6">
         <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">
           Search results for &quot;{searchTerm}&quot;
@@ -27,6 +28,6 @@ export default function SearchPage({}: SearchPageProps) {
       <PostRoll posts={posts} />
 
       {posts && !posts.length && <div>No results for {searchTerm}</div>}
-    </div>
+    </Layout>
   );
 }

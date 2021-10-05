@@ -7,6 +7,7 @@ import useSession from "../../lib/useSession";
 import Image from "next/image";
 import useGetPostById from "../../lib/useGetPostById";
 import ErrorPage from "next/error";
+import Layout from "../../components/Layout";
 
 export interface PostPageProps {}
 
@@ -30,7 +31,7 @@ export default function PostPage({}: PostPageProps) {
   };
 
   return (
-    <div>
+    <Layout title={post?.title as string} description="Viewing post">
       {post && (
         <div className="p-8 bg-white dark:bg-gray-800 rounded-lg max-w-screen-lg m-auto shadow">
           <div className="flex justify-between">
@@ -62,6 +63,6 @@ export default function PostPage({}: PostPageProps) {
           ></div>
         </div>
       )}
-    </div>
+    </Layout>
   );
 }
