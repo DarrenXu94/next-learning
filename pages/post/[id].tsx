@@ -33,7 +33,7 @@ export default function PostPage({}: PostPageProps) {
   return (
     <Layout title={post?.title as string} description="Viewing post">
       {post && (
-        <div className="p-8 bg-white dark:bg-gray-800 rounded-lg max-w-screen-lg m-auto shadow">
+        <div className="p-8 bg-white dark:bg-gray-800 max-w-screen-lg m-auto">
           <div className="flex justify-between">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
               {post.title}
