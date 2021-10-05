@@ -17,6 +17,7 @@ import {
   faUndo,
 } from "@fortawesome/free-solid-svg-icons";
 import useUpload from "../../lib/useUpload";
+import { addImageUrl } from "../../store/store";
 
 export default function TipTap({ ...props }: any) {
   const [field, meta, helpers] = useField(props);
@@ -54,7 +55,9 @@ const ImageUploader = ({ editor }) => {
   };
 
   const addImage = (url: string) => {
+    // Add these to a global store?
     if (url) {
+      addImageUrl(url);
       editor.chain().focus().setImage({ src: url }).run();
     }
   };

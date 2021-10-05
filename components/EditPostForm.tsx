@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import Button from "./common/Button";
 import FlatButton from "./common/FlatButton";
 import NavigationPrompt from "./common/NavigationPrompt";
@@ -20,6 +20,8 @@ export default function EditPostForm({
   onSubmit,
   onCancel,
 }: EditPostFormProps) {
+  const [preventPrompt, setpreventPrompt] = useState(false);
+
   return (
     <>
       <Formik
@@ -31,7 +33,7 @@ export default function EditPostForm({
       >
         {(props) => (
           <Form>
-            <NavigationPrompt when={props.dirty} />
+            <NavigationPrompt when={props.dirty && !preventPrompt} />
 
             <div className="flex flex-col mb-2">
               <TextInput
@@ -45,7 +47,9 @@ export default function EditPostForm({
               <TipTap label="Body" name="body" type="text" placeholder="Body" />
             </div>
 
-            <Button type="submit">Update</Button>
+            <Button onClick={() => setpreventPrompt(true)} type="submit">
+              Update
+            </Button>
             <FlatButton className="mx-2" type="button" onClick={onCancel}>
               Cancel
             </FlatButton>

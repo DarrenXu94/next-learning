@@ -1,4 +1,5 @@
 import { proxy } from "valtio";
+import ImageStore, { resetImages, addImageUrl } from "./stores/ImageStore";
 
 import SessionState, {
   updateSession,
@@ -8,6 +9,13 @@ import SessionState, {
 
 export const state = proxy({
   ...SessionState,
+  ...ImageStore,
 });
 
-export { updateSession, addFollowerToSession, removeFollowerFromSession };
+export {
+  updateSession,
+  addFollowerToSession,
+  removeFollowerFromSession,
+  resetImages,
+  addImageUrl,
+};

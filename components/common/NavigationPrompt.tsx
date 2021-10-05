@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import SingletonRouter, { Router, useRouter } from "next/router";
 export interface NavigationPromptProps {
   when: boolean;
+  onConfirm?;
 }
 
-export default function NavigationPrompt({ when }: NavigationPromptProps) {
+export default function NavigationPrompt({
+  when,
+  onConfirm,
+}: NavigationPromptProps) {
   const router = useRouter();
 
   useEffect(() => {
@@ -17,7 +21,7 @@ export default function NavigationPrompt({ when }: NavigationPromptProps) {
     };
     const handleBrowseAway = () => {
       if (!when) return;
-      if (window.confirm(warningText)) return;
+      if (window.confirm(warningText)) return onConfirm();
       router.events.emit("routeChangeError");
       throw "routeChange aborted.";
     };
@@ -27,7 +31,7 @@ export default function NavigationPrompt({ when }: NavigationPromptProps) {
       window.removeEventListener("beforeunload", handleWindowClose);
       router.events.off("routeChangeStart", handleBrowseAway);
     };
-  }, [when]);
+  }, [when, onConfirm]);
 
   return null;
 }

@@ -36,3 +36,38 @@ export async function uploadImage({
     };
   }
 }
+
+export async function deleteImagesByUrlAPI({
+  urls,
+  token,
+}: {
+  urls: string[];
+  token: string;
+}): Promise<HTTPResponse> {
+  try {
+    const posts = await fetch(`http://localhost:8080/files`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token, urls }),
+    });
+    if (posts.status !== 200) {
+      return {
+        status: posts.status,
+        statusText: posts.statusText,
+      };
+    }
+
+    return {
+      status: posts.status,
+      statusText: posts.statusText,
+      body: await posts.json(),
+    };
+  } catch (e) {
+    return {
+      status: 500,
+      statusText: e as string,
+    };
+  }
+}
