@@ -49,14 +49,8 @@ export default function TipTap({ ...props }: any) {
 const ImageUploader = ({ editor }) => {
   const { uploadImage } = useUpload();
   const upload = async (file: File): Promise<any> => {
-    // return new Promise((res, rej) => {
-    // handle upload logic here
     const res = await uploadImage({ file });
-    console.log(res);
     return res;
-    // const objectURL = URL.createObjectURL(file);
-    // res(objectURL);
-    // });
   };
 
   const addImage = (url: string) => {
