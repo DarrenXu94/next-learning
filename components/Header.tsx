@@ -37,7 +37,7 @@ const UserSection = () => {
             label: <b className="text-lg">{session.username}</b>,
             link: "/profile",
           },
-          { label: "Logout", onClick: logoutFunction },
+          { link: "/login", label: "Logout", onClick: logoutFunction },
         ]}
       />
     );
