@@ -72,7 +72,7 @@ const sections = [
     label: "Home",
   },
   {
-    href: "/post",
+    href: "/",
     label: "Posts",
   },
   {

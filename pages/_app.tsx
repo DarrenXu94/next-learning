@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         {/* <ReactQueryDevtools initialIsOpen={true} /> */}
 
         <Header />
-        {/* <main className="h-full bg-gray-100 min-h-screen"> */}
         <div className="bg-gray-100 flex flex-col min-h-screen">
           <AnimatePresence
             exitBeforeEnter
@@ -41,7 +40,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           </AnimatePresence>
           <Footer />
         </div>
-        {/* </main> */}
       </QueryClientProvider>
     </>
   );
