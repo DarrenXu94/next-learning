@@ -1,10 +1,11 @@
 const ObjectID = require("mongodb").ObjectID;
+import { COLLECTIONS } from "../database";
 import User from "./User";
 const sanitizeHTML = require("sanitize-html");
 
 export class PostClass {
-  constructor(postsCollection) {
-    this.postsCollection = postsCollection;
+  constructor(db) {
+    this.db = db;
   }
 
   getAllPosts = async () => {
@@ -30,6 +31,23 @@ export class PostClass {
     } else {
       throw "No results";
     }
+  };
+
+  getFeed = async (id) => {
+    let followedUsers = await this.db
+      .collection(COLLECTIONS.FOLLOWS)
+      .find({ authorId: new ObjectID(id) })
+      .toArray();
+    followedUsers = followedUsers.map(function (followDoc) {
+      return followDoc.followedId;
+    });
+    followedUsers.push(new ObjectID(id));
+
+    // look for posts where the author is in the above array of followed users
+    return this.reusablePostQuery([
+      { $match: { author: { $in: followedUsers } } },
+      { $sort: { createdDate: -1 } },
+    ]);
   };
 
   search = async (searchTerm) => {
@@ -72,7 +90,10 @@ export class PostClass {
       ])
       .concat(finalOperations);
 
-    let posts = await this.postsCollection.aggregate(aggOperations).toArray();
+    let posts = await this.db
+      .collection(COLLECTIONS.POSTS)
+      .aggregate(aggOperations)
+      .toArray();
 
     // clean up author property in each post object
     posts = posts.map(function (post) {
@@ -93,7 +114,7 @@ export class PostClass {
   delete = async (postIdToDelete, currentUserId) => {
     let post = await this.findSingleById(postIdToDelete, currentUserId);
     if (post.isVisitorOwner) {
-      await this.postsCollection.deleteOne({
+      await this.db.collection(COLLECTIONS.POSTS).deleteOne({
         _id: new ObjectID(postIdToDelete),
       });
       return;
@@ -103,12 +124,12 @@ export class PostClass {
   };
 }
 
-export const Post = function (data, userid, requestedPostId, postsCollection) {
+export const Post = function (data, userid, requestedPostId, db) {
   this.data = data;
   this.errors = [];
   this.userid = userid;
   this.requestedPostId = requestedPostId;
-  this.postsCollection = postsCollection;
+  this.db = db;
 };
 
 Post.prototype.create = async function () {
@@ -116,7 +137,9 @@ Post.prototype.create = async function () {
   this.validate();
   if (!this.errors.length) {
     // save post into database
-    const info = await this.postsCollection.insertOne(this.data);
+    const info = await this.db
+      .collection(COLLECTIONS.POSTS)
+      .insertOne(this.data);
     return info;
   } else {
     return this.errors;
@@ -145,10 +168,12 @@ Post.prototype.actuallyUpdate = async function () {
   this.cleanUp();
   this.validate();
   if (!this.errors.length) {
-    await this.postsCollection.findOneAndUpdate(
-      { _id: new ObjectID(this.requestedPostId) },
-      { $set: { title: this.data.title, body: this.data.body } }
-    );
+    await this.db
+      .collection(COLLECTIONS.POSTS)
+      .findOneAndUpdate(
+        { _id: new ObjectID(this.requestedPostId) },
+        { $set: { title: this.data.title, body: this.data.body } }
+      );
     return "success";
   } else {
     console.log(this.errors);

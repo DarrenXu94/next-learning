@@ -7,7 +7,7 @@ export const apiMustBeLoggedIn = function (
   res: NextApiResponse<any>
 ) {
   try {
-    const apiUser = jwt.verify(req.body.token, process.env.JWTSECRET);
+    const apiUser = jwt.verify(req.headers.token, process.env.JWTSECRET);
     return apiUser;
   } catch (e) {
     res.status(500).send("Sorry, you must provide a valid token.");

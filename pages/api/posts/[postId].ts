@@ -10,8 +10,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const { postId } = req.query;
   let db = await connectToDatabase();
 
-  const postsCollection = await db.collection("posts");
-  const PC = new PostClass(postsCollection);
+  const PC = new PostClass(db);
   try {
     const doc = await PC.findSingleById(postId, 0);
 
@@ -26,14 +25,12 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse<any>) => {
 
   let db = await connectToDatabase();
 
-  const postsCollection = db.collection("posts");
   const apiUser = apiMustBeLoggedIn(req, res);
 
-  const PC = new PostClass(postsCollection);
+  const PC = new PostClass(db);
 
   const doc = await PC.findSingleById(postId, apiUser._id);
-  console.log(doc);
-  let post = new Post(req.body, apiUser._id, postId, postsCollection);
+  let post = new Post(req.body, apiUser._id, postId, db);
   post.update(doc).then((status) => {
     // the post was successfully updated in the database
     // or user did have permission, but there were validation errors
@@ -50,10 +47,9 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse<any>) => {
 
   let db = await connectToDatabase();
 
-  const postsCollection = db.collection("posts");
   const apiUser = apiMustBeLoggedIn(req, res);
 
-  const PC = new PostClass(postsCollection);
+  const PC = new PostClass(db);
   try {
     await PC.delete(postId, apiUser._id);
     res.send("Success");

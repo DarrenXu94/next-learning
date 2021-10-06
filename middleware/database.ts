@@ -13,3 +13,9 @@ export async function connectToDatabase() {
   cachedDb = db;
   return db;
 }
+
+export enum COLLECTIONS {
+  POSTS = "posts",
+  FOLLOWS = "follows",
+  USERs = "users",
+}

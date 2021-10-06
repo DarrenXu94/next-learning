@@ -8,9 +8,7 @@ const handler = nextConnect();
 handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
   let db = await connectToDatabase();
 
-  const postsCollection = db.collection("posts");
-
-  const PC = new PostClass(postsCollection);
+  const PC = new PostClass(db);
   const doc = await PC.getAllPosts();
   res.json(doc);
 });
@@ -18,9 +16,8 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
 handler.post(async (req: NextApiRequest, res: NextApiResponse<any>) => {
   let db = await connectToDatabase();
 
-  const postsCollection = db.collection("posts");
   const apiUser = apiMustBeLoggedIn(req, res);
-  let post = new Post(req.body, apiUser._id, null, postsCollection);
+  let post = new Post(req.body, apiUser._id, null, db);
   post
     .create()
     .then(function (newId) {
