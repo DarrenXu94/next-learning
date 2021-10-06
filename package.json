@@ -17,6 +17,7 @@
     "@tiptap/extension-placeholder": "^2.0.0-beta.31",
     "@tiptap/react": "^2.0.0-beta.74",
     "@tiptap/starter-kit": "^2.0.0-beta.113",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
@@ -31,6 +32,7 @@
     "react-query": "^3.24.3",
     "sanitize-html": "^2.5.1",
     "sass": "^1.42.1",
+    "validator": "^13.6.0",
     "valtio": "^1.2.3",
     "yup": "^0.32.9"
   },

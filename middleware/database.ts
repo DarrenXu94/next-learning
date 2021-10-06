@@ -17,5 +17,5 @@ export async function connectToDatabase() {
 export enum COLLECTIONS {
   POSTS = "posts",
   FOLLOWS = "follows",
-  USERs = "users",
+  USERS = "users",
 }

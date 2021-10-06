@@ -1,6 +1,6 @@
 const ObjectID = require("mongodb").ObjectID;
 import { COLLECTIONS } from "../database";
-import User from "./User";
+import { User } from "./User";
 const sanitizeHTML = require("sanitize-html");
 
 export class PostClass {
