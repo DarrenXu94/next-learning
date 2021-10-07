@@ -8,6 +8,78 @@ export class PostClass {
     this.db = db;
   }
 
+  deleteImages = async (urls) => {
+    // const prefix = "http://localhost:8080/file/"
+    // const urls = req.body.urls
+
+    // const newUrls = urls.map(url => url.replace(prefix, ""))
+    return new Promise(async (resolve, reject) => {
+      const collection = this.db.collection(COLLECTIONS.FILES);
+      const collectionChunks = this.db.collection(COLLECTIONS.CHUNKS);
+      collection
+        .find({ filename: { $in: urls } })
+        .toArray(async function (err, docs) {
+          if (err) {
+            // return res.status(500).json({title: 'File error', message: 'Error finding file', error: err.errMsg});
+            reject(err.errMsg);
+          }
+          if (!docs || docs.length === 0) {
+            // return res.status(500).json({title: 'Download Error', message: 'No file found'});
+            reject("No file found");
+          } else {
+            // Loop through results and delete
+            for (let doc of docs) {
+              const res = await collectionChunks.deleteOne({
+                files_id: doc._id,
+              });
+            }
+            await collection.deleteMany({ filename: { $in: urls } });
+          }
+          // res.json("Deleted")
+          resolve("Deleted");
+        });
+    });
+  };
+
+  getImage = async (fileName) => {
+    return new Promise(async (resolve, reject) => {
+      const collection = this.db.collection(COLLECTIONS.FILES);
+      const collectionChunks = this.db.collection(COLLECTIONS.CHUNKS);
+      collection.find({ filename: fileName }).toArray(function (err, docs) {
+        if (err) {
+          reject(err.errMsg);
+        }
+        if (!docs || docs.length === 0) {
+          reject("No file found");
+        } else {
+          //Retrieving the chunks from the db
+          collectionChunks
+            .find({ files_id: docs[0]._id })
+            .sort({ n: 1 })
+            .toArray(function (err, chunks) {
+              if (err) {
+                reject(err.errMsg);
+              }
+              if (!chunks || chunks.length === 0) {
+                reject("No file found");
+              }
+              //Append Chunks
+              let fileData = [];
+              for (let i = 0; i < chunks.length; i++) {
+                //This is in Binary JSON or BSON format, which is stored
+                //in fileData array in base64 endocoded string format
+                fileData.push(chunks[i].data.toString("base64"));
+              }
+              //Display the chunks using the data URI format
+              // let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
+              var img = Buffer.from(fileData[0], "base64");
+              resolve(img);
+            });
+        }
+      });
+    });
+  };
+
   findByAuthorId = async (authorId) => {
     return await this.reusablePostQuery([
       { $match: { author: authorId } },

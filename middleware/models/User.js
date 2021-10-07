@@ -7,6 +7,29 @@ export class UserClass {
     this.db = db;
   }
 
+  getAllUsers = async () => {
+    let users = await this.db
+      .collection(COLLECTIONS.USERS)
+      .find({}, { fields: { password: 0 } })
+      .toArray();
+    if (users) {
+      const userList = [];
+      for (let user of users) {
+        let userDoc = new User(user, true);
+        userDoc = {
+          _id: userDoc.data._id,
+          username: userDoc.data.username,
+          avatar: userDoc.avatar,
+          email: user.email,
+        };
+        userList.push(userDoc);
+      }
+      return userList;
+    } else {
+      return [];
+    }
+  };
+
   findByUsername = async (username) => {
     if (typeof username != "string") {
       return;

@@ -18,4 +18,6 @@ export enum COLLECTIONS {
   POSTS = "posts",
   FOLLOWS = "follows",
   USERS = "users",
+  FILES = "photos.files",
+  CHUNKS = "photos.chunks",
 }

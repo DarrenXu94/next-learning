@@ -1,11 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import { connectToDatabase } from "../../middleware/database";
-import { User } from "../../middleware/models/User";
+import { User, UserClass } from "../../middleware/models/User";
 const jwt = require("jsonwebtoken");
 const tokenLasts = "365d";
 
 const handler = nextConnect();
+
+handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  let db = await connectToDatabase();
+
+  const UC = new UserClass(db);
+  const doc = await UC.getAllUsers();
+  res.json(doc);
+});
+
 handler.post(async (req: NextApiRequest, res: NextApiResponse<any>) => {
   let db = await connectToDatabase();
   console.log(req.body);
