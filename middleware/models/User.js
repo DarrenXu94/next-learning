@@ -94,6 +94,29 @@ User.prototype.validate = function () {
   });
 };
 
+User.prototype.login = function () {
+  return new Promise((resolve, reject) => {
+    this.cleanUp();
+    this.db
+      .collection(COLLECTIONS.USERS)
+      .findOne({ username: this.data.username })
+      .then((attemptedUser) => {
+        const isValid = bcrypt.compareSync(
+          this.data.password,
+          attemptedUser.password
+        );
+
+        if (attemptedUser && isValid) {
+          this.data = attemptedUser;
+          this.getAvatar();
+          resolve("Congrats!");
+        } else {
+          reject("Invalid username / password.");
+        }
+      });
+  });
+};
+
 User.prototype.register = function () {
   return new Promise(async (resolve, reject) => {
     // Step #1: Validate user data

@@ -8,10 +8,9 @@ const tokenLasts = "365d";
 const handler = nextConnect();
 handler.post(async (req: NextApiRequest, res: NextApiResponse<any>) => {
   let db = await connectToDatabase();
-  console.log(req.body);
   let user = new User(req.body, false, db);
   try {
-    await user.register();
+    await user.login();
     res.json({
       token: jwt.sign(
         {
