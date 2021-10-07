@@ -8,6 +8,20 @@ export class PostClass {
     this.db = db;
   }
 
+  findByAuthorId = async (authorId) => {
+    return await this.reusablePostQuery([
+      { $match: { author: authorId } },
+      { $sort: { createdDate: -1 } },
+    ]);
+  };
+
+  countPostsByAuthor = async (id) => {
+    let postCount = await this.db
+      .collection(COLLECTIONS.POSTS)
+      .countDocuments({ author: id });
+    return postCount;
+  };
+
   getAllPosts = async () => {
     return this.reusablePostQuery([
       { $match: {} },

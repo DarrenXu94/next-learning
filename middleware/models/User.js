@@ -2,6 +2,32 @@ import { COLLECTIONS } from "../database";
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
+export class UserClass {
+  constructor(db) {
+    this.db = db;
+  }
+
+  findByUsername = async (username) => {
+    if (typeof username != "string") {
+      return;
+    }
+    const userDoc = await this.db
+      .collection(COLLECTIONS.USERS)
+      .findOne({ username: username });
+    if (userDoc) {
+      let newUser = new User(userDoc, true);
+      newUser = {
+        _id: userDoc._id,
+        username: userDoc.username,
+        avatar: newUser.avatar,
+      };
+      return newUser;
+    } else {
+      return;
+    }
+  };
+}
+
 export const User = function (data, getAvatar, db) {
   this.data = data;
   this.db = db;
