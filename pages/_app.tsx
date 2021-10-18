@@ -12,14 +12,17 @@ import CustomToast from "../components/CustomToast";
 import { AnimatePresence } from "framer-motion";
 import { useLocalStorage } from "../lib/useLocalStorage";
 import { ThemeColours } from "./settings";
+const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      staleTime: 60 * 1000,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      staleTime: twentyFourHoursInMs,
       cacheTime: 60 * 1000 * 10,
-      retry: 1,
+      retry: false,
     },
   },
 });
