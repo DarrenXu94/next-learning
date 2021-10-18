@@ -1,12 +1,14 @@
 import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { NextSeo } from "next-seo";
+import LoadingOverlay from "./LoadingOverlay";
 
 export interface LayoutProps {
   children: ReactNode;
   title: string;
   description: string;
   noClass?: boolean;
+  isLoading?: boolean;
 }
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },
@@ -19,6 +21,7 @@ export default function Layout({
   title,
   description,
   noClass,
+  isLoading,
 }: LayoutProps) {
   return (
     <div className="pb-12 flex-grow ">
@@ -40,7 +43,7 @@ export default function Layout({
             : "pt-12 pb-24 w-full bg-white p-12 max-w-screen-lg m-auto rounded mt-24"
         }
       >
-        {children}
+        {isLoading ? <LoadingOverlay /> : children}
       </motion.main>
     </div>
   );

@@ -16,6 +16,8 @@
     --ring-primary: #93c5fd;
 
     --ring-offset-primary: #93c5fd;
+
+    --border-color: #93c5fd;
   }
 
   .indigo {
@@ -28,5 +30,7 @@
     --ring-primary: #6366f1;
 
     --ring-offset-primary: #c7d2fe;
+
+    --border-color: #4f46e5;
   }
 }

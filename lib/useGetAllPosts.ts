@@ -13,9 +13,11 @@ const handleGetAllPosts = async () => {
 };
 
 export default function useGetAllPosts() {
-  const { data: posts, error } = useQuery<[Post], HTTPError>("allPosts", () =>
-    handleGetAllPosts()
-  );
+  const {
+    data: posts,
+    error,
+    isLoading,
+  } = useQuery<[Post], HTTPError>("allPosts", () => handleGetAllPosts());
 
-  return { posts, error };
+  return { posts, error, isLoading };
 }
