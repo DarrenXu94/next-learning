@@ -22,9 +22,13 @@ const Home = ({ posts }) => {
 export default Home;
 
 export async function getServerSideProps(context) {
-  const res = await getAllPostsAPI();
+  try {
+    const res = await getAllPostsAPI();
 
-  return {
-    props: { posts: res.body }, // will be passed to the page component as props
-  };
+    return {
+      props: { posts: res.body }, // will be passed to the page component as props
+    };
+  } catch (e) {
+    return { posts: null };
+  }
 }

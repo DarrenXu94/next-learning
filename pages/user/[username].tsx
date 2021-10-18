@@ -88,17 +88,14 @@ export default function UserPage({}: UserPageProps) {
       )}
       {user && (
         <div className="flex justify-evenly	">
-          <InfoCard
-            heading="Post Count"
-            content={user.counts.postCount.toString()}
-          />
+          <InfoCard heading="Post Count" content={user.postCount.toString()} />
           <InfoCard
             heading="Followers"
-            content={user.counts.followerCount.toString()}
+            content={user.followerCount.toString()}
           />
           <InfoCard
             heading="Following"
-            content={user.counts.followingCount.toString()}
+            content={user.followingCount.toString()}
           />
         </div>
       )}

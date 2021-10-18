@@ -1,3 +1,4 @@
+import { server } from "../config";
 import { HTTPResponse } from "../interfaces/HTTP";
 
 export async function auth({
@@ -9,7 +10,7 @@ export async function auth({
 }): Promise<HTTPResponse> {
   // Attempt to log in
   try {
-    const login = await fetch("http://localhost:8080/login", {
+    const login = await fetch(`${server}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export async function register({
 }): Promise<HTTPResponse> {
   // Attempt to log in
   try {
-    const register = await fetch("http://localhost:8080/register", {
+    const register = await fetch(`${server}/api/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -25,6 +25,7 @@ export default function EditPage({}: EditPageProps) {
       }
       toast.success("Successfully updated post");
     } catch (e) {
+      console.log(e);
       toast.error(e as string);
     }
   };

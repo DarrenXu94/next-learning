@@ -1,3 +1,4 @@
+import { server } from "../config";
 import { HTTPResponse } from "../interfaces/HTTP";
 
 export async function getProfileWithToken({
@@ -9,12 +10,13 @@ export async function getProfileWithToken({
 }): Promise<HTTPResponse> {
   // Attempt to log in
   try {
-    const login = await fetch(`http://localhost:8080/profile/${username}`, {
-      method: "POST",
+    const login = await fetch(`${server}/api/user/${username}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
+        token,
       },
-      body: JSON.stringify({ username, token }),
+      // body: JSON.stringify({ username, token }),
     });
     if (login.status !== 200) {
       return {

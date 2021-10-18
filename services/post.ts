@@ -1,3 +1,4 @@
+import { server } from "../config";
 import { HTTPResponse } from "../interfaces/HTTP";
 
 export async function createPostWithToken({
@@ -11,12 +12,13 @@ export async function createPostWithToken({
 }): Promise<HTTPResponse> {
   // Attempt to log in
   try {
-    const login = await fetch(`http://localhost:8080/create-post`, {
+    const login = await fetch(`${server}/api/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        token,
       },
-      body: JSON.stringify({ title, body, token }),
+      body: JSON.stringify({ title, body }),
     });
     if (login.status !== 200) {
       return {
@@ -43,12 +45,9 @@ export async function getPostsByAuthorWithoutToken({
   username: string;
 }): Promise<HTTPResponse> {
   try {
-    const login = await fetch(
-      `http://localhost:8080/profile/${username}/posts`,
-      {
-        method: "GET",
-      }
-    );
+    const login = await fetch(`${server}/api/user/${username}/posts`, {
+      method: "GET",
+    });
 
     if (login.status !== 200) {
       return {
@@ -75,7 +74,7 @@ export async function getPostsByIdWithoutToken({
   id: string;
 }): Promise<HTTPResponse> {
   try {
-    const login = await fetch(`http://localhost:8080/post/${id}`, {
+    const login = await fetch(`${server}/api/posts/${id}`, {
       method: "GET",
     });
 
@@ -101,9 +100,10 @@ export async function getPostsByIdWithoutToken({
 
 export async function getAllPostsAPI(): Promise<HTTPResponse> {
   try {
-    const posts = await fetch(`http://localhost:8080/post`, {
+    const posts = await fetch(`${server}/api/posts`, {
       method: "GET",
     });
+    console.log({ posts });
     if (posts.status !== 200) {
       return {
         status: posts.status,
@@ -132,7 +132,7 @@ export async function deletePostByIdAPI({
   token: string;
 }): Promise<HTTPResponse> {
   try {
-    const posts = await fetch(`http://localhost:8080/post/${id}`, {
+    const posts = await fetch(`${server}/api/posts/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -165,7 +165,7 @@ export async function searchPostsAPI({
   searchTerm: string;
 }): Promise<HTTPResponse> {
   try {
-    const searchResult = await fetch(`http://localhost:8080/search`, {
+    const searchResult = await fetch(`${server}/api/search`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -205,12 +205,13 @@ export async function updatePostsAPI({
   id: string;
 }): Promise<HTTPResponse> {
   try {
-    const newPost = await fetch(`http://localhost:8080/post/${id}/edit`, {
+    const newPost = await fetch(`${server}/api/posts/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        token,
       },
-      body: JSON.stringify({ token, title, body }),
+      body: JSON.stringify({ title, body }),
     });
 
     if (newPost.status !== 200) {

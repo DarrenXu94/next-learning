@@ -46,7 +46,8 @@ export default function usePost() {
     if (res.status !== 200) {
       throw res.statusText;
     } else {
-      Router.push(`/post/${res.body}`);
+      const id = res.body.insertedId;
+      Router.push(`/post/${id}`);
       // Mutate feed query
       queryClient.invalidateQueries("feed");
       queryClient.invalidateQueries("profilePosts");

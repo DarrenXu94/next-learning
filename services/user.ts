@@ -1,8 +1,9 @@
+import { server } from "../config";
 import { HTTPResponse } from "../interfaces/HTTP";
 
 export async function getAllUsersAPI(): Promise<HTTPResponse> {
   try {
-    const users = await fetch(`http://localhost:8080/profile`, {
+    const users = await fetch(`${server}/api/user`, {
       method: "GET",
     });
     if (users.status !== 200) {

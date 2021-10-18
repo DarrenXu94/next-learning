@@ -49,15 +49,15 @@ export default function Profile({}: profileProps) {
         <div className="flex justify-evenly	flex-wrap">
           <InfoCard
             heading="Post Count"
-            content={profile.counts.postCount.toString()}
+            content={profile.postCount.toString()}
           />
           <InfoCard
             heading="Followers"
-            content={profile.counts.followerCount.toString()}
+            content={profile.followerCount.toString()}
           />
           <InfoCard
             heading="Following"
-            content={profile.counts.followingCount.toString()}
+            content={profile.followingCount.toString()}
           />
         </div>
       )}

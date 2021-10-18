@@ -1,3 +1,4 @@
+import { server } from "../config";
 import { HTTPResponse } from "../interfaces/HTTP";
 
 export async function getFeedWithToken({
@@ -6,12 +7,12 @@ export async function getFeedWithToken({
   token: string;
 }): Promise<HTTPResponse> {
   try {
-    const feed = await fetch(`http://localhost:8080/getHomeFeed`, {
-      method: "POST",
+    const feed = await fetch(`${server}/api/feed`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
+        token,
       },
-      body: JSON.stringify({ token }),
     });
 
     if (feed.status !== 200) {

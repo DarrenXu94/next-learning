@@ -35,7 +35,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse<any>) => {
     // the post was successfully updated in the database
     // or user did have permission, but there were validation errors
     if (status == "success") {
-      res.json("success");
+      res.json({ status: "success" });
     } else {
       res.status(500).send("failure");
     }

@@ -1,3 +1,4 @@
+import { server } from "../config";
 import { HTTPResponse } from "../interfaces/HTTP";
 
 export async function uploadImage({
@@ -11,7 +12,7 @@ export async function uploadImage({
   try {
     const formData = new FormData();
     formData.append("file", file);
-    const login = await fetch(`http://localhost:8080/image`, {
+    const login = await fetch(`${server}/api/file`, {
       method: "POST",
       headers: {
         token: token,
@@ -45,7 +46,7 @@ export async function deleteImagesByUrlAPI({
   token: string;
 }): Promise<HTTPResponse> {
   try {
-    const posts = await fetch(`http://localhost:8080/files`, {
+    const posts = await fetch(`${server}/api/removeUrls`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

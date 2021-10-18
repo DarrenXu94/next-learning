@@ -23,7 +23,7 @@ export default function useProfile(username: string) {
   const { data: profile, error } = useQuery<Profile, HTTPError>(
     ["user", username],
     () => handleProfile(),
-    { enabled: !!session }
+    { enabled: session && username != undefined && username.length > 0 }
   );
 
   return { profile, error };
