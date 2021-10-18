@@ -103,7 +103,6 @@ export async function getAllPostsAPI(): Promise<HTTPResponse> {
     const posts = await fetch(`${server}/api/posts`, {
       method: "GET",
     });
-    console.log({ posts });
     if (posts.status !== 200) {
       return {
         status: posts.status,
