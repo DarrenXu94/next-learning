@@ -5,9 +5,6 @@ import useSession from "../lib/useSession";
 import Layout from "../components/Layout";
 import { getAllPostsAPI } from "../services/post";
 import PostRoll from "../components/PostRoll";
-import { server } from "../config";
-
-console.log(server);
 
 const Home = ({ posts }) => {
   return (
@@ -24,12 +21,12 @@ const Home = ({ posts }) => {
 
 export default Home;
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   try {
     const res = await getAllPostsAPI();
 
     return {
-      props: { posts: res.body }, // will be passed to the page component as props
+      props: { posts: res.body, revalidate: 10 }, // will be passed to the page component as props
     };
   } catch (e) {
     return { posts: null };
