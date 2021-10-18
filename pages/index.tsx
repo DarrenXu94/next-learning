@@ -5,6 +5,9 @@ import useSession from "../lib/useSession";
 import Layout from "../components/Layout";
 import { getAllPostsAPI } from "../services/post";
 import PostRoll from "../components/PostRoll";
+import { server } from "../config";
+
+console.log(server);
 
 const Home = ({ posts }) => {
   return (
