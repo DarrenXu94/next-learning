@@ -21,7 +21,7 @@ export default function Login({}) {
     if (response.status !== 200) {
       // Do notification
 
-      throw response.body.join(" ");
+      throw response.body;
     }
     if (!response.body) {
       throw "Incorrect credentials";
