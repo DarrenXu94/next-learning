@@ -13,11 +13,13 @@ const handlePost = async (id: string) => {
 };
 
 export default function useGetPostById(id: string) {
-  const { data: post, error } = useQuery<Post, HTTPError>(
-    ["post", id],
-    () => handlePost(id),
-    { enabled: !!id }
-  );
+  const {
+    data: post,
+    error,
+    isLoading,
+  } = useQuery<Post, HTTPError>(["post", id], () => handlePost(id), {
+    enabled: !!id,
+  });
 
-  return { post, error };
+  return { post, error, isLoading };
 }

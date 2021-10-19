@@ -20,10 +20,10 @@ export default function UserCard({ user }: UserCardProps) {
           />
         </div>
         <div className=" flex flex-col">
-          <span className="text-gray-600 dark:text-white text-lg font-medium">
+          <span className="text-gray-600 dark:text-white text-lg font-medium break-all">
             {user.username}
           </span>
-          <span className="text-gray-400 text-xs">{user.email}</span>
+          <span className="text-gray-400 text-xs break-all">{user.email}</span>
         </div>
       </div>
     </div>

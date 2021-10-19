@@ -13,10 +13,15 @@ const handleProfilePosts = async (username: string) => {
 };
 
 export default function useGetPostByAuthor(username: string) {
-  const { data: posts, error } = useQuery<[Post], HTTPError>(
+  const {
+    data: posts,
+    error,
+    isLoading,
+  } = useQuery<[Post], HTTPError>(
     ["profilePosts", username],
-    () => handleProfilePosts(username)
+    () => handleProfilePosts(username),
+    { enabled: !!username }
   );
 
-  return { posts, error };
+  return { posts, error, isLoading };
 }

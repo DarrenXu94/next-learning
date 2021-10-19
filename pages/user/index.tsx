@@ -8,14 +8,18 @@ import useAllUsers from "../../lib/useAllUsers";
 export interface UserIndexProps {}
 
 export default function UserIndex({}: UserIndexProps) {
-  const { users, error } = useAllUsers();
+  const { users, error, isLoading } = useAllUsers();
 
   if (error) {
     return <ErrorPage statusCode={error.status} />;
   }
 
   return (
-    <Layout title="All users" description="View all users">
+    <Layout
+      title="All users"
+      description="View all users"
+      isLoading={isLoading}
+    >
       <div className="container grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6 w-full items-center justify-center flex-wrap max-w-screen-lg m-auto">
         {users &&
           users.map((user) => {

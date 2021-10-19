@@ -17,7 +17,7 @@ export default function PostPage({}: PostPageProps) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { post, error } = useGetPostById(id as string);
+  const { post, error, isLoading } = useGetPostById(id as string);
 
   if (error) {
     return <ErrorPage statusCode={error.status} />;
@@ -31,7 +31,11 @@ export default function PostPage({}: PostPageProps) {
   };
 
   return (
-    <Layout title={post?.title as string} description="Viewing post">
+    <Layout
+      title={post?.title as string}
+      description="Viewing post"
+      isLoading={isLoading}
+    >
       {post && (
         <div className="p-8 bg-white dark:bg-gray-800 max-w-screen-lg m-auto">
           <div className="flex justify-between">

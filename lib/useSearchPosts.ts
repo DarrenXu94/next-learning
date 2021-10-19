@@ -13,10 +13,13 @@ const handleSearchPost = async (searchTerm: string) => {
 };
 
 export default function useSearchPosts(searchTerm: string) {
-  const { data: posts, error } = useQuery<[Post], HTTPError>(
-    ["searchPosts", searchTerm],
-    () => handleSearchPost(searchTerm)
+  const {
+    data: posts,
+    error,
+    isLoading,
+  } = useQuery<[Post], HTTPError>(["searchPosts", searchTerm], () =>
+    handleSearchPost(searchTerm)
   );
 
-  return { posts, error };
+  return { posts, error, isLoading };
 }

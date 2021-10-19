@@ -20,11 +20,13 @@ export default function useProfile(username: string) {
     return res.body;
   };
 
-  const { data: profile, error } = useQuery<Profile, HTTPError>(
-    ["user", username],
-    () => handleProfile(),
-    { enabled: session && username != undefined && username.length > 0 }
-  );
+  const {
+    data: profile,
+    error,
+    isLoading,
+  } = useQuery<Profile, HTTPError>(["user", username], () => handleProfile(), {
+    enabled: !!session && username != undefined,
+  });
 
-  return { profile, error };
+  return { profile, error, isLoading };
 }

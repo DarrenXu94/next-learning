@@ -21,11 +21,15 @@ export default function useUser(username: string) {
       return res.body;
     }
   };
-  const { data: user, error } = useQuery<Profile, HTTPError>(
+  const {
+    data: user,
+    error,
+    isLoading,
+  } = useQuery<Profile, HTTPError>(
     ["user", username],
     () => handleUserByUsername(username),
     { enabled: !!session && !!username }
   );
 
-  return { user, error };
+  return { user, error, isLoading };
 }

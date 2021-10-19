@@ -30,6 +30,7 @@ export default function Layout({
         description={description}
         openGraph={{ title, description }}
       />
+      {isLoading && <LoadingOverlay />}
 
       <motion.main
         initial="hidden"
@@ -43,7 +44,7 @@ export default function Layout({
             : "pt-12 pb-24 w-full bg-white p-12 max-w-screen-lg m-auto rounded mt-24"
         }
       >
-        {isLoading ? <LoadingOverlay /> : children}
+        {children}
       </motion.main>
     </div>
   );

@@ -20,7 +20,11 @@ export default function UserPage({}: UserPageProps) {
 
   const { session } = useSnapshot(state);
 
-  const { posts, error: postsError } = useGetPostByAuthor(username as string);
+  const {
+    posts,
+    error: postsError,
+    isLoading,
+  } = useGetPostByAuthor(username as string);
 
   const { user, error } = useUser(username as string);
 
@@ -67,7 +71,11 @@ export default function UserPage({}: UserPageProps) {
   }
 
   return (
-    <Layout title={user?.profileUsername as string} description="View User">
+    <Layout
+      title={user?.profileUsername as string}
+      description="View User"
+      isLoading={isLoading}
+    >
       <div className="flex justify-between">
         <div className="px-4 md:px-6 ">
           <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">

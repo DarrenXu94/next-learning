@@ -7,12 +7,16 @@ import Layout from "../../components/Layout";
 export interface PageIndexProps {}
 
 export default function PageIndex({}: PageIndexProps) {
-  const { posts, error } = useGetAllPosts();
+  const { posts, error, isLoading } = useGetAllPosts();
   if (error) {
     return <ErrorPage statusCode={error.status} />;
   }
   return (
-    <Layout title="View all posts" description="See all posts">
+    <Layout
+      title="View all posts"
+      description="See all posts"
+      isLoading={isLoading}
+    >
       <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
         <div className="title">
           <p className="text-4xl font-bold text-gray-800 mb-4">All Posts</p>

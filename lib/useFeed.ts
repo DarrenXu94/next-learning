@@ -18,7 +18,11 @@ const handleFeed = async (token) => {
 export default function useFeed() {
   const { session } = useSnapshot(state);
 
-  const { data: feed, error } = useQuery<[Post], HTTPError>(
+  const {
+    data: feed,
+    error,
+    isLoading,
+  } = useQuery<[Post], HTTPError>(
     "feed",
     () => handleFeed(session?.token as string),
     {
@@ -26,5 +30,5 @@ export default function useFeed() {
     }
   );
 
-  return { feed, error };
+  return { feed, error, isLoading };
 }

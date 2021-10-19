@@ -12,18 +12,18 @@ export interface feedProps {}
 export default function Feed({}: feedProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
-  const { feed, error } = useFeed();
-
-  if (!session) {
-    return <div>loading...</div>;
-  }
+  const { feed, error, isLoading } = useFeed();
 
   if (error) {
     return <ErrorPage statusCode={error.status} />;
   }
 
   return (
-    <Layout title="Your Newsfeed" description="See your latest feed">
+    <Layout
+      title="Your Newsfeed"
+      description="See your latest feed"
+      isLoading={!session || isLoading}
+    >
       <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
         <div className="title">
           <p className="text-4xl font-bold text-gray-800 mb-4">Your Newsfeed</p>

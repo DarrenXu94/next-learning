@@ -13,9 +13,11 @@ const handleUsers = async () => {
 };
 
 export default function useAllUsers() {
-  const { data: users, error } = useQuery<[User], HTTPError>("users", () =>
-    handleUsers()
-  );
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery<[User], HTTPError>("users", () => handleUsers());
 
-  return { users, error };
+  return { users, error, isLoading };
 }

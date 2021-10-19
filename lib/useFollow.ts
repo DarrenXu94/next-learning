@@ -82,23 +82,35 @@ export default function useFollow(username: string) {
     }
   };
 
-  const { data: following, error: followingError } = useQuery<
-    [User],
-    HTTPError
-  >(["following", username], () => handleFollowing(username), {
-    enabled: !!username,
-  });
+  const {
+    data: following,
+    error: followingError,
+    isLoading: followingLoading,
+  } = useQuery<[User], HTTPError>(
+    ["following", username],
+    () => handleFollowing(username),
+    {
+      enabled: !!username,
+    }
+  );
 
-  const { data: followers, error: followersError } = useQuery<
-    [User],
-    HTTPError
-  >(["followers", username], () => handleFollowers(username), {
-    enabled: !!username,
-  });
+  const {
+    data: followers,
+    error: followersError,
+    isLoading: followersLoading,
+  } = useQuery<[User], HTTPError>(
+    ["followers", username],
+    () => handleFollowers(username),
+    {
+      enabled: !!username,
+    }
+  );
 
   return {
     followers,
     following,
+    followingLoading,
+    followersLoading,
     followingError,
     followersError,
     followUser,

@@ -14,7 +14,7 @@ export interface EditPageProps {}
 export default function EditPage({}: EditPageProps) {
   const router = useRouter();
   const { id } = router.query;
-  const { post, error } = useGetPostById(id as string);
+  const { post, error, isLoading } = useGetPostById(id as string);
 
   const { updatePost } = usePost();
   const handleSubmit = async ({ title, body }) => {
@@ -38,6 +38,7 @@ export default function EditPage({}: EditPageProps) {
     <Layout
       title={`Edit - ${post?.title as string}`}
       description="Viewing post"
+      isLoading={isLoading}
     >
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
