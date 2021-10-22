@@ -4,12 +4,17 @@ import { apiMustBeLoggedIn } from "../../middleware/auth";
 import { connectToDatabase } from "../../middleware/database";
 import { Post, PostClass } from "../../middleware/models/Post";
 
-const handler = nextConnect();
-handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
+export const getAllPosts = async () => {
   let db = await connectToDatabase();
 
   const PC = new PostClass(db);
   const doc = await PC.getAllPosts();
+  return doc;
+};
+
+const handler = nextConnect();
+handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  const doc = await getAllPosts();
   res.json(doc);
 });
 

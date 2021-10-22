@@ -7,6 +7,7 @@ import { getAllPostsAPI } from "../services/post";
 import PostRoll from "../components/PostRoll";
 import useGetAllPosts from "../lib/useGetAllPosts";
 import LoadingOverlay from "../components/LoadingOverlay";
+import { getAllPosts } from "./api/posts";
 
 const Home = ({ posts }) => {
   // const { posts, error, isLoading } = useGetAllPosts();
@@ -31,13 +32,9 @@ const Home = ({ posts }) => {
 export default Home;
 
 export async function getServerSideProps(context) {
-  try {
-    const res = await getAllPostsAPI();
+  const res = await getAllPosts();
 
-    return {
-      props: { posts: res.body }, // will be passed to the page component as props
-    };
-  } catch (e) {
-    return { posts: null };
-  }
+  return {
+    props: { posts: JSON.parse(JSON.stringify(res)) }, // will be passed to the page component as props
+  };
 }
