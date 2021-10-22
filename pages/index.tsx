@@ -8,14 +8,15 @@ import PostRoll from "../components/PostRoll";
 import useGetAllPosts from "../lib/useGetAllPosts";
 import LoadingOverlay from "../components/LoadingOverlay";
 
-const Home = () => {
-  const { posts, error, isLoading } = useGetAllPosts();
+const Home = ({ posts }) => {
+  // const { posts, error, isLoading } = useGetAllPosts();
+  console.log({ posts });
 
   return (
     <Layout
       title="NextJS Blog"
       description="See the latest posts"
-      isLoading={isLoading}
+      // isLoading={isLoading}
     >
       <div className="header flex items-end justify-between mb-12 flex-col md:flex-row">
         <div className="title">
@@ -29,14 +30,14 @@ const Home = () => {
 
 export default Home;
 
-// export async function getStaticProps(context) {
-//   try {
-//     const res = await getAllPostsAPI();
+export async function getServerSideProps(context) {
+  try {
+    const res = await getAllPostsAPI();
 
-//     return {
-//       props: { posts: res.body, revalidate: 10 }, // will be passed to the page component as props
-//     };
-//   } catch (e) {
-//     return { posts: null };
-//   }
-// }
+    return {
+      props: { posts: res.body }, // will be passed to the page component as props
+    };
+  } catch (e) {
+    return { posts: null };
+  }
+}

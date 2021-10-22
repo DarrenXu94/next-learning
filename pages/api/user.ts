@@ -17,7 +17,6 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse<any>) => {
   let db = await connectToDatabase();
-  console.log(req.body);
   let user = new User(req.body, false, db);
   try {
     await user.register();
