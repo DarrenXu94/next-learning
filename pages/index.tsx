@@ -11,7 +11,8 @@ import { getAllPosts } from "./api/posts";
 
 const Home = ({ posts }) => {
   // const { posts, error, isLoading } = useGetAllPosts();
-  console.log({ posts });
+
+  // console.log(posts);
 
   return (
     <Layout

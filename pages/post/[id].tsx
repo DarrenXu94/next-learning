@@ -8,20 +8,23 @@ import Image from "next/image";
 import useGetPostById from "../../lib/useGetPostById";
 import ErrorPage from "next/error";
 import Layout from "../../components/Layout";
+import { getPostById } from "../api/posts/[postId]";
 
-export interface PostPageProps {}
+export interface PostPageProps {
+  post;
+}
 
-export default function PostPage({}: PostPageProps) {
+export default function PostPage({ post }: PostPageProps) {
   const { session } = useSession({ redirectTo: "/login" });
 
-  const router = useRouter();
-  const { id } = router.query;
+  // const router = useRouter();
+  // const { id } = router.query;
 
-  const { post, error, isLoading } = useGetPostById(id as string);
+  // const { post, error, isLoading } = useGetPostById(id as string);
 
-  if (error) {
-    return <ErrorPage statusCode={error.status} />;
-  }
+  // if (error) {
+  //   return <ErrorPage statusCode={error.status} />;
+  // }
 
   const isVisitorOwner = () => {
     if (post && post.author.username == session?.username) {
@@ -34,7 +37,7 @@ export default function PostPage({}: PostPageProps) {
     <Layout
       title={post?.title as string}
       description="Viewing post"
-      isLoading={isLoading}
+      // isLoading={isLoading}
     >
       {post && (
         <div className="p-8 bg-white dark:bg-gray-800 max-w-screen-lg m-auto">
@@ -69,4 +72,12 @@ export default function PostPage({}: PostPageProps) {
       )}
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const res = await getPostById(context.params.id);
+
+  return {
+    props: { post: JSON.parse(JSON.stringify(res)) }, // will be passed to the page component as props
+  };
 }

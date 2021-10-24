@@ -6,13 +6,19 @@ import { Post, PostClass } from "../../../middleware/models/Post";
 
 const handler = nextConnect();
 
-handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  const { postId } = req.query;
+export const getPostById = async (id) => {
   let db = await connectToDatabase();
 
   const PC = new PostClass(db);
+  const doc = await PC.findSingleById(id, 0);
+  return doc;
+};
+
+handler.get(async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  const { postId } = req.query;
+
   try {
-    const doc = await PC.findSingleById(postId, 0);
+    const doc = await getPostById(postId);
 
     res.json(doc);
   } catch (error) {

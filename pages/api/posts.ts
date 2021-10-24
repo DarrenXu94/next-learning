@@ -8,8 +8,9 @@ export const getAllPosts = async () => {
   let db = await connectToDatabase();
 
   const PC = new PostClass(db);
-  const doc = await PC.getAllPosts();
-  return doc;
+  const docs = await PC.getAllPosts();
+
+  return docs;
 };
 
 const handler = nextConnect();
